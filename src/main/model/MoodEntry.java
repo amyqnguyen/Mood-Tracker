@@ -1,49 +1,49 @@
 package model;
 
-import java.util.ArrayList;
 
+
+@SuppressWarnings("checkstyle:RightCurly")
 public class MoodEntry {
-    private String time;
-    private ArrayList<Integer> ratings;
-    private int rating;
-    private int averageRating;
-    private int inputCount;
-    private int sumPMRating = 0;
-    private int sumAMRating = 0;
+    //private ArrayList<Integer> ratings;
+    //private String time;
+//    private int averageRating;
+//    private int inputCount;
+//    private int sumPMRating = 0;
+//    private int sumAMRating = 0;
+    private int amMood;
+    private int pmMood;
 
-    public MoodEntry() {
-        time = "";
-        ratings = new ArrayList<>();
-        rating = 0;
+    public MoodEntry(int amMood, int pmMood) {
+        this.amMood = amMood;
+        this.pmMood = pmMood;
     }
 
-    public void setTime(String time) { this.time = time; }
-
-    public void addRatingAM(Integer amRate) {
-        inputCount++;
-        ratings.add(amRate);
-        sumAMRating += amRate;
+    public int getAMMood() {
+        return amMood;
     }
 
-    public void addRatingPM(Integer pmRate) {
-        inputCount++;
-        ratings.add(pmRate);
-        sumPMRating += pmRate;
+    public int getPMMood() {
+        return pmMood;
     }
 
-    public int getAverageRating() {
-        averageRating = (sumAMRating + sumPMRating) / inputCount;
-        return averageRating;
-    }
+//    public void addRatingAM(Integer amRate) {
+//        inputCount++;
+//        //ratings.add(amRate);
+//        sumAMRating += amRate;
+//    }
+//
+//    public void addRatingPM(Integer pmRate) {
+//        inputCount++;
+//        //ratings.add(pmRate);
+//        sumPMRating += pmRate;
+//    }
 
-    //????
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
+//    public int getAverageRating() {
+//        averageRating = (sumAMRating + sumPMRating) / inputCount;
+//        return averageRating;
+//    }
 
-    public String toString() {
-        return  time + " rating" + " equals " + rating;
-    }
+
 
 }
 

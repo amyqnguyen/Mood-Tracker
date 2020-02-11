@@ -1,62 +1,106 @@
 package ui;
 
 import model.MoodEntry;
-import java.util.ArrayList;
+import model.MoodLog;
+
 import java.util.Scanner;
 
 //Mood tracker application
 public class TrackerApp {
-    private ArrayList<MoodEntry> userLog;
+    private MoodLog userLog;
+    private MoodEntry userEntry;
     private Scanner scanner;
+    private String time;
+    private int amRating;
+    private int pmRating;
 
     // EFFECTS:
     public TrackerApp() {
-        userLog = new ArrayList<>();
+        //userLog = new ArrayList<>();
         scanner = new Scanner(System.in);
         runTracker();
     }
 
     public void runTracker() {
-        String time = "";
+        Boolean keeprunning = true;
+        String time = null;
 
-        while (true) {
+        initialize();
+
+        while (keeprunning) {
             System.out.println("Please select an time (AM, PM or Quit):");
             time = scanner.nextLine();
+            time = time.toLowerCase();
             System.out.println("You selected: " + time);
+
+            //int rate = Integer.parseInt(scanner.nextLine());
 
             if (time.equals("quit")) {
                 break;
+            } else {
+                processRating(time);
             }
-            int rating = processRating(time);
-            System.out.println("Mood rating: " + rating);
         }
-        System.out.println("Mood log: " + userLog);
+        //System.out.println("Mood rating: " + rating);
+
+        System.out.println("Mood log: " + userLog); //???
+        //printAverage(userLog); //???
     }
 
-    private int processRating(String time) {
-        int rating = 0;
-        System.out.println("Please enter your " + time + " mood:");
-        int rate = scanner.nextInt();
-        scanner.nextLine();
-        //int rate = Integer.parseInt(scanner.nextLine());
+    private void processRating(String time) {
+        amRating = 0;
+        pmRating = 0;
+        //scanner.nextLine();
 
-        if (time.equals("AM") || time.equals("PM")) {
-            rating = rate;
+        if (time.equals("am")) {
+            System.out.println("Please enter your " + time + " mood:");
+            amRating = scanner.nextInt();
+            System.out.println("AM Mood: " + amRating);
+            scanner.nextLine();
+
+        } else if (time.equals("pm")) {
+            System.out.println("Please enter your " + time + " mood:");
+            pmRating = scanner.nextInt();
+            System.out.println("PM Mood: " + pmRating);
+            scanner.nextLine();
+        } else if (time.equals("average")) { ///????
+            userLog.getMoodAverage();
+            printAverage(userLog);
+            scanner.nextLine();
+        } else {
+            System.out.println("Selection not valid.");
         }
+        //??MoodEntry userEntry = new MoodEntry(amRating, pmRating);
+        //???userLog.addMoodEntry(userEntry);
+        //logResult(amRating, pmRating);
+    }
+    //printLogResult(userLog);
+    //logResult(time, rate, rating);
 
-        logResult(time, rate, rating);
+    //return rate;
 
-        return rate;
+    private void initialize() {
+        userEntry = new MoodEntry(0, 0);
+        scanner = new Scanner(System.in);
     }
 
-    private void logResult(String time, int rate, int rating) {
-        MoodEntry moodEntry = new MoodEntry();
-        moodEntry.setTime(time);
-        moodEntry.addRatingAM(rate);
-        moodEntry.addRatingPM(rate);
-        moodEntry.setRating(rating);
-        userLog.add(moodEntry);
+
+    private void printAverage(MoodLog userLog) {
+        System.out.println("Mood log: " + userLog.getMoodAverage());
+        System.out.println(time + "");
     }
-
-
 }
+
+
+
+
+
+//    private void logResult(int amRating, int pmRating) {
+//        MoodEntry moodEntry = new MoodEntry(amRating, pmRating);
+////        MoodLog.setTime(time);
+////        moodEntry.getAMMood();
+////        moodEntry.getPMMood();
+////        //MoodLog.setRating(rating);
+//        userLog.addMoodEntry(moodEntry);
+//    }
+//}
