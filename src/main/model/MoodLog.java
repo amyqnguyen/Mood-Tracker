@@ -26,6 +26,6 @@ public class MoodLog {
     }
 
     public String toString() {
-        return  "Mood log: " + log;
+        return "Mood log: " + log;
     }
 }

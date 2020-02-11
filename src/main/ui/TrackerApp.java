@@ -88,9 +88,6 @@ public class TrackerApp {
 }
 
 
-
-
-
 //    private void logResult(int amRating, int pmRating) {
 //        MoodEntry moodEntry = new MoodEntry(amRating, pmRating);
 ////        MoodLog.setTime(time);
