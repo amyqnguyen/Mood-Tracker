@@ -28,13 +28,13 @@ class MoodTest {
     }
 
     @Test
-    void testGetAMMood() {
+    void testGetAmMood() {
         testLog1.addMoodEntry(testMood2);
         assertEquals(5, testMood2.getAMMood());
     }
 
     @Test
-    void testGetPMMood() {
+    void testGetPmMood() {
         testLog1.addMoodEntry(testMood2);
         assertEquals(7, testMood2.getPMMood());
     }
