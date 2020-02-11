@@ -10,29 +10,25 @@ public class TrackerApp {
     private MoodLog userLog;
     private MoodEntry userEntry;
     private Scanner scanner;
-    private String time;
     private int amRating;
     private int pmRating;
 
     // EFFECTS:
     public TrackerApp() {
-        //userLog = new ArrayList<>();
         scanner = new Scanner(System.in);
         runTracker();
     }
 
     public void runTracker() {
-        Boolean keeprunning = true;
         String time = null;
 
         initialize();
 
-        while (keeprunning) {
+        while (true) {
             System.out.println("Please select an time (AM, PM or Quit):");
             time = scanner.nextLine();
             time = time.toLowerCase();
             System.out.println("You selected: " + time);
-
             //int rate = Integer.parseInt(scanner.nextLine());
 
             if (time.equals("quit")) {
@@ -87,7 +83,7 @@ public class TrackerApp {
 
     private void printAverage(MoodLog userLog) {
         System.out.println("Mood log: " + userLog.getMoodAverage());
-        System.out.println(time + "");
+        //System.out.println(time + "");
     }
 }
 

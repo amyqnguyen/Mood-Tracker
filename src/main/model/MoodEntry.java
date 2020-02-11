@@ -1,15 +1,6 @@
 package model;
 
-
-
-@SuppressWarnings("checkstyle:RightCurly")
 public class MoodEntry {
-    //private ArrayList<Integer> ratings;
-    //private String time;
-//    private int averageRating;
-//    private int inputCount;
-//    private int sumPMRating = 0;
-//    private int sumAMRating = 0;
     private int amMood;
     private int pmMood;
 
@@ -37,13 +28,6 @@ public class MoodEntry {
 //        //ratings.add(pmRate);
 //        sumPMRating += pmRate;
 //    }
-
-//    public int getAverageRating() {
-//        averageRating = (sumAMRating + sumPMRating) / inputCount;
-//        return averageRating;
-//    }
-
-
 
 }
 
