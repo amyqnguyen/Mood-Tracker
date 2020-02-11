@@ -31,7 +31,7 @@ public class MoodLog {
             totalPMMoodRating += log.get(i).getPMMood();
             totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
         }
-        return totalAllMoodRating / log.size();
+        return totalAllMoodRating / (log.size() * 2);
     }
 
     public void addMoodEntry(MoodEntry rating) {
