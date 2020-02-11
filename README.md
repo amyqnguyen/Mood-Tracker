@@ -1,7 +1,5 @@
 <h1>Feeling Moody</h1>
 
-
-
 Feeling Moody is an application that keeps track of your 
 daily mood. It is design to help users track and manage 
 their anxiety. Keeping tabs on your emotions can help you 
@@ -15,4 +13,5 @@ provide suggestions for how to deal with them more effectively.
 A *bulleted* list of <em>user stories</em>:
 - As a user, I want to enter my mood in the AM.
 - As a user, I want to enter my mood in the PM.
+- As a user, I want to get my daily average. 
 - As a user, I want to see my weekly mood scores.
