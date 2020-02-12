@@ -63,37 +63,8 @@ class MoodTest {
         testMood2.addRatingPM(7);
         assertEquals(10, testMood2.getTotalAMMood());
         assertEquals(7, testMood2.getTotalPMMood());
-        assertEquals((10+7) / 2 , testMood2.getAverageMood());
+        assertEquals((10 + 7) / 2, testMood2.getAverageMood());
 
     }
-
-
-
-//    @Test
-//    void testAddMoodEntry() {
-//        //one entry
-//        testMood1.addRatingAM(4);
-//        testLog1.addMoodEntry(testMood1);
-//        assertEquals(4, testMood1.getTotalAMMood());
-//        assertEquals(4, testMood1.getAverageMood());
-//
-//        //two entry
-//        testMood2.addRatingPM(5);
-//        testMood2.addRatingAM(7);
-//        assertEquals(4, testLog1);
-//    }
-
-
 }
-//    @Test
-//    void testGetAverageRating() {
-//        //one entry
-//        testLog1.addMoodEntry(testMood1);
-//        assertEquals(4, testMood1.getAMMood());
-//        assertEquals(10, testMood1.getPMMood());
-//        assertEquals((4 + 10) / 2, testLog1.getMoodAverage());
-//
-//        //two entries
-//        testLog2.addMoodEntry(testMood1);
-//        testLog2.addMoodEntry(testMood2);
-//        assertEquals((4 + 10 + 5 + 7) / 4, testLog2.getMoodAverage());
+
