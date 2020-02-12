@@ -24,8 +24,6 @@ public class TrackerApp {
     public void runTracker() {
         String time = null;
 
-        //initialize();
-
         while (true) {
             System.out.println("Please select an time (AM, PM or Quit):");
             time = scanner.nextLine();
@@ -45,10 +43,6 @@ public class TrackerApp {
     }
 
     private void processRating(String time) {
-        //amRating = 0;
-        //pmRating = 0;
-        //scanner.nextLine();
-
         if (time.equals("am")) {
             System.out.println("Please enter your " + time + " mood:");
             amRating = scanner.nextInt();
@@ -74,7 +68,6 @@ public class TrackerApp {
 //        userEntry.addRatingPM(pmRating);
 //        userEntry.addRatingAM(amRating);
         return "Average: " + userEntry.getAverageMood();
-        //System.out.println(time + "");
     }
 
     private void logResult(int amRating, int pmRating) {
@@ -88,20 +81,4 @@ public class TrackerApp {
     }
 }
 
-//    private MoodLog selectMoodEntry() {
-//        String time = "";
-//
-//        while (!(time.equals("am") || time.equals("pm"))) {
-//            System.out.println("Get AM or PM mood.");
-//            time = scanner.next();
-//            time = time.toLowerCase();
-//        }
-//        if (time.equals("am")) {
-//            return userLog;
-//        }
-//    }
 
-//    private void initialize() {
-//        userEntry = new MoodEntry(0, 0);
-//        scanner = new Scanner(System.in);
-//    }
