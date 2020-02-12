@@ -14,13 +14,15 @@ public class TrackerApp {
     private double amRating;
     private double pmRating;
 
-    // EFFECTS:
+    // EFFECTS: runs the tracker app
     public TrackerApp() {
         scanner = new Scanner(System.in);
         userLog = new MoodLog();
         runTracker();
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user input
     public void runTracker() {
         String time = null;
 
@@ -42,6 +44,8 @@ public class TrackerApp {
         //printAverage(userLog); //???
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes user command
     private void processRating(String time) {
         MoodEntry userEntry = new MoodEntry();
         userEntry.addRatingAM(amRating);
@@ -72,10 +76,12 @@ public class TrackerApp {
         logResult(amRating, pmRating);
     }
 
+    // EFFECTS: prints mood average to the screen
     private void printAverage(MoodEntry entry) {
         System.out.println("Average: " + entry.getAverageMood());
     }
 
+    // EFFECTS: creates a mood entry from user input
     private void logResult(double amRating, double pmRating) {
         MoodEntry userEntry = new MoodEntry();
         userEntry.addRatingAM(amRating);

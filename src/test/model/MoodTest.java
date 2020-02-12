@@ -5,11 +5,15 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 class MoodTest {
     MoodEntry testMood1;
     MoodEntry testMood2;
     MoodLog testLog1;
     MoodLog testLog2;
+    ArrayList amMood1;
+    ArrayList pmMood1;
 
     @BeforeEach
     void runBefore() {
@@ -87,13 +91,16 @@ class MoodTest {
         testLog1.addMoodEntry(testMood2);
         assertEquals(1, testLog1.log.size());
 
+
     }
 
-//    @Test
-//    void testToString() {
-//        testMood2.addRatingPM(6);
-//        testMood2.addRatingAM(5);
-//        assertEquals("\nOverall AM Mood log: " + 5 + "\nOverall PM Mood log: " + 6, testMood2.toString());
-//    }
+    @Test
+    void testToString() {
+        testMood2.addRatingPM(6.0);
+        testMood2.addRatingAM(5.0);
+        ArrayList<Double> test1 = new ArrayList<>();
+        test1.add(5.0);
+        assertEquals("\nOverall AM Mood log: " + test1 + "\nOverall PM Mood log: [" + 6.0 +"]", testMood2.toString());
+    }
 }
 

@@ -2,6 +2,8 @@ package model;
 
 import java.util.ArrayList;
 
+
+//Represents an mood log which is an array of mood entries
 public class MoodLog {
     ArrayList<MoodEntry> log;
 

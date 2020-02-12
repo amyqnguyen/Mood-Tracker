@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 
+//Represents a mood entry in a mood log that can be an AM or PM mood entry
 public class MoodEntry {
     private ArrayList<Double> amMood;
     private ArrayList<Double> pmMood;
@@ -15,14 +16,22 @@ public class MoodEntry {
         pmMood = new ArrayList<>();
     }
 
+    // REQUIRES: amRate > 0.0
+    // MODIFIES: this
+    // EFFECTS: adds rating to amMood list
     public void addRatingAM(Double amRate) {
         amMood.add(amRate);
     }
 
+    // REQUIRES: pmRate > 0.0
+    // MODIFIES: this
+    // EFFECTS: adds rating to pmMood list
     public void addRatingPM(Double pmRate) {
         pmMood.add(pmRate);
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds rating to amMood
     public double getAverageMood() {
         totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
         averageMood = totalAllMoodRating / (amMood.size() + pmMood.size());
