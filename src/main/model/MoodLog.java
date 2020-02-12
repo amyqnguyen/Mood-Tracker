@@ -9,18 +9,10 @@ public class MoodLog {
     private int totalAMMoodRating;
     private int totalPMMoodRating;
     private int totalAllMoodRating;
+    private MoodEntry entry;
 
     public MoodLog() {
         log = new ArrayList<>();
-    }
-
-    public int getMoodAverage() {
-        for (int i = 0; i < log.size(); i++) {
-            totalAMMoodRating += log.get(i).getAMMood();
-            totalPMMoodRating += log.get(i).getPMMood();
-            totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
-        }
-        return totalAllMoodRating / (log.size() * 2);
     }
 
     public void addMoodEntry(MoodEntry rating) {
@@ -29,10 +21,14 @@ public class MoodLog {
 
 
     public String toString() {
-        String output = "";
-        for (MoodEntry rating : log) {
-            output += (String.format("%s %dx %dx", "Mood log: " + rating.getAMMood() + rating.getPMMood()));
-        }
-        return output;
+        return "Mood log: " + log;
     }
 }
+//public int getMoodAverage() {
+//    for (int i = 0; i < log.size(); i++) {
+//        totalAMMoodRating += log.get(i).getAMMood();
+//        totalPMMoodRating += log.get(i).getPMMood();
+//        totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
+//    }
+//    return totalAllMoodRating / (log.size() * 2);
+//}

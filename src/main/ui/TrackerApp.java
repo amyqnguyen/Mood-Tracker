@@ -3,6 +3,7 @@ package ui;
 import model.MoodEntry;
 import model.MoodLog;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 //Mood tracker application
@@ -38,7 +39,8 @@ public class TrackerApp {
                 processRating(time);
             }
         }
-        System.out.println("Daily Mood log: AM-" + amRating + ", PM-" + pmRating); //???
+        System.out.println("Current Mood log: AM-" + amRating + ", PM-" + pmRating); //???
+        System.out.println(userLog);
         //printAverage(userLog); //???
     }
 
@@ -59,9 +61,9 @@ public class TrackerApp {
             System.out.println("PM Mood: " + pmRating);
             scanner.nextLine();
         } else if (time.equals("average")) { ///????
-            MoodEntry currentEntry = new MoodEntry(amRating, pmRating);
+            MoodEntry currentEntry = new MoodEntry();
             userLog.addMoodEntry(currentEntry);
-            userLog.getMoodAverage();
+            currentEntry.getAverageMood();
             //printAverage(userLog);
             scanner.nextLine();
         } else {
@@ -80,10 +82,12 @@ public class TrackerApp {
 //    }
 
     private void logResult(int amRating, int pmRating) {
-        userEntry = new MoodEntry(amRating, pmRating);
-        userEntry.getAMMood();
-        userEntry.getPMMood();
-        userLog.getMoodAverage();
+        MoodEntry userEntry = new MoodEntry();
+        userEntry.addRatingAM(amRating);
+        userEntry.addRatingPM(pmRating);
+        userEntry.getTotalAMMood();
+        userEntry.getTotalPMMood();
+        userEntry.getAverageMood();
         userLog.addMoodEntry(userEntry);
     }
 }

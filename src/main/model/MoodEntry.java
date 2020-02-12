@@ -1,27 +1,58 @@
 package model;
 
+import java.util.ArrayList;
+
 public class MoodEntry {
-    private int amMood;
-    private int pmMood;
+    private ArrayList<Integer> amMood;
+    private ArrayList<Integer> pmMood;
     private String time;
+    private int totalAMMoodRating;
+    private int totalPMMoodRating;
+    private int totalAllMoodRating;
 
-    public MoodEntry(int amMood, int pmMood) {
-        this.amMood = amMood;
-        this.pmMood = pmMood;
+    public MoodEntry() {
+        time = "";
+        amMood = new ArrayList<>();
+        pmMood = new ArrayList<>();
+    }
+    public void addRatingAM(Integer amRate) {
+        amMood.add(amRate);
     }
 
-    public int getAMMood() {
-        return amMood;
+    public void addRatingPM(Integer pmRate) {
+        pmMood.add(pmRate);
     }
 
-    public int getPMMood() {
-        return pmMood;
+    public int getAverageMood() {
+        totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
+        return totalAllMoodRating / (amMood.size() + pmMood.size());
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public int getTotalAMMood() {
+        for (int i = 0; i < amMood.size(); i++) {
+            totalAMMoodRating += amMood.get(i);
+        }
+        return totalAMMoodRating;
     }
 
+    public int getTotalPMMood() {
+        for (int i = 0; i < pmMood.size(); i++) {
+            totalPMMoodRating += pmMood.get(i);
+        }
+        return totalPMMoodRating;
+    }
+
+    public String toString() {
+        return "\nOverall AM Mood log: " + amMood + "\nOverall PM Mood log: " + pmMood;
+    }
+
+//    public int getAMMood() {
+//        return amMood;
+//    }
+//
+//    public int getPMMood() {
+//        return pmMood;
+//    }
 
 //    public void addRatingAM(Integer amRate) {
 //        inputCount++;
