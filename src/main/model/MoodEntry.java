@@ -9,6 +9,7 @@ public class MoodEntry {
     private int totalAMMoodRating;
     private int totalPMMoodRating;
     private int totalAllMoodRating;
+    int averageMood;
 
     public MoodEntry() {
         time = "";
@@ -25,7 +26,8 @@ public class MoodEntry {
 
     public int getAverageMood() {
         totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
-        return totalAllMoodRating / (amMood.size() + pmMood.size());
+        averageMood = totalAllMoodRating / (amMood.size() + pmMood.size());
+        return averageMood;
     }
 
     public int getTotalAMMood() {
