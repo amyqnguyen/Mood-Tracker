@@ -95,12 +95,24 @@ class MoodTest {
     }
 
     @Test
-    void testToString() {
+    void testToStringMoodEntry() {
         testMood2.addRatingPM(6.0);
         testMood2.addRatingAM(5.0);
         ArrayList<Double> test1 = new ArrayList<>();
         test1.add(5.0);
-        assertEquals("\nOverall AM Mood log: " + test1 + "\nOverall PM Mood log: [" + 6.0 +"]", testMood2.toString());
+        assertEquals("\nOverall AM Mood log: " + test1 + "\nOverall PM Mood log: [" + 6.0 +"]",
+                testMood2.toString());
+    }
+
+    @Test
+    void testToStringMoodLog() {
+        testMood2.addRatingPM(6.0);
+        testMood2.addRatingAM(5.0);
+        testLog1.addMoodEntry(testMood2);
+        ArrayList<Double> test1 = new ArrayList<>();
+        test1.add(5.0);
+        assertEquals("Mood log: [\nOverall AM Mood log: " + test1 + "\nOverall PM Mood log: [" + 6.0 +"]]",
+                testLog1.toString());
     }
 }
 

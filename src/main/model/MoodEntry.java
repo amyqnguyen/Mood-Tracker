@@ -11,6 +11,7 @@ public class MoodEntry {
     private double totalAllMoodRating;
     private double averageMood;
 
+    // EFFECTS: constructs an empty am and pm mood entry having a list of doubles
     public MoodEntry() {
         amMood = new ArrayList<>();
         pmMood = new ArrayList<>();
@@ -31,13 +32,14 @@ public class MoodEntry {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds rating to amMood
+    // EFFECTS: returns the average of all mood entries
     public double getAverageMood() {
         totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
         averageMood = totalAllMoodRating / (amMood.size() + pmMood.size());
         return averageMood;
     }
 
+    // EFFECTS: returns sum of all am mood entries
     public double getTotalAMMood() {
         for (int i = 0; i < amMood.size(); i++) {
             totalAMMoodRating += amMood.get(i);
@@ -45,6 +47,7 @@ public class MoodEntry {
         return totalAMMoodRating;
     }
 
+    // EFFECTS: returns sum of all pm mood entries
     public double getTotalPMMood() {
         for (int i = 0; i < pmMood.size(); i++) {
             totalPMMoodRating += pmMood.get(i);
@@ -52,6 +55,7 @@ public class MoodEntry {
         return totalPMMoodRating;
     }
 
+    // EFFECTS: returns a string representing the overall am and pm mood entries
     public String toString() {
         return "\nOverall AM Mood log: " + amMood + "\nOverall PM Mood log: " + pmMood;
     }
