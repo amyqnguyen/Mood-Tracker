@@ -3,11 +3,11 @@ package model;
 import java.util.ArrayList;
 
 public class MoodEntry {
-    private ArrayList<Integer> amMood;
-    private ArrayList<Integer> pmMood;
-    private int totalAMMoodRating;
-    private int totalPMMoodRating;
-    private int totalAllMoodRating;
+    private ArrayList<Double> amMood;
+    private ArrayList<Double> pmMood;
+    private double totalAMMoodRating;
+    private double totalPMMoodRating;
+    private double totalAllMoodRating;
     private double averageMood;
 
     public MoodEntry() {
@@ -15,11 +15,11 @@ public class MoodEntry {
         pmMood = new ArrayList<>();
     }
 
-    public void addRatingAM(Integer amRate) {
+    public void addRatingAM(Double amRate) {
         amMood.add(amRate);
     }
 
-    public void addRatingPM(Integer pmRate) {
+    public void addRatingPM(Double pmRate) {
         pmMood.add(pmRate);
     }
 
@@ -29,14 +29,14 @@ public class MoodEntry {
         return averageMood;
     }
 
-    public int getTotalAMMood() {
+    public double getTotalAMMood() {
         for (int i = 0; i < amMood.size(); i++) {
             totalAMMoodRating += amMood.get(i);
         }
         return totalAMMoodRating;
     }
 
-    public int getTotalPMMood() {
+    public double getTotalPMMood() {
         for (int i = 0; i < pmMood.size(); i++) {
             totalPMMoodRating += pmMood.get(i);
         }

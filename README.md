@@ -10,8 +10,7 @@ provide suggestions for how to deal with them more effectively.
 
 <h3>User Stories</h3>
 
-A *bulleted* list of <em>user stories</em>:
 - As a user, I want to enter my mood in the AM.
 - As a user, I want to enter my mood in the PM.
-- As a user, I want to see my weekly mood scores.
+- As a user, I want to see my current mood ratings.
 - As a user, I want to get my daily average. 

@@ -21,72 +21,79 @@ class MoodTest {
 
     @Test
     void testConstructor() { ///????
-        testMood1.addRatingAM(4);
+        testMood1.addRatingAM(4.0);
         testLog1.addMoodEntry(testMood1);
     }
 
     @Test
     void testAddAmMood() {
         //one entry
-        testMood1.addRatingAM(4);
-        assertEquals(4, testMood1.getTotalAMMood());
+        testMood1.addRatingAM(4.0);
+        assertEquals(4.0, testMood1.getTotalAMMood());
 
         //two entry
-        testMood2.addRatingAM(10);
-        testMood2.addRatingAM(7);
-        assertEquals(17, testMood2.getTotalAMMood());
+        testMood2.addRatingAM(10.0);
+        testMood2.addRatingAM(7.0);
+        assertEquals(17.0, testMood2.getTotalAMMood());
     }
 
     @Test
     void testAddPmMood() {
         //one entry
-        testMood2.addRatingPM(5);
-        assertEquals(5, testMood2.getTotalPMMood());
+        testMood2.addRatingPM(5.0);
+        assertEquals(5.0, testMood2.getTotalPMMood());
 
         //two entry
-        testMood1.addRatingPM(10);
-        testMood1.addRatingPM(7);
-        assertEquals(17, testMood1.getTotalPMMood());
+        testMood1.addRatingPM(10.0);
+        testMood1.addRatingPM(7.0);
+        assertEquals(17.0, testMood1.getTotalPMMood());
     }
 
 
     @Test
     void testGetAverageAMRating() {
         //one entry
-        testMood1.addRatingAM(4);
-        assertEquals(4, testMood1.getTotalAMMood());
-        assertEquals(4, testMood1.getAverageMood());
+        testMood1.addRatingAM(4.0);
+        assertEquals(4.0, testMood1.getTotalAMMood());
+        assertEquals(4.0, testMood1.getAverageMood());
 
 
         //two entries
-        testMood2.addRatingAM(10);
-        testMood2.addRatingPM(7);
-        assertEquals(10, testMood2.getTotalAMMood());
-        assertEquals(7, testMood2.getTotalPMMood());
-        assertEquals((10 + 7) / 2, testMood2.getAverageMood());
+        testMood2.addRatingAM(10.0);
+        testMood2.addRatingPM(7.0);
+        assertEquals(10.0, testMood2.getTotalAMMood());
+        assertEquals(7.0, testMood2.getTotalPMMood());
+        assertEquals((10.0 + 7.0) / 2.0, testMood2.getAverageMood());
 
     }
 
     @Test
     void testGetTotalAMMood() {
-        testMood2.addRatingAM(8);
-        testMood2.addRatingAM(6);
-        assertEquals(14, testMood2.getTotalAMMood());
+        testMood2.addRatingAM(8.0);
+        testMood2.addRatingAM(6.0);
+        assertEquals(14.0, testMood2.getTotalAMMood());
     }
 
     @Test
     void testGetTotalPMMood() {
-        testMood2.addRatingPM(7);
-        testMood2.addRatingPM(3);
-        assertEquals(10, testMood2.getTotalPMMood());
+        testMood2.addRatingPM(7.0);
+        testMood2.addRatingPM(3.0);
+        assertEquals(10.0, testMood2.getTotalPMMood());
     }
 
     @Test
     void testAddMoodEntry() {
-        testMood2.addRatingPM(6);
+        testMood2.addRatingPM(6.0);
         testLog1.addMoodEntry(testMood2);
         assertEquals(1, testLog1.log.size());
 
     }
+
+//    @Test
+//    void testToString() {
+//        testMood2.addRatingPM(6);
+//        testMood2.addRatingAM(5);
+//        assertEquals("\nOverall AM Mood log: " + 5 + "\nOverall PM Mood log: " + 6, testMood2.toString());
+//    }
 }
 

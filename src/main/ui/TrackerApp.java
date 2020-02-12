@@ -11,8 +11,8 @@ public class TrackerApp {
     private MoodLog userLog;
     private MoodEntry userEntry;
     private Scanner scanner;
-    private int amRating;
-    private int pmRating;
+    private double amRating;
+    private double pmRating;
 
     // EFFECTS:
     public TrackerApp() {
@@ -76,7 +76,7 @@ public class TrackerApp {
         System.out.println("Average: " + entry.getAverageMood());
     }
 
-    private void logResult(int amRating, int pmRating) {
+    private void logResult(double amRating, double pmRating) {
         MoodEntry userEntry = new MoodEntry();
         userEntry.addRatingAM(amRating);
         userEntry.addRatingPM(pmRating);
