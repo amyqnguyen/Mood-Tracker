@@ -23,6 +23,7 @@ public class TrackerApp {
 
     // MODIFIES: this
     // EFFECTS: processes user input
+    // method adapted from CPSC 210/TellerAPP/2020
     public void runTracker() {
         String time = null;
 
@@ -46,6 +47,7 @@ public class TrackerApp {
 
     // MODIFIES: this
     // EFFECTS: processes user command
+    // method adapted from CPSC 210/TellerAPP/2020
     private void processRating(String time) {
         MoodEntry userEntry = new MoodEntry();
         userEntry.addRatingAM(amRating);
@@ -82,6 +84,7 @@ public class TrackerApp {
     }
 
     // EFFECTS: creates a mood entry from user input
+    // method adapted from CPSC 210/SimpleCalculator/2020
     private void logResult(double amRating, double pmRating) {
         MoodEntry userEntry = new MoodEntry();
         userEntry.addRatingAM(amRating);
