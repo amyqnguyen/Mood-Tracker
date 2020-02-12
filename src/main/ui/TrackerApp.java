@@ -43,6 +43,14 @@ public class TrackerApp {
     }
 
     private void processRating(String time) {
+        MoodEntry userEntry = new MoodEntry();
+        userEntry.addRatingAM(amRating);
+        userEntry.addRatingPM(pmRating);
+        userEntry.getTotalAMMood();
+        userEntry.getTotalPMMood();
+        userEntry.getAverageMood();
+        //userLog.addMoodEntry(userEntry);
+
         if (time.equals("am")) {
             System.out.println("Please enter your " + time + " mood:");
             amRating = scanner.nextInt();
@@ -55,21 +63,17 @@ public class TrackerApp {
             System.out.println("PM Mood: " + pmRating);
             scanner.nextLine();
         } else if (time.equals("average")) { ///????
-            printAverage();
-            userEntry.getAverageMood();
-            scanner.nextLine();
+            printAverage(userEntry);
+            //userEntry.getAverageMood();
         } else {
             System.out.println("Selection not valid.");
         }
+
         logResult(amRating, pmRating);
     }
 
-    private String printAverage() {
-        return "Average: " + userEntry.getAverageMood();
-
-//        MoodEntry userEntry = new MoodEntry();
-//        userEntry.addRatingPM(pmRating);
-//        userEntry.addRatingAM(amRating);
+    private void printAverage(MoodEntry entry) {
+        System.out.println("Average: " + entry.getAverageMood());
     }
 
     private void logResult(int amRating, int pmRating) {

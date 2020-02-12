@@ -5,14 +5,12 @@ import java.util.ArrayList;
 public class MoodEntry {
     private ArrayList<Integer> amMood;
     private ArrayList<Integer> pmMood;
-    private String time;
     private int totalAMMoodRating;
     private int totalPMMoodRating;
     private int totalAllMoodRating;
-    int averageMood;
+    private double averageMood;
 
     public MoodEntry() {
-        time = "";
         amMood = new ArrayList<>();
         pmMood = new ArrayList<>();
     }
@@ -25,7 +23,7 @@ public class MoodEntry {
         pmMood.add(pmRate);
     }
 
-    public int getAverageMood() {
+    public double getAverageMood() {
         totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
         averageMood = totalAllMoodRating / (amMood.size() + pmMood.size());
         return averageMood;
