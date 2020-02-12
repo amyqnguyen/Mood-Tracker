@@ -1,5 +1,7 @@
 package model;
 
+import com.sun.xml.internal.ws.resources.UtilMessages;
+
 import java.util.ArrayList;
 
 public class MoodLog {
@@ -25,7 +27,12 @@ public class MoodLog {
         log.add(rating);
     }
 
+
     public String toString() {
-        return "Mood log: " + log;
+        String output = "";
+        for (MoodEntry rating : log) {
+            output += (String.format("%s %dx %dx", "Mood log: " + rating.getAMMood() + rating.getPMMood()));
+        }
+        return output;
     }
 }
