@@ -16,6 +16,7 @@ public class MoodEntry {
         amMood = new ArrayList<>();
         pmMood = new ArrayList<>();
     }
+
     public void addRatingAM(Integer amRate) {
         amMood.add(amRate);
     }
@@ -48,25 +49,6 @@ public class MoodEntry {
         return "\nOverall AM Mood log: " + amMood + "\nOverall PM Mood log: " + pmMood;
     }
 
-//    public int getAMMood() {
-//        return amMood;
-//    }
-//
-//    public int getPMMood() {
-//        return pmMood;
-//    }
-
-//    public void addRatingAM(Integer amRate) {
-//        inputCount++;
-//        //ratings.add(amRate);
-//        sumAMRating += amRate;
-//    }
-//
-//    public void addRatingPM(Integer pmRate) {
-//        inputCount++;
-//        //ratings.add(pmRate);
-//        sumPMRating += pmRate;
-//    }
 
 }
 

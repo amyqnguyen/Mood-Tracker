@@ -24,11 +24,4 @@ public class MoodLog {
         return "Mood log: " + log;
     }
 }
-//public int getMoodAverage() {
-//    for (int i = 0; i < log.size(); i++) {
-//        totalAMMoodRating += log.get(i).getAMMood();
-//        totalPMMoodRating += log.get(i).getPMMood();
-//        totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
-//    }
-//    return totalAllMoodRating / (log.size() * 2);
-//}
+

@@ -63,11 +63,13 @@ public class TrackerApp {
         }
         logResult(amRating, pmRating);
     }
-        private String printAverage() {
+
+    private String printAverage() {
+        return "Average: " + userEntry.getAverageMood();
+
 //        MoodEntry userEntry = new MoodEntry();
 //        userEntry.addRatingPM(pmRating);
 //        userEntry.addRatingAM(amRating);
-        return "Average: " + userEntry.getAverageMood();
     }
 
     private void logResult(int amRating, int pmRating) {
