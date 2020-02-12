@@ -61,10 +61,7 @@ public class TrackerApp {
             System.out.println("PM Mood: " + pmRating);
             scanner.nextLine();
         } else if (time.equals("average")) { ///????
-            MoodEntry currentEntry = new MoodEntry();
-            userLog.addMoodEntry(currentEntry);
-            currentEntry.getAverageMood();
-            //printAverage(userLog);
+            userEntry.getAverageMood();
             scanner.nextLine();
         } else {
             System.out.println("Selection not valid.");
