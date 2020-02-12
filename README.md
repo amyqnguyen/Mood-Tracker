@@ -14,3 +14,7 @@ provide suggestions for how to deal with them more effectively.
 - As a user, I want to enter my mood in the PM.
 - As a user, I want to see my current mood ratings.
 - As a user, I want to get my daily average. 
+- As a user, I want to get my overall mood ratings. 
+
+
+
