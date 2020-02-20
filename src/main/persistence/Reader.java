@@ -1,5 +1,6 @@
 package persistence;
 
+import model.MoodEntry;
 import model.MoodLog;
 
 import java.io.File;
@@ -46,6 +47,7 @@ public class Reader {
     private static MoodLog parseMood(List<String> components) {
         int nextId = Integer.parseInt(components.get(0));
         int id = Integer.parseInt(components.get(1));
+        //ArrayList<MoodEntry> amMoods = ArrayList.parseArrayList(components.get(2));
         double average = Double.parseDouble(components.get(2));
         return new MoodLog(nextId, id, average);
     }

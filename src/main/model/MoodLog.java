@@ -14,6 +14,7 @@ public class MoodLog implements Saveable {
     private int id;                        // account id
     private String name;                   // the account owner name
     private double average;                // the current average of the account
+    private MoodEntry entry;
 
     ArrayList<MoodEntry> log;
 
@@ -21,12 +22,13 @@ public class MoodLog implements Saveable {
     public MoodLog() {
         log = new ArrayList<>();
         id = nextAccountId++;
+        entry = new MoodEntry();
     }
 
     public MoodLog(int nextId, int id, double average) {
         nextAccountId = nextId;
         this.id = id;
-        this.average = average;
+        this.average = entry.getAverageMood();
 
     }
 
@@ -34,12 +36,11 @@ public class MoodLog implements Saveable {
         return id;
     } ///????
 
-    public String getName() {
-        return name;
-    } ///????
+    //public String getName() {return name;} ///????
 
-    public double getAverage(MoodEntry entry) {
-        return entry.getAverageMood();
+    public double getAverageMoodLog() {
+        average = entry.getAverageMood();
+        return average;
     } ////???
 
     // MODIFIES: this
@@ -56,11 +57,15 @@ public class MoodLog implements Saveable {
 
     @Override
     public void save(PrintWriter printWriter) {
+        //MoodEntry entry = new MoodEntry();
+
         printWriter.print(nextAccountId);
         printWriter.print(Reader.DELIMITER);
         printWriter.print(id);
         printWriter.print(Reader.DELIMITER);
-        printWriter.print(average);
+        printWriter.print(log); //need to change to string in reader
+        printWriter.print(entry.getAverageMood()); ///not loading average****
+
 
 
     }

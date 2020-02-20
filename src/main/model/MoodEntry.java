@@ -1,5 +1,8 @@
 package model;
 
+import persistence.Reader;
+
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 //Represents a mood entry in a mood log that can be an AM or PM mood entry

@@ -15,13 +15,14 @@ import persistence.Writer;
 
 //Mood tracker application
 public class TrackerApp {
+    private static final String MOODS_FILE = "./data/moods.txt";
+
     private MoodLog userLog;
-    private MoodEntry userEntry;
+    //private MoodEntry userEntry;
     private Scanner scanner;
     private double amRating;
     private double pmRating;
 
-    private static final String MOODS_FILE = "./data/moodlogs.txt";
 
     private MoodLog monday;
     private MoodLog tuesday;
@@ -156,10 +157,10 @@ public class TrackerApp {
         System.out.println("Please enter your am mood:");
         amRating = scanner.nextInt();
         System.out.println("AM Mood: " + amRating);
-        MoodEntry amMoodEntry = new MoodEntry();
-        amMoodEntry.addRatingAM(amRating);
-        selected.addMoodEntry(amMoodEntry);
-        System.out.println(selected);
+        MoodEntry entry = new MoodEntry();
+        entry.addRatingAM(amRating);
+        selected.addMoodEntry(entry);
+        //System.out.println(selected);
 
     }
 
@@ -168,16 +169,17 @@ public class TrackerApp {
         System.out.println("Please enter your pm mood:");
         pmRating = scanner.nextInt();
         System.out.println("PM Mood: " + pmRating);
-        MoodEntry pmMoodEntry = new MoodEntry();
-        pmMoodEntry.addRatingPM(pmRating);
-        selected.addMoodEntry(pmMoodEntry);
-        System.out.println(selected);
+        MoodEntry entry = new MoodEntry();
+        entry.addRatingPM(pmRating);
+        selected.addMoodEntry(entry);
+        //System.out.println(selected);
     }
 
 
     // EFFECTS: prints mood average to the screen
     private void printAverage(MoodEntry entry) {
-        System.out.println("Average: " + entry.getAverageMood());
+        double average = entry.getAverageMood();
+        System.out.println("Average: " + average);
     }
 
     // EFFECTS: prompts user to select an account and prints account to screen
