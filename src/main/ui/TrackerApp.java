@@ -7,12 +7,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import Persistence.Reader;
-import Persistence.Writer;
+import persistence.Reader;
+import persistence.Writer;
 
 //Mood tracker application
 public class TrackerApp {
@@ -22,7 +21,7 @@ public class TrackerApp {
     private double amRating;
     private double pmRating;
 
-    private static final String MOODS_FILE = "./data/accounts.txt";
+    private static final String MOODS_FILE = "./data/moodlogs.txt";
 
     private MoodLog monday;
     private MoodLog tuesday;
@@ -44,21 +43,21 @@ public class TrackerApp {
     // EFFECTS: processes user input
     // method adapted from CPSC 210/TellerAPP/2020
     public void runTracker() {
-        String time = null;
+        String option = null;
 
         loadMoodLog();
 
         while (true) {
-            System.out.println("Please select an time (AM, PM or Quit):");
-            time = scanner.nextLine();
-            time = time.toLowerCase();
-            System.out.println("You selected: " + time);
+            System.out.println("Please select an option (AM, PM, Save, Print, or Quit):");
+            option = scanner.next();
+            option = option.toLowerCase();
+            System.out.println("You selected: " + option);
             //int rate = Integer.parseInt(scanner.nextLine());
 
-            if (time.equals("quit")) {
+            if (option.equals("quit")) {
                 break;
             } else {
-                processRating(time);
+                processRating(option);
             }
         }
         System.out.println("Current Mood log: AM-" + amRating + ", PM-" + pmRating); //???
@@ -71,12 +70,17 @@ public class TrackerApp {
     // otherwise initializes accounts with default values
     private void loadMoodLog() {
         try {
-            List<MoodLog> accounts = Reader.readMoods(new File(MOODS_FILE));
-            //cheq = accounts.get(0);
-            //sav = accounts.get(1);
+            List<MoodLog> moodLogs = Reader.readMoods(new File(MOODS_FILE));
+            monday = moodLogs.get(0);
+            tuesday = moodLogs.get(1);
+            wednesday = moodLogs.get(2);
+            thrusday = moodLogs.get(3);
+            friday = moodLogs.get(4);
+            saturday = moodLogs.get(5);
+            sunday = moodLogs.get(6);
         } catch (IOException e) {
-            MoodLog newLog = new MoodLog();
-            //init(); ////multiple mood logs????
+            //MoodLog newLog = new MoodLog();
+            init(); ////multiple mood logs????
         }
     }
 
@@ -125,14 +129,28 @@ public class TrackerApp {
             scanner.nextLine();
         } else if (time.equals("average")) { ///????
             printAverage(userEntry);
+            scanner.nextLine();
         } else if (time.equals("save")) {
             saveMoodLogs();
+            scanner.nextLine();
         } else if (time.equals("print")) {
             printMoodLog();
+            scanner.nextLine();
         } else {
             System.out.println("Selection not valid.");
         }
         logResult(amRating, pmRating);
+    }
+
+    private void init() {
+        monday = new MoodLog();
+        tuesday = new MoodLog();
+        wednesday = new MoodLog();
+        thrusday = new MoodLog();
+        friday = new MoodLog();
+        saturday = new MoodLog();
+        sunday = new MoodLog();
+
     }
 
     // EFFECTS: prints mood average to the screen
@@ -157,8 +175,9 @@ public class TrackerApp {
                 selection.equals("sunday"))) {
             System.out.println("Select a weekday");
             selection = scanner.next();
-            System.out.println(selection + " mood log: ");
             selection = selection.toLowerCase();
+            System.out.println(selection + " mood log: ");
+
         }
 
         if (selection.equals("monday")) {

@@ -3,8 +3,8 @@ package model;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-import Persistence.Reader;
-import Persistence.Saveable;
+import persistence.Reader;
+import persistence.Saveable;
 
 
 

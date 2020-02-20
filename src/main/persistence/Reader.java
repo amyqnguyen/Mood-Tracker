@@ -1,6 +1,5 @@
-package Persistence;
+package persistence;
 
-import model.MoodEntry;
 import model.MoodLog;
 
 import java.io.File;
