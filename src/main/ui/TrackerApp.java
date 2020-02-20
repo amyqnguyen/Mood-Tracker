@@ -122,8 +122,9 @@ public class TrackerApp {
             doAmMood();
             scanner.nextLine();
         } else if (time.equals("pm")) {
-            System.out.println("Please enter your " + time + " mood:");
+            //System.out.println("Please enter your " + time + " mood:");
             doPmMood();
+            scanner.nextLine();
         } else if (time.equals("average")) { ///????
             printAverage(userEntry);
             scanner.nextLine();
@@ -155,14 +156,22 @@ public class TrackerApp {
         System.out.println("Please enter your am mood:");
         amRating = scanner.nextInt();
         System.out.println("AM Mood: " + amRating);
+        MoodEntry amMoodEntry = new MoodEntry();
+        amMoodEntry.addRatingAM(amRating);
+        selected.addMoodEntry(amMoodEntry);
+        System.out.println(selected);
 
     }
 
     private void doPmMood() {
         MoodLog selected = selectMoodLog();
+        System.out.println("Please enter your pm mood:");
         pmRating = scanner.nextInt();
         System.out.println("PM Mood: " + pmRating);
-        scanner.nextLine();
+        MoodEntry pmMoodEntry = new MoodEntry();
+        pmMoodEntry.addRatingPM(pmRating);
+        selected.addMoodEntry(pmMoodEntry);
+        System.out.println(selected);
     }
 
 
@@ -189,7 +198,6 @@ public class TrackerApp {
             System.out.println("Select a weekday");
             selection = scanner.next();
             selection = selection.toLowerCase();
-            System.out.println(selection + " mood log: ");
 
         }
 
