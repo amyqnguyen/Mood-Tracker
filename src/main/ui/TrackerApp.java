@@ -118,15 +118,12 @@ public class TrackerApp {
         userEntry.getAverageMood();
 
         if (time.equals("am")) {
-            System.out.println("Please enter your " + time + " mood:");
-            amRating = scanner.nextInt();
-            System.out.println("AM Mood: " + amRating);
+            //System.out.println("Please enter your " + time + " mood:");
+            doAmMood();
             scanner.nextLine();
         } else if (time.equals("pm")) {
             System.out.println("Please enter your " + time + " mood:");
-            pmRating = scanner.nextInt();
-            System.out.println("PM Mood: " + pmRating);
-            scanner.nextLine();
+            doPmMood();
         } else if (time.equals("average")) { ///????
             printAverage(userEntry);
             scanner.nextLine();
@@ -152,6 +149,22 @@ public class TrackerApp {
         sunday = new MoodLog();
 
     }
+
+    private void doAmMood() {
+        MoodLog selected = selectMoodLog();
+        System.out.println("Please enter your am mood:");
+        amRating = scanner.nextInt();
+        System.out.println("AM Mood: " + amRating);
+
+    }
+
+    private void doPmMood() {
+        MoodLog selected = selectMoodLog();
+        pmRating = scanner.nextInt();
+        System.out.println("PM Mood: " + pmRating);
+        scanner.nextLine();
+    }
+
 
     // EFFECTS: prints mood average to the screen
     private void printAverage(MoodEntry entry) {
