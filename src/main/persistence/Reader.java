@@ -34,6 +34,11 @@ public class Reader {
 
         for (String line : fileContent) {
             ArrayList<String> lineComponents = splitString(line);
+            System.out.println(lineComponents);
+            System.out.println(lineComponents.get(0));
+            System.out.println(lineComponents.get(1));
+            System.out.println(lineComponents.get(2));
+            //issue
             moodLogs.add(parseMood(lineComponents));
         }
         return moodLogs;
@@ -47,8 +52,11 @@ public class Reader {
     private static MoodLog parseMood(List<String> components) {
         int nextId = Integer.parseInt(components.get(0));
         int id = Integer.parseInt(components.get(1));
-        //ArrayList<MoodEntry> amMoods = ArrayList.parseArrayList(components.get(2));
-        double average = Double.parseDouble(components.get(2));
-        return new MoodLog(nextId, id, average);
+
+
+        String ms = Arrays.toString(new String[]{components.get(2)});
+        //double average = Double.parseDouble(components.get(2));
+        return new MoodLog(nextId, id, ms);
+
     }
 }

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import persistence.Reader;
 import persistence.Saveable;
 
-
+//ABSTRACT CLASS?????
 
 //Represents an mood log which is an array of mood entries
 public class MoodLog implements Saveable {
@@ -15,18 +15,20 @@ public class MoodLog implements Saveable {
     private String name;                   // the account owner name
     private double average;                // the current average of the account
     private MoodEntry entry;
+    private String moodString;
 
     ArrayList<MoodEntry> log;
 
     // EFFECTS: constructs an empty mood log
     public MoodLog() {
         log = new ArrayList<>();
-        id = nextAccountId++;
-        entry = new MoodEntry();
+        this.id = nextAccountId++;
+        //entry = new MoodEntry();
     }
 
-    public MoodLog(int nextId, int id, double average) {
+    public MoodLog(int nextId, int id, String ms) {
         nextAccountId = nextId;
+        moodString = ms;
         this.id = id;
         this.average = entry.getAverageMood();
 
@@ -63,8 +65,20 @@ public class MoodLog implements Saveable {
         printWriter.print(Reader.DELIMITER);
         printWriter.print(id);
         printWriter.print(Reader.DELIMITER);
-        printWriter.print(log); //need to change to string in reader
-        printWriter.print(entry.getAverageMood()); ///not loading average****
+
+        for (int i = 0; i < log.size(); i++) {
+            if (i != (log.size() - 1)) {
+                printWriter.print(i.);
+                printWriter.print(Reader.DELIMITER);
+            } else {
+                printWriter.print(i);
+            }
+        }
+
+        //printWriter.print("\n");
+
+        //need to change to string in reader
+        //printWriter.print(); ///not loading average****
 
 
 

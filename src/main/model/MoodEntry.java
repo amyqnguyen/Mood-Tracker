@@ -1,6 +1,7 @@
 package model;
 
 import persistence.Reader;
+import persistence.Saveable;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -57,6 +58,8 @@ public class MoodEntry {
         }
         return totalPMMoodRating;
     }
+
+    //getter for individual mood entries
 
     // EFFECTS: returns a string representing the overall am and pm mood entries
     public String toString() {
