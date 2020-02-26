@@ -32,6 +32,7 @@ public class TrackerApp {
 
     //ArrayList<MoodEntry> a = new ArrayList<MoodEntry>();
 
+    private MoodLog newLog;
     private MoodLog monday;
     private MoodLog tuesday;
     private MoodLog wednesday;
@@ -157,13 +158,14 @@ public class TrackerApp {
     }
 
     private void doAmMood() {
-        MoodLog selected = selectMoodLog();
         System.out.println("Please enter your am mood:");
         amRating = scanner.nextInt();
         System.out.println("AM Mood: " + amRating);
         //userEntry.setAMmood(amRating);
         MoodEntry entry = new MoodEntry(amRating, pmRating);
         entry.setAMmood(amRating);
+        newLog = new MoodLog(weekDay, entry);
+        selectMoodLog();
         //entry.addRatingAM(amRating);
         //selected.addMoodEntry(entry);
         //System.out.println(selected);
@@ -171,7 +173,7 @@ public class TrackerApp {
     }
 
     private void doPmMood() {
-        MoodLog selected = selectMoodLog();
+        //MoodLog selected = selectMoodLog();
         System.out.println("Please enter your pm mood:");
         pmRating = scanner.nextInt();
         System.out.println("PM Mood: " + pmRating);
@@ -179,6 +181,8 @@ public class TrackerApp {
         MoodEntry entry = new MoodEntry(amRating, pmRating);
         //entry.setAMmood(amRating);
         entry.setPMmood(pmRating);
+        newLog = new MoodLog(weekDay, entry);
+        selectMoodLog();
 
         //entry.addRatingPM(pmRating);
         //selected.addMoodEntry(entry);
@@ -192,9 +196,8 @@ public class TrackerApp {
         System.out.println("Average: " + average);
     }
 
-    @SuppressWarnings("checkstyle:MethodLength")
-    private MoodLog selectMoodLog() {
-        String weekDay = "";
+    private void selectMoodLog() {
+        weekDay = "";
 
         while (!(weekDay.equals("monday") || weekDay.equals("tuesday") || weekDay.equals("wednesday")
                 || weekDay.equals("thursday") || weekDay.equals("friday") || weekDay.equals("saturday")
@@ -202,35 +205,56 @@ public class TrackerApp {
             System.out.println("Select a weekday");
             weekDay = scanner.next();
             weekDay = weekDay.toLowerCase();
-
-
+            updateLog();
         }
+    }
 
+    private MoodLog updateLog() {
         if (weekDay.equals("monday")) {
-            return monday = new MoodLog("Monday", new MoodEntry(amRating, pmRating));
+            newLog.setName("Monday");
+            return monday = newLog;
         } else if (weekDay.equals("tuesday")) {
-            return tuesday = new MoodLog("Tuesday", new MoodEntry(amRating, pmRating));
+            newLog.setName("Tuesday");
+            return tuesday = newLog;
         } else if (weekDay.equals("wednesday")) {
-            return wednesday =  new MoodLog("Wednesday", new MoodEntry(amRating, pmRating));
+            newLog.setName("Wednesday");
+            return wednesday = newLog;
         } else if (weekDay.equals("thursday")) {
-            return thursday = new MoodLog("Thursday", new MoodEntry(amRating, pmRating));
+            newLog.setName("Thursday");
+            return thursday = newLog;
         } else if (weekDay.equals("friday")) {
-            return friday = new MoodLog("Friday", new MoodEntry(amRating, pmRating));
+            newLog.setName("Friday");
+            return friday = newLog;
         } else if (weekDay.equals("saturday")) {
-            return saturday = new MoodLog("Saturday", new MoodEntry(amRating, pmRating));
+            newLog.setName("Saturday");
+            return saturday = newLog;
         } else {
-            return sunday = new MoodLog("Sunday", new MoodEntry(amRating, pmRating));
+            newLog.setName("Sunday");
+            return sunday = newLog;
         }
     }
 
     // EFFECTS: prompts user to select an account and prints account to screen
     private void printMoodLog() {
-        MoodLog selected = selectMoodLog();
-        System.out.println("Id: " + selected.getId());
-        System.out.println(selected.toString()); //get week day name????
-        //printAverage(); ////????
-    }
+        System.out.println("Select a weekday to print:");
+        String selected = scanner.next();
 
+        if (selected.equals("monday")) {
+            System.out.println("Id: " + monday.getId() + "\n" + monday.toString());
+        } else if (selected.equals("tuesday")) {
+            System.out.println("Id: " + tuesday.getId() + "\n" + tuesday.toString());
+        } else if (selected.equals("wednesday")) {
+            System.out.println("Id: " + wednesday.getId() + "\n" + wednesday.toString());
+        } else if (selected.equals("thursday")) {
+            System.out.println("Id: " + thursday.getId() + "\n" + thursday.toString());
+        } else if (selected.equals("friday")) {
+            System.out.println("Id: " + friday.getId() + "\n" + friday.toString());
+        } else if (selected.equals("saturday")) {
+            System.out.println("Id: " + saturday.getId() + "\n" + saturday.toString());
+        } else {
+            System.out.println("Id: " + sunday.getId() + "\n" + sunday.toString());
+        }
+    }
 
     // EFFECTS: creates a mood entry from user input
     // method adapted from CPSC 210/SimpleCalculator/2020

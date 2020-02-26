@@ -50,6 +50,11 @@ public class MoodLog implements Saveable {
         return weekDay;
     } ///????
 
+    public String setName(String name) {
+        weekDay = name;
+        return name;
+    }
+
     public MoodEntry getMoodEntry() {
         return entry;
     } ///????
