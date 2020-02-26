@@ -34,15 +34,9 @@ public class Reader {
 
         for (String line : fileContent) {
             ArrayList<String> lineComponents = splitString(line);
-//            System.out.println(lineComponents);
-//            System.out.println(lineComponents.get(0));
-//            System.out.println(lineComponents.get(1));
-//            System.out.println(lineComponents.get(2));
-//            System.out.println(lineComponents.get(3));
             //issue
             moodLogs.add(parseMood(lineComponents));
         }
-        System.out.println(moodLogs);
         return moodLogs;
     }
 
