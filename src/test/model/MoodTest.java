@@ -38,6 +38,8 @@ class MoodTest {
         assertEquals("Wednesday", testLog3.getName());
         //assertEquals(testMood2, testLog3.getMoodEntry());
         assertEquals(1, testLog3.getId());
+        assertEquals(0, testMood1.getAmMood());
+        assertEquals(0, testMood1.getPmMood());
     }
 
 
@@ -46,17 +48,15 @@ class MoodTest {
         testMood1.setAMmood(3.0);
         testMood1.setPMmood(7.0);
         assertEquals(5.0, testMood1.getAverageMood());
+        assertEquals(5.0, testLog1.getAverageMoodLog());
+        assertEquals((10.0 + 7.0) / 2.0, testMood2.getAverageMood());
 
-        //one entry
-//        testMood1.addRatingAM(4.0);
-//        assertEquals(4.0, testMood1.getTotalAMMood());
-//        assertEquals(4.0, testMood1.getAverageMood());
-//        testMood2.addRatingAM(10.0);
-//        testMood2.addRatingPM(7.0);
-//        assertEquals(10.0, testMood2.getTotalAMMood());
-//        assertEquals(7.0, testMood2.getTotalPMMood());
-//        assertEquals((10.0 + 7.0) / 2.0, testMood2.getAverageMood());
+    }
 
+    @Test
+    void testSetName() {
+        testLog1.setName("Happy");
+        assertEquals("Happy", testLog1.getName());
     }
 
     @Test
@@ -70,54 +70,8 @@ class MoodTest {
     void testToStringMoodLog() {
         testMood2.setAMmood(6.0);
         testMood2.setPMmood(5.0);
-        assertEquals("Tuesday AM Mood log: 6.0, PM Mood log: 5.0 \n" , testLog2.toString());
+        assertEquals("Tuesday Mood log: AM Mood log: 6.0, PM Mood log: 5.0 \n" , testLog2.toString());
  }
 }
 
-//    @Test
-//    void testAddAmMood() {
-//        //one entry
-//        testMood1.addRatingAM(4.0);
-//        assertEquals(4.0, testMood1.getTotalAMMood());
-//
-//        //two entry
-//        testMood2.addRatingAM(10.0);
-//        testMood2.addRatingAM(7.0);
-//        assertEquals(17.0, testMood2.getTotalAMMood());
-//    }
-//
-//    @Test
-//    void testAddPmMood() {
-//        //one entry
-//        testMood2.addRatingPM(5.0);
-//        assertEquals(5.0, testMood2.getTotalPMMood());
-//
-//        //two entry
-//        testMood1.addRatingPM(10.0);
-//        testMood1.addRatingPM(7.0);
-//        assertEquals(17.0, testMood1.getTotalPMMood());
-//    }
-//
-//    @Test
-//    void testGetTotalAMMood() {
-//        testMood2.addRatingAM(8.0);
-//        testMood2.addRatingAM(6.0);
-//        assertEquals(14.0, testMood2.getTotalAMMood());
-//    }
-//
-//    @Test
-//    void testGetTotalPMMood() {
-//        testMood2.addRatingPM(7.0);
-//        testMood2.addRatingPM(3.0);
-//        assertEquals(10.0, testMood2.getTotalPMMood());
-//    }
-//
-//    @Test
-//    void testAddMoodEntry() {
-//        testMood2.addRatingPM(6.0);
-//        testLog1.addMoodEntry(testMood2);
-//        assertEquals(1, testLog1.log.size());
-//        }
-//
-//
-//
+
