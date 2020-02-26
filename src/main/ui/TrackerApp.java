@@ -160,7 +160,7 @@ public class TrackerApp {
         MoodEntry entry = new MoodEntry();
         entry.addRatingAM(amRating);
         selected.addMoodEntry(entry);
-        //System.out.println(selected);
+        System.out.println(selected);
 
     }
 
