@@ -35,6 +35,16 @@ public class MoodEntry {
         return pmMood;
     }
 
+    public Double setAMmood(Double am) {
+        amMood = am;
+        return am;
+    }
+
+    public Double setPMmood(Double pm) {
+        pmMood = pm;
+        return pm;
+    }
+
     public Double getAverageMood() {
         Double average = (amMood + pmMood) / 2;
         return average;

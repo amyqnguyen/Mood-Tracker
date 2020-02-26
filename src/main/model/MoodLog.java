@@ -22,17 +22,19 @@ public class MoodLog implements Saveable {
     ArrayList<MoodEntry> log;
 
     // EFFECTS: constructs an empty mood log
-    public MoodLog(String name, ArrayList<MoodEntry> ml) {
-        log = ml;
+    public MoodLog(String name, MoodEntry me) {
+        //log = ml;
+        this.entry = me;
         weekDay = name;
         id = nextAccountId++;
         //entry = new MoodEntry();
     }
 
-    public MoodLog(String weekDay, int id, Double am, Double pm) {
+    public MoodLog(String weekDay, int id, MoodEntry me) {
         this.weekDay = weekDay;
-        this.am = am;
-        this.pm = pm;
+        //this.am = am;
+        //this.pm = pm;
+        this.entry = me;
         //nextAccountId = nextId;
         //moodString = ms;
         this.id = id;
@@ -44,9 +46,9 @@ public class MoodLog implements Saveable {
         return id;
     } ///????
 
-//    public String getName() {
-//        return weekDay;
-//    } ///????
+    public String getName() {
+        return weekDay;
+    } ///????
 
     public double getAverageMoodLog() {
         average = entry.getAverageMood();
@@ -55,15 +57,15 @@ public class MoodLog implements Saveable {
 
     // MODIFIES: this
     // EFFECTS: adds a mood entry to a mood log where a mood entry is an array of am ratings and/or pm ratings
-    public void addMoodEntry(MoodEntry entry) {
-        log.add(entry);
-    }
+//    public void addMoodEntry(MoodEntry entry) {
+//        log.add(entry);
+//    }
 
 
     // EFFECTS: returns a string representing the overall mood log
     @Override
     public String toString() {
-        return "Mood log: " + log;
+        return weekDay + " Mood log: " + entry;
     }
 
     @Override
@@ -75,33 +77,25 @@ public class MoodLog implements Saveable {
         printWriter.print(Reader.DELIMITER);
         printWriter.print(id);
         printWriter.print(Reader.DELIMITER);
+        printWriter.print(entry.getAmMood());
+        printWriter.print(Reader.DELIMITER);
+        printWriter.print(entry.getPmMood());
+        printWriter.print("\n");
         //printWriter.print(log);
 //        printWriter.print(amMood);
 //        printWriter.print(Reader.DELIMITER);
 //        printWriter.print(pmMood);
 //        printWriter.print(Reader.DELIMITER);
 
-        for (int i = 0; i < log.size(); i++) {
-                printWriter.print(log.get(i).getAmMood());
-                printWriter.print(Reader.DELIMITER);
-                printWriter.print(log.get(i).getPmMood());
-                //printWriter.print(Reader.DELIMITER);
-                printWriter.print("\n");
-            }
-        }
-
 //        for (int i = 0; i < log.size(); i++) {
-//            if (i != (log.size() - 1)) {
 //                printWriter.print(log.get(i).getAmMood());
 //                printWriter.print(Reader.DELIMITER);
 //                printWriter.print(log.get(i).getPmMood());
 //                //printWriter.print(Reader.DELIMITER);
 //                printWriter.print("\n");
-//            } else {
-//                printWriter.print(log.get(i).getPmMood());
-//                //printWriter.print("\n");
 //            }
 //        }
+
 
         //printWriter.print("\n");
 
@@ -110,6 +104,7 @@ public class MoodLog implements Saveable {
 
 
     }
+}
 
 
 
