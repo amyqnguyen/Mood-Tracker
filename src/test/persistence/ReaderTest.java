@@ -30,11 +30,11 @@ public class ReaderTest {
             MoodLog testLog2 = moods.get(1);
             assertEquals(4, testLog2.getId());
             assertEquals("Tuesday", testLog2.getName());
-            MoodEntry me1 = new MoodEntry(3.0, 4.0);
+            //MoodEntry me1 = new MoodEntry(3.0, 4.0);
             //assertEquals(me1, testLog2.getMoodEntry());
 
             // check that nextAccountId has been set correctly
-            MoodLog nextMoodLog = new MoodLog("Wednesday", me1);
+            //MoodLog nextMoodLog = new MoodLog("Wednesday", me1);
             //assertEquals(5, nextMoodLog.getId());
 
 
