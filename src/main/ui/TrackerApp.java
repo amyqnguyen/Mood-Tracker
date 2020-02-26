@@ -164,13 +164,13 @@ public class TrackerApp {
 
     @SuppressWarnings("checkstyle:NoWhitespaceBefore")
     private void init() {
-        monday = new MoodLog("Monday" , new MoodEntry(0.0,0.0));
-        tuesday = new MoodLog("Tuesday" , new MoodEntry(0.0,0.0));
-        wednesday = new MoodLog("Wednesday" , new MoodEntry(0.0,0.0));
+        monday = new MoodLog("Monday", new MoodEntry(0.0,0.0));
+        tuesday = new MoodLog("Tuesday", new MoodEntry(0.0,0.0));
+        wednesday = new MoodLog("Wednesday", new MoodEntry(0.0,0.0));
         thursday = new MoodLog("Thursday", new MoodEntry(0.0,0.0));
         friday = new MoodLog("Friday", new MoodEntry(0.0,0.0));
-        saturday = new MoodLog("Saturday" , new MoodEntry(0.0,0.0)) ;
-        sunday = new MoodLog("Sunday" , new MoodEntry(0.0,0.0));
+        saturday = new MoodLog("Saturday", new MoodEntry(0.0,0.0)) ;
+        sunday = new MoodLog("Sunday", new MoodEntry(0.0,0.0));
     }
 
     private void doAmMood() {
@@ -179,7 +179,8 @@ public class TrackerApp {
         amRating = scanner.nextInt();
         System.out.println("AM Mood: " + amRating);
         //userEntry.setAMmood(amRating);
-        //MoodEntry entry = new MoodEntry(amRating, pmRating);
+        MoodEntry entry = new MoodEntry(amRating, pmRating);
+        entry.setAMmood(amRating);
         //entry.addRatingAM(amRating);
         //selected.addMoodEntry(entry);
         //System.out.println(selected);
@@ -194,7 +195,7 @@ public class TrackerApp {
         //userEntry.setPMmood(pmRating);
         MoodEntry entry = new MoodEntry(amRating, pmRating);
         //entry.setAMmood(amRating);
-        //entry.setPMmood(pmRating);
+        entry.setPMmood(pmRating);
 
         //entry.addRatingPM(pmRating);
         //selected.addMoodEntry(entry);
