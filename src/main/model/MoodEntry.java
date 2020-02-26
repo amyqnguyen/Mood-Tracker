@@ -51,6 +51,16 @@ public class MoodEntry {
     }
 
 
+    // EFFECTS: returns a string representing the overall am and pm mood entries
+    public String toString() {
+        return "AM Mood log: " + amMood + ", PM Mood log: " + pmMood + " \n";
+        //"\nOverall AM Mood log: " + amMood + "\nOverall PM Mood log: " + pmMood;
+    }
+
+
+}
+
+
 //    // REQUIRES: amRate > 0.0
 //    // MODIFIES: this
 //    // EFFECTS: adds rating to amMood list
@@ -93,12 +103,4 @@ public class MoodEntry {
 
 
 
-    // EFFECTS: returns a string representing the overall am and pm mood entries
-    public String toString() {
-        return "AM Mood log: " + amMood + ", PM Mood log: " + pmMood + " \n";
-                //"\nOverall AM Mood log: " + amMood + "\nOverall PM Mood log: " + pmMood;
-    }
-
-
-}
 

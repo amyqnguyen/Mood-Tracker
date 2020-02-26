@@ -50,6 +50,10 @@ public class MoodLog implements Saveable {
         return weekDay;
     } ///????
 
+    public MoodEntry getMoodEntry() {
+        return entry;
+    } ///????
+
     public double getAverageMoodLog() {
         average = entry.getAverageMood();
         return average;
