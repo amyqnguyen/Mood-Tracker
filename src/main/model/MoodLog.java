@@ -11,8 +11,10 @@ import persistence.Saveable;
 //Represents an mood log which is an array of mood entries
 public class MoodLog implements Saveable {
     private static int nextAccountId = 1;  // tracks id of next account created
+    private String weekDay;
     private int id;                        // account id
-    private String name;                   // the account owner name
+    private Double am;
+    private Double pm;
     private double average;                // the current average of the account
     private MoodEntry entry;
     private String moodString;
@@ -20,15 +22,19 @@ public class MoodLog implements Saveable {
     ArrayList<MoodEntry> log;
 
     // EFFECTS: constructs an empty mood log
-    public MoodLog() {
-        log = new ArrayList<>();
-        this.id = nextAccountId++;
+    public MoodLog(String name, ArrayList<MoodEntry> ml) {
+        log = ml;
+        weekDay = name;
+        id = nextAccountId++;
         //entry = new MoodEntry();
     }
 
-    public MoodLog(int nextId, int id, String ms) {
-        nextAccountId = nextId;
-        moodString = ms;
+    public MoodLog(String weekDay, int id, Double am, Double pm) {
+        this.weekDay = weekDay;
+        this.am = am;
+        this.pm = pm;
+        //nextAccountId = nextId;
+        //moodString = ms;
         this.id = id;
         this.average = entry.getAverageMood();
 
@@ -38,7 +44,9 @@ public class MoodLog implements Saveable {
         return id;
     } ///????
 
-    //public String getName() {return name;} ///????
+//    public String getName() {
+//        return weekDay;
+//    } ///????
 
     public double getAverageMoodLog() {
         average = entry.getAverageMood();
@@ -51,6 +59,7 @@ public class MoodLog implements Saveable {
         log.add(entry);
     }
 
+
     // EFFECTS: returns a string representing the overall mood log
     @Override
     public String toString() {
@@ -61,19 +70,38 @@ public class MoodLog implements Saveable {
     public void save(PrintWriter printWriter) {
         //MoodEntry entry = new MoodEntry();
 
-        printWriter.print(nextAccountId);
+        //printWriter.print(nextAccountId);
+        printWriter.print(weekDay);
         printWriter.print(Reader.DELIMITER);
         printWriter.print(id);
         printWriter.print(Reader.DELIMITER);
+        //printWriter.print(log);
+//        printWriter.print(amMood);
+//        printWriter.print(Reader.DELIMITER);
+//        printWriter.print(pmMood);
+//        printWriter.print(Reader.DELIMITER);
 
         for (int i = 0; i < log.size(); i++) {
-            if (i != (log.size() - 1)) {
-                printWriter.print(i.);
+                printWriter.print(log.get(i).getAmMood());
                 printWriter.print(Reader.DELIMITER);
-            } else {
-                printWriter.print(i);
+                printWriter.print(log.get(i).getPmMood());
+                //printWriter.print(Reader.DELIMITER);
+                printWriter.print("\n");
             }
         }
+
+//        for (int i = 0; i < log.size(); i++) {
+//            if (i != (log.size() - 1)) {
+//                printWriter.print(log.get(i).getAmMood());
+//                printWriter.print(Reader.DELIMITER);
+//                printWriter.print(log.get(i).getPmMood());
+//                //printWriter.print(Reader.DELIMITER);
+//                printWriter.print("\n");
+//            } else {
+//                printWriter.print(log.get(i).getPmMood());
+//                //printWriter.print("\n");
+//            }
+//        }
 
         //printWriter.print("\n");
 
@@ -81,9 +109,10 @@ public class MoodLog implements Saveable {
         //printWriter.print(); ///not loading average****
 
 
-
     }
 
 
-}
+
+
+
 

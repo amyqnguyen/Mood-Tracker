@@ -38,6 +38,7 @@ public class Reader {
             System.out.println(lineComponents.get(0));
             System.out.println(lineComponents.get(1));
             System.out.println(lineComponents.get(2));
+            System.out.println(lineComponents.get(3));
             //issue
             moodLogs.add(parseMood(lineComponents));
         }
@@ -49,14 +50,26 @@ public class Reader {
         return new ArrayList<>(Arrays.asList(splits));
     }
 
+//    private static MoodEntry createMoodEntry() {
+//        for (int i = 0; i < string.size(); i++) {
+//    }
+
     private static MoodLog parseMood(List<String> components) {
-        int nextId = Integer.parseInt(components.get(0));
+        //int nextId = Integer.parseInt(components.get(0));
+        String weekDay = components.get(0);
         int id = Integer.parseInt(components.get(1));
+        double ratingAM  = Double.parseDouble(components.get(2));
+        double ratingPM = Double.parseDouble(components.get(3));
+        MoodEntry me = new MoodEntry(ratingAM, ratingPM);
+        ArrayList<MoodEntry> log = new ArrayList<MoodEntry>();
+        log.add(me);
+        return new MoodLog(weekDay, id, log);
 
-
-        String ms = Arrays.toString(new String[]{components.get(2)});
+        //Double am = Double.parseDouble(components.get(2));
+        //Double pm = Double.parseDouble(components.get(3));
+        //ArrayList<MoodEntry> ml =
+        //String ms = Arrays.toString(new String[]{components.get(2)});
         //double average = Double.parseDouble(components.get(2));
-        return new MoodLog(nextId, id, ms);
 
     }
 }

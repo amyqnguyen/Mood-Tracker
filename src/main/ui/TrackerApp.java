@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -16,12 +17,20 @@ import persistence.Writer;
 //Mood tracker application
 public class TrackerApp {
     private static final String MOODS_FILE = "./data/moods.txt";
+    //private final int nextId;
 
     private MoodLog userLog;
-    //private MoodEntry userEntry;
+    private MoodEntry userEntry;
     private Scanner scanner;
     private double amRating;
     private double pmRating;
+    private String weekDay;
+    private static int nextId;  // tracks id of next account created
+    private int id;                        // account id
+    private Double am;
+    private Double pm;
+
+    ArrayList<MoodEntry> a = new ArrayList<MoodEntry>();
 
 
     private MoodLog monday;
@@ -36,7 +45,7 @@ public class TrackerApp {
     // EFFECTS: runs the tracker app
     public TrackerApp() {
         scanner = new Scanner(System.in);
-        userLog = new MoodLog();
+        userLog = new MoodLog(null, new ArrayList<MoodEntry>());
         runTracker();
     }
 
@@ -49,7 +58,7 @@ public class TrackerApp {
         loadMoodLog();
 
         while (true) {
-            System.out.println("Please select an option (AM, PM, Save, Print, or Quit):");
+            System.out.println("Please select an option (AM, PM, Average, Save, Print, or Quit):");
             option = scanner.next();
             option = option.toLowerCase();
             System.out.println("You selected: " + option);
@@ -62,7 +71,7 @@ public class TrackerApp {
             }
         }
         System.out.println("Current Mood log: AM-" + amRating + ", PM-" + pmRating); //???
-        System.out.println(userLog);
+        //System.out.println(userLog);
         //printAverage(userLog); //???
     }
 
@@ -111,11 +120,13 @@ public class TrackerApp {
     // method adapted from CPSC 210/TellerAPP/2020
     @SuppressWarnings("checkstyle:MethodLength")
     private void processRating(String time) {
-        MoodEntry userEntry = new MoodEntry();
-        userEntry.addRatingAM(amRating);
-        userEntry.addRatingPM(pmRating);
-        userEntry.getTotalAMMood();
-        userEntry.getTotalPMMood();
+        MoodEntry userEntry = new MoodEntry(amRating, pmRating);
+        //userEntry.addRatingAM(amRating);
+        //userEntry.addRatingPM(pmRating);
+        //userEntry.getTotalAMMood();
+        //userEntry.getTotalPMMood();
+        userEntry.getPmMood();
+        userEntry.getAmMood();
         userEntry.getAverageMood();
 
         if (time.equals("am")) {
@@ -141,15 +152,15 @@ public class TrackerApp {
         logResult(amRating, pmRating);
     }
 
+    @SuppressWarnings("checkstyle:NoWhitespaceBefore")
     private void init() {
-        monday = new MoodLog();
-        tuesday = new MoodLog();
-        wednesday = new MoodLog();
-        thrusday = new MoodLog();
-        friday = new MoodLog();
-        saturday = new MoodLog();
-        sunday = new MoodLog();
-
+        monday = new MoodLog("Monday" , new ArrayList<MoodEntry>());
+        tuesday = new MoodLog("Tuesday" , new ArrayList<MoodEntry>());
+        wednesday = new MoodLog("Wednesday" , new ArrayList<MoodEntry>());
+        thrusday = new MoodLog("Thursday", new ArrayList<MoodEntry>());
+        friday = new MoodLog("Friday", new ArrayList<MoodEntry>());
+        saturday = new MoodLog("Saturday" , new ArrayList<MoodEntry>()) ;
+        sunday = new MoodLog("Sunday" , new ArrayList<MoodEntry>());
     }
 
     private void doAmMood() {
@@ -157,10 +168,10 @@ public class TrackerApp {
         System.out.println("Please enter your am mood:");
         amRating = scanner.nextInt();
         System.out.println("AM Mood: " + amRating);
-        MoodEntry entry = new MoodEntry();
-        entry.addRatingAM(amRating);
-        selected.addMoodEntry(entry);
-        System.out.println(selected);
+        //MoodEntry entry = new MoodEntry(amRating, pmRating);
+        //entry.addRatingAM(amRating);
+        //selected.addMoodEntry(entry);
+        //System.out.println(selected);
 
     }
 
@@ -169,8 +180,8 @@ public class TrackerApp {
         System.out.println("Please enter your pm mood:");
         pmRating = scanner.nextInt();
         System.out.println("PM Mood: " + pmRating);
-        MoodEntry entry = new MoodEntry();
-        entry.addRatingPM(pmRating);
+        MoodEntry entry = new MoodEntry(amRating, pmRating);
+        //entry.addRatingPM(pmRating);
         selected.addMoodEntry(entry);
         //System.out.println(selected);
     }
@@ -182,53 +193,56 @@ public class TrackerApp {
         System.out.println("Average: " + average);
     }
 
-    // EFFECTS: prompts user to select an account and prints account to screen
-    private void printMoodLog() {
-        MoodLog selected = selectMoodLog();
-        System.out.println("Id: " + selected.getId());
-        System.out.println("Mood log: " + selected.toString()); //get week day name????
-        //printAverage(); ////????
-    }
-
     @SuppressWarnings("checkstyle:MethodLength")
     private MoodLog selectMoodLog() {
-        String selection = "";
+        String weekDay = "";
 
-        while (!(selection.equals("monday") || selection.equals("tuesday") || selection.equals("wednesday") ||
-                selection.equals("thrusday") || selection.equals("friday") || selection.equals("saturday") ||
-                selection.equals("sunday"))) {
+        while (!(weekDay.equals("monday") || weekDay.equals("tuesday") || weekDay.equals("wednesday") ||
+                weekDay.equals("thrusday") || weekDay.equals("friday") || weekDay.equals("saturday") ||
+                weekDay.equals("sunday"))) {
             System.out.println("Select a weekday");
-            selection = scanner.next();
-            selection = selection.toLowerCase();
+            weekDay = scanner.next();
+            weekDay = weekDay.toLowerCase();
+
 
         }
 
-        if (selection.equals("monday")) {
+        if (weekDay.equals("monday")) {
             return monday;
-        } else if (selection.equals("tuesday")) {
+        } else if (weekDay.equals("tuesday")) {
             return tuesday;
-        } else if (selection.equals("wednesday")) {
+        } else if (weekDay.equals("wednesday")) {
             return wednesday;
-        } else if (selection.equals("thrusday")) {
+        } else if (weekDay.equals("thrusday")) {
             return thrusday;
-        } else if (selection.equals("friday")) {
+        } else if (weekDay.equals("friday")) {
             return friday;
-        } else if (selection.equals("saturday")) {
+        } else if (weekDay.equals("saturday")) {
             return saturday;
         } else {
             return sunday;
         }
     }
 
+    // EFFECTS: prompts user to select an account and prints account to screen
+    private void printMoodLog() {
+        MoodLog selected = selectMoodLog();
+        System.out.println("Id: " + selected.getId());
+        System.out.println(weekDay + selected.toString()); //get week day name????
+        //printAverage(); ////????
+    }
+
 
     // EFFECTS: creates a mood entry from user input
     // method adapted from CPSC 210/SimpleCalculator/2020
     private void logResult(double amRating, double pmRating) {
-        MoodEntry userEntry = new MoodEntry();
-        userEntry.addRatingAM(amRating);
-        userEntry.addRatingPM(pmRating);
-        userEntry.getTotalAMMood();
-        userEntry.getTotalPMMood();
+        MoodEntry userEntry = new MoodEntry(amRating, pmRating);
+        //userEntry.addRatingAM(amRating);
+        //userEntry.addRatingPM(pmRating);
+        //userEntry.getTotalAMMood();
+        //userEntry.getTotalPMMood();
+        userEntry.getAmMood();
+        userEntry.getPmMood();
         userEntry.getAverageMood();
         userLog.addMoodEntry(userEntry);
     }
