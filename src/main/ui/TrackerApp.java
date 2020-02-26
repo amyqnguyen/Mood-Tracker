@@ -31,15 +31,6 @@ public class TrackerApp {
     private Double pm;
 
     //ArrayList<MoodEntry> a = new ArrayList<MoodEntry>();
-    MoodEntry b = new MoodEntry(0.0,0.0);
-    MoodEntry c = new MoodEntry(0.0,0.0);
-    MoodEntry d = new MoodEntry(0.0,0.0);
-    MoodEntry e = new MoodEntry(0.0,0.0);
-    MoodEntry f = new MoodEntry(0.0,0.0);
-    MoodEntry g = new MoodEntry(0.0,0.0);
-    MoodEntry h = new MoodEntry(0.0,0.0);
-
-
 
     private MoodLog monday;
     private MoodLog tuesday;
@@ -126,25 +117,18 @@ public class TrackerApp {
     // MODIFIES: this
     // EFFECTS: processes user command
     // method adapted from CPSC 210/TellerAPP/2020
-    @SuppressWarnings("checkstyle:MethodLength")
+    //        userEntry.getPmMood();
+//        userEntry.getAmMood();
+//        userEntry.setAMmood(amRating);
+//        userEntry.setPMmood(pmRating);
     private void processRating(String time) {
-        MoodEntry userEntry = new MoodEntry(amRating, pmRating);
-        //userEntry.addRatingAM(amRating);
-        //userEntry.addRatingPM(pmRating);
-        //userEntry.getTotalAMMood();
-        //userEntry.getTotalPMMood();
-        userEntry.getPmMood();
-        userEntry.getAmMood();
-        userEntry.setAMmood(amRating);
-        userEntry.setPMmood(pmRating);
+        MoodEntry userEntry = new MoodEntry(amRating, pmRating);;
         userEntry.getAverageMood();
 
         if (time.equals("am")) {
-            //System.out.println("Please enter your " + time + " mood:");
             doAmMood();
             scanner.nextLine();
         } else if (time.equals("pm")) {
-            //System.out.println("Please enter your " + time + " mood:");
             doPmMood();
             scanner.nextLine();
         } else if (time.equals("average")) { ///????
@@ -162,14 +146,13 @@ public class TrackerApp {
         logResult(amRating, pmRating);
     }
 
-    @SuppressWarnings("checkstyle:NoWhitespaceBefore")
     private void init() {
         monday = new MoodLog("Monday", new MoodEntry(0.0,0.0));
         tuesday = new MoodLog("Tuesday", new MoodEntry(0.0,0.0));
         wednesday = new MoodLog("Wednesday", new MoodEntry(0.0,0.0));
         thursday = new MoodLog("Thursday", new MoodEntry(0.0,0.0));
         friday = new MoodLog("Friday", new MoodEntry(0.0,0.0));
-        saturday = new MoodLog("Saturday", new MoodEntry(0.0,0.0)) ;
+        saturday = new MoodLog("Saturday", new MoodEntry(0.0,0.0));
         sunday = new MoodLog("Sunday", new MoodEntry(0.0,0.0));
     }
 
@@ -213,9 +196,9 @@ public class TrackerApp {
     private MoodLog selectMoodLog() {
         String weekDay = "";
 
-        while (!(weekDay.equals("monday") || weekDay.equals("tuesday") || weekDay.equals("wednesday") ||
-                weekDay.equals("thursday") || weekDay.equals("friday") || weekDay.equals("saturday") ||
-                weekDay.equals("sunday"))) {
+        while (!(weekDay.equals("monday") || weekDay.equals("tuesday") || weekDay.equals("wednesday")
+                || weekDay.equals("thursday") || weekDay.equals("friday") || weekDay.equals("saturday")
+                || weekDay.equals("sunday"))) {
             System.out.println("Select a weekday");
             weekDay = scanner.next();
             weekDay = weekDay.toLowerCase();
