@@ -21,25 +21,22 @@ public class MoodLog implements Saveable {
 
     ArrayList<MoodEntry> log;
 
-    // EFFECTS: constructs an empty mood log
+    // REQUIRES: name has a non-zero length and has a valid mood entry
+    // EFFECTS: weekDay on mood log is set to name; mood log id is a positive
+    // integer not assigned to any other mood log; mood entry in mood log is set to me
     public MoodLog(String name, MoodEntry me) {
-        //log = ml;
         this.entry = me;
         weekDay = name;
         id = nextAccountId++;
-        //entry = new MoodEntry();
     }
 
+    // REQUIRES: weekDay has a non-zero length, id >=1, and mood entry is valid
+    // EFFECTS: weekDay on mood log is set to name; mood log id is a positive
+    //    // integer not assigned to any other mood log; mood entry in mood log is set to me
     public MoodLog(String weekDay, int id, MoodEntry me) {
         this.weekDay = weekDay;
-        //this.am = am;
-        //this.pm = pm;
         this.entry = me;
-        //nextAccountId = nextId;
-        //moodString = ms;
         this.id = id;
-        this.average = entry.getAverageMood();
-
     }
 
     public int getId() {
@@ -60,18 +57,12 @@ public class MoodLog implements Saveable {
     } ///????
 
     public double getAverageMoodLog() {
-        average = entry.getAverageMood();
+        average = entry.averageMoodEntry();
         return average;
-    } ////???
-
-    // MODIFIES: this
-    // EFFECTS: adds a mood entry to a mood log where a mood entry is an array of am ratings and/or pm ratings
-//    public void addMoodEntry(MoodEntry entry) {
-//        log.add(entry);
-//    }
+    }
 
 
-    // EFFECTS: returns a string representing the overall mood log
+    // EFFECTS: returns a string representing the overall mood log for the week day
     @Override
     public String toString() {
         return weekDay + " Mood log: " + entry;
@@ -79,9 +70,6 @@ public class MoodLog implements Saveable {
 
     @Override
     public void save(PrintWriter printWriter) {
-        //MoodEntry entry = new MoodEntry();
-
-        //printWriter.print(nextAccountId);
         printWriter.print(weekDay);
         printWriter.print(Reader.DELIMITER);
         printWriter.print(id);
@@ -90,28 +78,6 @@ public class MoodLog implements Saveable {
         printWriter.print(Reader.DELIMITER);
         printWriter.print(entry.getPmMood());
         printWriter.print("\n");
-        //printWriter.print(log);
-//        printWriter.print(amMood);
-//        printWriter.print(Reader.DELIMITER);
-//        printWriter.print(pmMood);
-//        printWriter.print(Reader.DELIMITER);
-
-//        for (int i = 0; i < log.size(); i++) {
-//                printWriter.print(log.get(i).getAmMood());
-//                printWriter.print(Reader.DELIMITER);
-//                printWriter.print(log.get(i).getPmMood());
-//                //printWriter.print(Reader.DELIMITER);
-//                printWriter.print("\n");
-//            }
-//        }
-
-
-        //printWriter.print("\n");
-
-        //need to change to string in reader
-        //printWriter.print(); ///not loading average****
-
-
     }
 }
 

@@ -45,7 +45,9 @@ public class MoodEntry {
         return pm;
     }
 
-    public Double getAverageMood() {
+    // REQUIRES: amMood and pmMood to be non-zero
+    // EFFECTS: returns average of a mood entry
+    public Double averageMoodEntry() {
         Double average = (amMood + pmMood) / 2;
         return average;
     }
@@ -61,45 +63,6 @@ public class MoodEntry {
 }
 
 
-//    // REQUIRES: amRate > 0.0
-//    // MODIFIES: this
-//    // EFFECTS: adds rating to amMood list
-//    public void addRatingAM(Double amRate) {
-//        //amMood.add(amRate);
-//    }
-
-//    // REQUIRES: pmRate > 0.0
-//    // MODIFIES: this
-//    // EFFECTS: adds rating to pmMood list
-//    public void addRatingPM(Double pmRate) {
-//        //pmMood.add(pmRate);
-//    }
-
-//    // MODIFIES: this
-//    // EFFECTS: returns the average of all mood entries
-//    public double getAverageMood() {
-//        //totalAllMoodRating = totalAMMoodRating + totalPMMoodRating;
-//        //averageMood = totalAllMoodRating / (amMood.size() + pmMood.size());
-//        return averageMood;
-//    }
-//
-//    // EFFECTS: returns sum of all am mood entries
-//    public double getTotalAMMood() {
-//        for (int i = 0; i < amMood.size(); i++) {
-//            totalAMMoodRating += amMood.get(i);
-//        }
-//        return totalAMMoodRating;
-//    }
-//
-//    // EFFECTS: returns sum of all pm mood entries
-//    public double getTotalPMMood() {
-//        for (int i = 0; i < pmMood.size(); i++) {
-//            totalPMMoodRating += pmMood.get(i);
-//        }
-//        return totalPMMoodRating;
-//    }
-
-    //getter for individual mood entries
 
 
 

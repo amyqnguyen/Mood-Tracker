@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 
 // A writer that can write mood data to a file
+// Class adapted from CPSC 210/TellerAPP/2020
 public class Writer {
     private PrintWriter printWriter;
 

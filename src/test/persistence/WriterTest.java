@@ -29,8 +29,6 @@ public class WriterTest {
         testWriter = new Writer(new File(MOODS_TEST));
         ML1 = new MoodLog("Monday", new MoodEntry(1.0, 2.0));
         ML2 = new MoodLog("Tuesday", new MoodEntry(5.0, 6.0));
-
-
     }
 
     @Test

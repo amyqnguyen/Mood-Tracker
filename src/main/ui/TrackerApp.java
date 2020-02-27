@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -78,6 +77,7 @@ public class TrackerApp {
     // MODIFIES: this
     // EFFECTS: loads accounts from MOOD_FILE, if that file exists;
     // otherwise initializes accounts with default values
+    // method adapted from CPSC 210/TellerAPP/2020
     private void loadMoodLog() {
         try {
             List<MoodLog> moodLogs = Reader.readMoods(new File(MOODS_FILE));
@@ -95,6 +95,7 @@ public class TrackerApp {
     }
 
     // EFFECTS: saves state of moods to MOODS_FILE
+    // method adapted from CPSC 210/TellerAPP/2020
     private void saveMoodLogs() {
         try {
             Writer writer = new Writer(new File(MOODS_FILE));
@@ -124,7 +125,7 @@ public class TrackerApp {
 //        userEntry.setPMmood(pmRating);
     private void processRating(String time) {
         MoodEntry userEntry = new MoodEntry(amRating, pmRating);;
-        userEntry.getAverageMood();
+        userEntry.averageMoodEntry();
 
         if (time.equals("am")) {
             doAmMood();
@@ -192,7 +193,7 @@ public class TrackerApp {
 
     // EFFECTS: prints mood average to the screen
     private void printAverage(MoodEntry entry) {
-        double average = entry.getAverageMood();
+        double average = entry.averageMoodEntry();
         System.out.println("Average: " + average);
     }
 
@@ -266,7 +267,7 @@ public class TrackerApp {
         //userEntry.getTotalPMMood();
         userEntry.getAmMood();
         userEntry.getPmMood();
-        userEntry.getAverageMood();
+        userEntry.averageMoodEntry();
         userEntry.setAMmood(amRating);
         userEntry.setPMmood(pmRating);
         //userLog.addMoodEntry(userEntry);

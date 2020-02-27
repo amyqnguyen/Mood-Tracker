@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 
 // A reader that can read mood log data from a file
+// Class adapted from CPSC 210/TellerAPP/2020
 public class Reader {
     public static final String DELIMITER = ",";
 
@@ -40,31 +41,23 @@ public class Reader {
         return moodLogs;
     }
 
+    // EFFECTS: returns a list of strings obtained by splitting line on DELIMITER
     private static ArrayList<String> splitString(String line) {
         String[] splits = line.split(DELIMITER);
         return new ArrayList<>(Arrays.asList(splits));
     }
 
-//    private static MoodEntry createMoodEntry() {
-//        for (int i = 0; i < string.size(); i++) {
-//    }
-
+    // REQUIRES: components has size 4 where element 0 represents the name of the week day
+    // of the mood log, element 1 represents the id, element 2 is the am mood to
+    // be used to construct a new mood entry, element 3 is the pm mood to be used to
+    // construct a new mood entry
+    // EFFECTS: returns an mood log constructed from components
     private static MoodLog parseMood(List<String> components) {
-        //int nextId = Integer.parseInt(components.get(0));
         String weekDay = components.get(0);
         int id = Integer.parseInt(components.get(1));
         double ratingAM  = Double.parseDouble(components.get(2));
         double ratingPM = Double.parseDouble(components.get(3));
         MoodEntry me = new MoodEntry(ratingAM, ratingPM);
-        //ArrayList<MoodEntry> log = new ArrayList<MoodEntry>();
-        //log.add(me);
         return new MoodLog(weekDay, id, me);
-
-        //Double am = Double.parseDouble(components.get(2));
-        //Double pm = Double.parseDouble(components.get(3));
-        //ArrayList<MoodEntry> ml =
-        //String ms = Arrays.toString(new String[]{components.get(2)});
-        //double average = Double.parseDouble(components.get(2));
-
     }
 }
