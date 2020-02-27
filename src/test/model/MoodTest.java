@@ -49,8 +49,6 @@ class MoodTest {
         testMood1.setPMmood(7.0);
         assertEquals(5.0, testMood1.averageMoodEntry());
         assertEquals(5.0, testLog1.getAverageMoodLog());
-        assertEquals((10.0 + 7.0) / 2.0, testMood2.averageMoodEntry());
-
     }
 
     @Test
