@@ -7,8 +7,8 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 
-public class TabbedPaneDemo extends JPanel {
-    public TabbedPaneDemo() {
+public class GUI extends JPanel {
+    public GUI() {
         super(new GridLayout(1, 1));
 
         JTabbedPane tabbedPane = new JTabbedPane();
@@ -23,7 +23,7 @@ public class TabbedPaneDemo extends JPanel {
                 "Does nothing");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-
+        //Tab 2
         JComponent panel2 = makeTextPanel("PM Mood");
         TitledBorder title2;
         title2 = BorderFactory.createTitledBorder("PM Mood");
@@ -32,13 +32,20 @@ public class TabbedPaneDemo extends JPanel {
                 "Does twice as much nothing");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
+        //Tab 3
         JComponent panel3 = makeTextPanel("Daily Average");
+        TitledBorder title3;
+        title3 = BorderFactory.createTitledBorder("Daily Average");
+        panel3.setBorder(title3);
         tabbedPane.addTab("Daily Average", icon, panel3,
                 "Still does nothing");
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
 
-        JComponent panel4 = makeTextPanel(
-                "Weekly Log");
+        //Tab 4
+        JComponent panel4 = makeTextPanel("Weekly Log");
+        TitledBorder title4;
+        title4 = BorderFactory.createTitledBorder("Weekly Log");
+        panel4.setBorder(title4);
         panel4.setPreferredSize(new Dimension(410, 50));
         tabbedPane.addTab("Week Log", icon, panel4,
                 "Does nothing at all");
@@ -62,7 +69,7 @@ public class TabbedPaneDemo extends JPanel {
 
     /** Returns an ImageIcon, or null if the path was invalid. */
     protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = TabbedPaneDemo.class.getResource(path);
+        java.net.URL imgURL = GUI.class.getResource(path);
         if (imgURL != null) {
             return new ImageIcon(imgURL);
         } else {
@@ -82,7 +89,7 @@ public class TabbedPaneDemo extends JPanel {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Add content to the window.
-        frame.add(new TabbedPaneDemo(), BorderLayout.CENTER);
+        frame.add(new GUI(), BorderLayout.CENTER);
 
         //Display the window.
         frame.pack();
