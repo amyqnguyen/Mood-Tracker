@@ -41,8 +41,6 @@ public class GUI extends JPanel {
                 "Does nothing");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-
-
         //Tab 2
         //slider
         JPanel panel2 = new JPanel(new BorderLayout());
@@ -63,16 +61,37 @@ public class GUI extends JPanel {
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
         //Tab 3
-        JComponent panel3 = makeTextPanel("Daily Average");
+        //JPanel panel3 = new JPanel(new BorderLayout());
+        JPanel panel3 = new JPanel(new GridLayout(0, 1));
+        //JComponent panel3 = makeTextPanel("Daily Average");
         TitledBorder title3;
         title3 = BorderFactory.createTitledBorder("Daily Average");
         panel3.setBorder(title3);
         tabbedPane.addTab("Daily Average", icon, panel3,
                 "Still does nothing");
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
+        //combo box
+        String[] amDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        JComboBox amList = new JComboBox(amDays);
+        amList.setSelectedIndex(6);
+        //amList.setEditable(true);
+        panel3.add(amList);
+        //result box
+        JLabel resultLabel = new JLabel("Average Rating",
+                JLabel.LEADING); //== LEFT
+        JLabel result = new JLabel(" ");
+        result.setForeground(Color.black);
+        result.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.black),
+                BorderFactory.createEmptyBorder(5,5,5,5)
+        ));
+        panel3.add(resultLabel);
+        panel3.add(result);
 
         //Tab 4
-        JComponent panel4 = makeTextPanel("Weekly Log");
+        //JComponent panel4 = makeTextPanel("Weekly Log");
+        JPanel panel4 = new JPanel(new GridLayout(0, 1));
+        //JPanel panel4 = new JPanel(new BorderLayout());
         TitledBorder title4;
         title4 = BorderFactory.createTitledBorder("Weekly Log");
         panel4.setBorder(title4);
@@ -80,6 +99,22 @@ public class GUI extends JPanel {
         tabbedPane.addTab("Week Log", icon, panel4,
                 "Does nothing at all");
         tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
+        //combo box
+        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        JComboBox weekList = new JComboBox(weekDays);
+        amList.setSelectedIndex(6);
+        panel4.add(weekList);
+        JLabel resultLabel2 = new JLabel("Average Rating",
+                JLabel.LEADING); //== LEFT
+        JLabel result2 = new JLabel(" ");
+        result2.setForeground(Color.black);
+        result2.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(Color.black),
+                BorderFactory.createEmptyBorder(1,1,1,1)
+        ));
+        panel4.add(resultLabel2);
+        panel4.add(result2);
+
 
         //Add the tabbed pane to this panel.
         add(tabbedPane);
