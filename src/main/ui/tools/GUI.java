@@ -2,12 +2,16 @@ package ui.tools;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class GUI extends JPanel {
+    static final int minRating = 0;
+    static final int maxRating = 10;
+    static final int initialRating = 5;
+
     public GUI() {
         super(new GridLayout(1, 1));
 
@@ -15,7 +19,21 @@ public class GUI extends JPanel {
         ImageIcon icon = createImageIcon("images/middle.gif");
 
         //Tab 1
-        JComponent panel1 = makeTextPanel("AM Mood"); ///change panel type
+        //slider
+        JPanel panel1 = new JPanel(new BorderLayout());
+        JSlider amRatingSlider = new JSlider(minRating,maxRating);
+//      amRatingSlider.addChangeListener((ChangeListener) this);
+        amRatingSlider.setMajorTickSpacing(1);
+        amRatingSlider.setPaintTicks(true);
+        amRatingSlider.setPaintLabels(true);
+        //JComponent amSlider = amRatingSlider; ///change panel type
+        panel1.add(amRatingSlider, BorderLayout.CENTER);
+        //enter button
+        JButton setButton = new JButton("Set");
+        panel1.add(setButton, BorderLayout.PAGE_END);
+        //main panel
+        //Container contentPane = new Container();
+
         TitledBorder title1;
         title1 = BorderFactory.createTitledBorder("AM Mood");
         panel1.setBorder(title1);
@@ -23,8 +41,20 @@ public class GUI extends JPanel {
                 "Does nothing");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
+
+
         //Tab 2
-        JComponent panel2 = makeTextPanel("PM Mood");
+        //slider
+        JPanel panel2 = new JPanel(new BorderLayout());
+        JSlider pmRatingSlider = new JSlider(minRating,maxRating);
+//        amRatingSlider.addChangeListener((ChangeListener) this);
+        pmRatingSlider.setMajorTickSpacing(1);
+        pmRatingSlider.setPaintTicks(true);
+        pmRatingSlider.setPaintLabels(true);
+        panel2.add(pmRatingSlider, BorderLayout.CENTER);
+        JButton setButton1 = new JButton("Set");
+        panel2.add(setButton1, BorderLayout.PAGE_END);
+        //JComponent panel2 = pmRatingSlider;
         TitledBorder title2;
         title2 = BorderFactory.createTitledBorder("PM Mood");
         panel2.setBorder(title2);
@@ -46,7 +76,7 @@ public class GUI extends JPanel {
         TitledBorder title4;
         title4 = BorderFactory.createTitledBorder("Weekly Log");
         panel4.setBorder(title4);
-        panel4.setPreferredSize(new Dimension(410, 50));
+        panel4.setPreferredSize(new Dimension(410, 450));
         tabbedPane.addTab("Week Log", icon, panel4,
                 "Does nothing at all");
         tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
@@ -95,6 +125,7 @@ public class GUI extends JPanel {
         frame.pack();
         frame.setVisible(true);
     }
+
 
     public static void main(String[] args) {
         //Schedule a job for the event dispatch thread:
