@@ -5,12 +5,17 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 
-public class GUI extends JPanel {
+//import ui.TrackerApp;
+import model.MoodEntry;
+import model.MoodLog;
+
+public class GUI extends JPanel implements ActionListener, ChangeListener {
     static final int minRating = 0;
     static final int maxRating = 10;
     static final int initialRating = 5;
+    protected JButton setButton;
 
     public GUI() {
         super(new GridLayout(1, 1));
@@ -26,10 +31,13 @@ public class GUI extends JPanel {
         amRatingSlider.setMajorTickSpacing(1);
         amRatingSlider.setPaintTicks(true);
         amRatingSlider.setPaintLabels(true);
+        amRatingSlider.addChangeListener(this::stateChanged);
         //JComponent amSlider = amRatingSlider; ///change panel type
         panel1.add(amRatingSlider, BorderLayout.CENTER);
         //enter button
-        JButton setButton = new JButton("Set");
+        setButton = new JButton("Set");
+        setButton.setActionCommand("set");
+        setButton.addActionListener(this::actionPerformed);
         panel1.add(setButton, BorderLayout.PAGE_END);
         //main panel
         //Container contentPane = new Container();
@@ -173,4 +181,31 @@ public class GUI extends JPanel {
             }
         });
     }
+
+    //SLIDER action
+    //Listens to the button
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        JSlider source = (JSlider)e.getSource();
+        if ("set".equals(e.getActionCommand())) {
+            setButton.setEnabled(true);
+            int amRating = source.getValue();
+            MoodEntry moodEntry = new MoodEntry((double) amRating, 0.0);
+        } else {
+            setButton.setEnabled(false);
+        }
+    }
+
+    //Listens to slider
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        JSlider source = (JSlider)e.getSource();
+        if (!source.getValueIsAdjusting()) {
+            int amRating = (int)source.getValue();
+            MoodEntry moodEntry = new MoodEntry((double) amRating, 0.0);
+            //update Moodentry
+        }
+    }
+
+    //update Moodentry? method
 }
