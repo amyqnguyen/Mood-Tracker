@@ -1,21 +1,28 @@
 package ui.tools;
 
 import javax.swing.*;
+import java.awt.*;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.awt.event.*;
 
 //import ui.TrackerApp;
 import model.MoodEntry;
-import model.MoodLog;
 
-public class GUI extends JPanel implements ActionListener, ChangeListener {
+public class GUI extends JPanel implements ActionListener{
     static final int minRating = 0;
     static final int maxRating = 10;
-    static final int initialRating = 5;
-    protected JButton setButton;
+    protected static JButton setButton;
+    protected static JButton setButton1;
+    private static JSlider amRatingSlider;
+    private static JSlider pmRatingSlider;
+    private static JFormattedTextField field1;
+    private static JFormattedTextField field2;
+    private static int saveNumberHereAM;
+    private static int saveNumberHerePM;
+//    int amRating;
+//    int pmRating;
 
     public GUI() {
         super(new GridLayout(1, 1));
@@ -25,20 +32,34 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 
         //Tab 1
         //slider
-        JPanel panel1 = new JPanel(new BorderLayout());
-        JSlider amRatingSlider = new JSlider(minRating,maxRating);
-//      amRatingSlider.addChangeListener((ChangeListener) this);
+        JPanel panel1 = new JPanel(new GridLayout(0, 1));
+        ChangeListener amSliderListener = new SliderChangeListener();
+        amRatingSlider = new JSlider(minRating,maxRating);
+        amRatingSlider.addChangeListener(amSliderListener);
         amRatingSlider.setMajorTickSpacing(1);
         amRatingSlider.setPaintTicks(true);
         amRatingSlider.setPaintLabels(true);
-        amRatingSlider.addChangeListener(this::stateChanged);
         //JComponent amSlider = amRatingSlider; ///change panel type
-        panel1.add(amRatingSlider, BorderLayout.CENTER);
+        panel1.add(amRatingSlider);
         //enter button
         setButton = new JButton("Set");
         setButton.setActionCommand("set");
-        setButton.addActionListener(this::actionPerformed);
-        panel1.add(setButton, BorderLayout.PAGE_END);
+        ChangeListener buttonListener = new ButthonChangeListener();
+        setButton.addChangeListener(buttonListener);
+        ActionListener buttonActionListener = new ButtonActionListener();
+        setButton.addActionListener(buttonActionListener);
+        //setButton.addActionListener(this::actionPerformed);
+        panel1.add(setButton);
+        //text box
+        JLabel label1 = new JLabel("AM Mood: ");
+        panel1.add(label1);
+        field1 = new JFormattedTextField();
+        field1.setColumns(10);
+        field1.setEditable(false);
+        field1.setBackground(Color.white);
+        //double d = saveNumberHere; ///TEST
+        field1.setValue(saveNumberHereAM);
+        panel1.add(field1);
         //main panel
         //Container contentPane = new Container();
 
@@ -51,22 +72,37 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
 
         //Tab 2
         //slider
-        JPanel panel2 = new JPanel(new BorderLayout());
-        JSlider pmRatingSlider = new JSlider(minRating,maxRating);
-//        amRatingSlider.addChangeListener((ChangeListener) this);
+        JPanel panel2 = new JPanel(new GridLayout(0, 1));
+        ChangeListener pmSliderListener = new SliderChangeListener1();
+        pmRatingSlider = new JSlider(minRating,maxRating);
+        pmRatingSlider.addChangeListener(pmSliderListener);
         pmRatingSlider.setMajorTickSpacing(1);
         pmRatingSlider.setPaintTicks(true);
         pmRatingSlider.setPaintLabels(true);
-        panel2.add(pmRatingSlider, BorderLayout.CENTER);
-        JButton setButton1 = new JButton("Set");
-        panel2.add(setButton1, BorderLayout.PAGE_END);
-        //JComponent panel2 = pmRatingSlider;
+        panel2.add(pmRatingSlider);
+        setButton1 = new JButton("Set");
+        setButton1.setActionCommand("set");
+        ChangeListener buttonListener1 = new ButthonChangeListener1();
+        setButton1.addChangeListener(buttonListener1);
+        ActionListener buttonActionListener1 = new ButtonActionListener1();
+        setButton1.addActionListener(buttonActionListener1);
+        panel2.add(setButton1);
+        //text box
+        JLabel label2 = new JLabel("PM Mood: ");
+        panel2.add(label2);
+        field2 = new JFormattedTextField();
+        field2.setColumns(10);
+        field2.setEditable(false);
+        field2.setBackground(Color.white);
+        field2.setValue(saveNumberHerePM);
+        panel2.add(field2);
         TitledBorder title2;
         title2 = BorderFactory.createTitledBorder("PM Mood");
         panel2.setBorder(title2);
         tabbedPane.addTab("PM Mood", icon, panel2,
                 "Does twice as much nothing");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+
 
         //Tab 3
         //JPanel panel3 = new JPanel(new BorderLayout());
@@ -197,15 +233,86 @@ public class GUI extends JPanel implements ActionListener, ChangeListener {
     }
 
     //Listens to slider
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        JSlider source = (JSlider)e.getSource();
-        if (!source.getValueIsAdjusting()) {
-            int amRating = (int)source.getValue();
-            MoodEntry moodEntry = new MoodEntry((double) amRating, 0.0);
-            //update Moodentry
+//    @Override
+//    public void stateChanged(ChangeEvent e) {
+//        JSlider source = (JSlider)e.getSource();
+//        if (!source.getValueIsAdjusting()) {
+//            this.amRating = (int)source.getValue();
+//            MoodEntry moodEntry = new MoodEntry((double) amRating, 0.0);
+//            moodEntry.setAMmood((double) amRating);
+//            System.out.println("Slider changed: " + (int)source.getValue());
+//            //update Moodentry
+//        }
+//    }
+
+    /// TAB1-AM
+    private class SliderChangeListener implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            if (!amRatingSlider.getValueIsAdjusting()) {
+                System.out.println("Slider changed: " + amRatingSlider.getValue());
+            }
         }
     }
 
-    //update Moodentry? method
+    public static class ButthonChangeListener implements ChangeListener {
+        public void stateChanged(ChangeEvent changeEvent) {
+            saveNumberHereAM = amRatingSlider.getValue();
+            //System.out.println(saveNumberHere);
+        }
+
+    }
+
+    private class ButtonActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if ("set".equals(e.getActionCommand())) {
+                setButton.setEnabled(true);
+                setButton.getChangeListeners();
+                field1.setValue(saveNumberHereAM);
+                System.out.println(saveNumberHereAM);
+                MoodEntry moodEntry = new MoodEntry((double) saveNumberHereAM, 0.0);
+            } else {
+                setButton.setEnabled(false);
+            }
+        }
+
+    }
+
+    // TAB2-PM
+    private class SliderChangeListener1 implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            if (!pmRatingSlider.getValueIsAdjusting()) {
+                System.out.println("Slider changed: " + pmRatingSlider.getValue());
+            }
+        }
+    }
+
+    private class ButthonChangeListener1 implements ChangeListener {
+        @Override
+        public void stateChanged(ChangeEvent e) {
+            saveNumberHerePM = pmRatingSlider.getValue();
+        }
+    }
+
+    private class ButtonActionListener1 implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if ("set".equals(e.getActionCommand())) {
+                setButton1.setEnabled(true);
+                setButton1.getChangeListeners();
+                field2.setValue(saveNumberHerePM);
+                System.out.println(saveNumberHerePM);
+                MoodEntry moodEntry = new MoodEntry((double) saveNumberHereAM, (double) saveNumberHerePM);
+            } else {
+                setButton1.setEnabled(false);
+            }
+        }
+    }
+
+
 }
+
+    //update Moodentry? method
+
