@@ -11,7 +11,7 @@ import java.awt.event.*;
 import model.MoodEntry;
 import model.MoodLog;
 
-public class GUI extends JPanel implements ActionListener {
+public class GUI extends JPanel {
     private static final int minRating = 0;
     private static final int maxRating = 10;
     protected static JButton setButton;
@@ -23,7 +23,9 @@ public class GUI extends JPanel implements ActionListener {
     private static double saveNumberHereAM;
     private static double saveNumberHerePM;
     private static JComboBox comboBox1;
+    private static JComboBox comboBox2;
     private static JTextArea textAreaAM;
+    private static JTextArea textAreaPM;
 
     private static MoodLog newLog;
     private static MoodLog monday;
@@ -55,7 +57,7 @@ public class GUI extends JPanel implements ActionListener {
         //enter button
         setButton = new JButton("Set");
         setButton.setActionCommand("set");
-        ChangeListener buttonListener = new ButthonChangeListener();
+        ChangeListener buttonListener = new ButtonChangeListener();
         setButton.addChangeListener(buttonListener);
         ActionListener buttonActionListener = new ButtonActionListener();
         setButton.addActionListener(buttonActionListener);
@@ -67,7 +69,7 @@ public class GUI extends JPanel implements ActionListener {
         comboBox1.setSelectedIndex(6);
         ActionListener comboBoxListener1 = new ComboBoxActionListener1();
         comboBox1.addActionListener(comboBoxListener1);
-        panel1.add(GUI.comboBox1);
+        panel1.add(comboBox1);
         //text box
         JLabel label1 = new JLabel("AM Mood: ");
         panel1.add(label1);
@@ -109,15 +111,25 @@ public class GUI extends JPanel implements ActionListener {
         ActionListener buttonActionListener1 = new ButtonActionListener1();
         setButton1.addActionListener(buttonActionListener1);
         panel2.add(setButton1);
+        //ComboBox
+        comboBox2 = new JComboBox(weekDays);
+        comboBox2.setSelectedIndex(6);
+        ActionListener comboBoxListener2 = new ComboBoxActionListener2();
+        comboBox2.addActionListener(comboBoxListener2);
+        panel2.add(comboBox2);
         //text box
         JLabel label2 = new JLabel("PM Mood: ");
         panel2.add(label2);
-        field2 = new JFormattedTextField();
-        field2.setColumns(10);
-        field2.setEditable(false);
-        field2.setBackground(Color.white);
-        field2.setValue(saveNumberHerePM);
-        panel2.add(field2);
+        //text panel
+        textAreaPM = new JTextArea();
+        textAreaPM.setEditable(false);
+        panel2.add(textAreaPM);
+//        field2 = new JFormattedTextField();
+//        field2.setColumns(10);
+//        field2.setEditable(false);
+//        field2.setBackground(Color.white);
+//        field2.setValue(saveNumberHerePM);
+//        panel2.add(field2);
         TitledBorder title2;
         title2 = BorderFactory.createTitledBorder("PM Mood");
         panel2.setBorder(title2);
@@ -245,17 +257,17 @@ public class GUI extends JPanel implements ActionListener {
 
     //SLIDER action
     //Listens to the button
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        JSlider source = (JSlider) e.getSource();
-        if ("set".equals(e.getActionCommand())) {
-            setButton.setEnabled(true);
-            int amRating = source.getValue();
-            moodEntry = new MoodEntry((double) amRating, 0.0);
-        } else {
-            setButton.setEnabled(false);
-        }
-    }
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        JSlider source = (JSlider) e.getSource();
+//        if ("set".equals(e.getActionCommand())) {
+//            setButton.setEnabled(true);
+//            int amRating = source.getValue();
+//            moodEntry = new MoodEntry((double) amRating, 0.0);
+//        } else {
+//            setButton.setEnabled(false);
+//        }
+//    }
 
     /// TAB1-AM
     private class SliderChangeListener implements ChangeListener {
@@ -267,7 +279,7 @@ public class GUI extends JPanel implements ActionListener {
         }
     }
 
-    public static class ButthonChangeListener implements ChangeListener {
+    public static class ButtonChangeListener implements ChangeListener {
         public void stateChanged(ChangeEvent changeEvent) {
             saveNumberHereAM = amRatingSlider.getValue();
             //System.out.println(saveNumberHere);
@@ -364,19 +376,75 @@ public class GUI extends JPanel implements ActionListener {
             if ("set".equals(e.getActionCommand())) {
                 setButton1.setEnabled(true);
                 setButton1.getChangeListeners();
-                field2.setValue(saveNumberHerePM);
-                System.out.println(saveNumberHerePM);
+                //field2.setValue(saveNumberHerePM);
+                System.out.println(saveNumberHerePM); //test
                 moodEntry = new MoodEntry(saveNumberHereAM, saveNumberHerePM);
                 moodEntry.setPMmood(saveNumberHerePM);
                 //check
-                double testValue = moodEntry.getPmMood();
+                double testValue = moodEntry.getPmMood(); //test
                 System.out.println(testValue);
             } else {
                 setButton1.setEnabled(false);
             }
         }
     }
+
+    private class ComboBoxActionListener2 implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            init();
+            JComboBox cb = (JComboBox) e.getSource();
+            String weekName = (String) cb.getSelectedItem();
+            updateWeekDay(weekName);
+            textAreaPM.append(weekName + " " + saveNumberHerePM);
+            System.out.println(weekName);
+
+        }
+
+        private void init() {
+            monday = new MoodLog("Monday", new MoodEntry(0.0, 0.0));
+            tuesday = new MoodLog("Tuesday", new MoodEntry(0.0, 0.0));
+            wednesday = new MoodLog("Wednesday", new MoodEntry(0.0, 0.0));
+            thursday = new MoodLog("Thursday", new MoodEntry(0.0, 0.0));
+            friday = new MoodLog("Friday", new MoodEntry(0.0, 0.0));
+            saturday = new MoodLog("Saturday", new MoodEntry(0.0, 0.0));
+            sunday = new MoodLog("Sunday", new MoodEntry(0.0, 0.0));
+        }
+
+        public void updateWeekDay(String weekDay) {
+            if (weekDay.equals("monday")) {
+                monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                System.out.println("test aM " + saveNumberHereAM);
+                System.out.println("test " + saveNumberHerePM);
+            } else if (weekDay.equals("tuesday")) {
+                tuesday = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                System.out.println("test aM " + saveNumberHereAM);
+                System.out.println("test " + saveNumberHerePM);
+            } else if (weekDay.equals("wednesday")) {
+                wednesday = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                System.out.println("test aM " + saveNumberHereAM);
+                System.out.println("test " + saveNumberHerePM);
+            } else if (weekDay.equals("thursday")) {
+                thursday = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                System.out.println("test aM " + saveNumberHereAM);
+                System.out.println("test " + saveNumberHerePM);
+            } else if (weekDay.equals("friday")) {
+                friday = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                System.out.println("test aM " + saveNumberHereAM);
+                System.out.println("test " + saveNumberHerePM);
+            } else if (weekDay.equals("saturday")) {
+                saturday = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                System.out.println("test " + saveNumberHerePM);
+            } else {
+                sunday = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                System.out.println("test aM " + saveNumberHereAM);
+                System.out.println("test " + saveNumberHerePM);
+            }
+
+        }
+    }
 }
+
 
 
 
