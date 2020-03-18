@@ -23,6 +23,7 @@ public class GUI extends JPanel implements ActionListener {
     private static double saveNumberHereAM;
     private static double saveNumberHerePM;
     private static JComboBox comboBox1;
+    private static JTextArea textAreaAM;
 
     private static MoodLog newLog;
     private static MoodLog monday;
@@ -41,15 +42,8 @@ public class GUI extends JPanel implements ActionListener {
         ImageIcon icon = createImageIcon("images/middle.gif");
 
         //Tab 1
-        //slider
         JPanel panel1 = new JPanel(new GridLayout(0, 1));
-        //ComboBox
-        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-        comboBox1 = new JComboBox(weekDays);
-        comboBox1.setSelectedIndex(6);
-        ActionListener comboBoxListener1 = new ComboBoxActionListener1();
-        comboBox1.addActionListener(comboBoxListener1);
-        panel1.add(GUI.comboBox1);
+        //slider
         ChangeListener amSliderListener = new SliderChangeListener();
         amRatingSlider = new JSlider(minRating, maxRating);
         amRatingSlider.addChangeListener(amSliderListener);
@@ -67,16 +61,27 @@ public class GUI extends JPanel implements ActionListener {
         setButton.addActionListener(buttonActionListener);
         //setButton.addActionListener(this::actionPerformed);
         panel1.add(setButton);
+        //ComboBox
+        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        comboBox1 = new JComboBox(weekDays);
+        comboBox1.setSelectedIndex(6);
+        ActionListener comboBoxListener1 = new ComboBoxActionListener1();
+        comboBox1.addActionListener(comboBoxListener1);
+        panel1.add(GUI.comboBox1);
         //text box
         JLabel label1 = new JLabel("AM Mood: ");
         panel1.add(label1);
-        field1 = new JFormattedTextField();
-        field1.setColumns(10);
-        field1.setEditable(false);
-        field1.setBackground(Color.white);
-        //double d = saveNumberHere; ///TEST
-        field1.setValue(saveNumberHereAM);
-        panel1.add(field1);
+//        field1 = new JFormattedTextField();
+//        field1.setColumns(10);
+//        field1.setEditable(false);
+//        field1.setBackground(Color.white);
+//        //double d = saveNumberHere; ///TEST
+//        field1.setValue(saveNumberHereAM);
+//        panel1.add(field1);
+        //text panel
+        textAreaAM = new JTextArea();
+        textAreaAM.setEditable(false);
+        panel1.add(textAreaAM);
         //main panel
         //Container contentPane = new Container();
 
@@ -276,7 +281,7 @@ public class GUI extends JPanel implements ActionListener {
             if ("set".equals(e.getActionCommand())) {
                 setButton.setEnabled(true);
                 setButton.getChangeListeners();
-                field1.setValue(saveNumberHereAM);
+                //field1.setValue(saveNumberHereAM);
                 System.out.println(saveNumberHereAM);
                 moodEntry = new MoodEntry((double) saveNumberHereAM, 0.0);
                 moodEntry.setAMmood(saveNumberHereAM);
@@ -294,6 +299,7 @@ public class GUI extends JPanel implements ActionListener {
             JComboBox cb = (JComboBox) e.getSource();
             String weekName = (String) cb.getSelectedItem();
             updateWeekDay(weekName);
+            textAreaAM.append(weekName + " " + saveNumberHereAM);
             System.out.println(weekName);
 
         }
