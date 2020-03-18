@@ -9,20 +9,30 @@ import java.awt.event.*;
 
 //import ui.TrackerApp;
 import model.MoodEntry;
+import model.MoodLog;
 
-public class GUI extends JPanel implements ActionListener{
-    static final int minRating = 0;
-    static final int maxRating = 10;
+public class GUI extends JPanel implements ActionListener {
+    private static final int minRating = 0;
+    private static final int maxRating = 10;
     protected static JButton setButton;
     protected static JButton setButton1;
     private static JSlider amRatingSlider;
     private static JSlider pmRatingSlider;
     private static JFormattedTextField field1;
     private static JFormattedTextField field2;
-    private static int saveNumberHereAM;
-    private static int saveNumberHerePM;
-//    int amRating;
-//    int pmRating;
+    private static double saveNumberHereAM;
+    private static double saveNumberHerePM;
+    private static JComboBox comboBox1;
+
+    private static MoodLog newLog;
+    private static MoodLog monday;
+    private static MoodLog tuesday;
+    private static MoodLog wednesday;
+    private static MoodLog thursday;
+    private static MoodLog friday;
+    private static MoodLog saturday;
+    private static MoodLog sunday;
+    private static MoodEntry moodEntry;
 
     public GUI() {
         super(new GridLayout(1, 1));
@@ -33,8 +43,15 @@ public class GUI extends JPanel implements ActionListener{
         //Tab 1
         //slider
         JPanel panel1 = new JPanel(new GridLayout(0, 1));
+        //ComboBox
+        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        comboBox1 = new JComboBox(weekDays);
+        comboBox1.setSelectedIndex(6);
+        ActionListener comboBoxListener1 = new ComboBoxActionListener1();
+        comboBox1.addActionListener(comboBoxListener1);
+        panel1.add(GUI.comboBox1);
         ChangeListener amSliderListener = new SliderChangeListener();
-        amRatingSlider = new JSlider(minRating,maxRating);
+        amRatingSlider = new JSlider(minRating, maxRating);
         amRatingSlider.addChangeListener(amSliderListener);
         amRatingSlider.setMajorTickSpacing(1);
         amRatingSlider.setPaintTicks(true);
@@ -74,7 +91,7 @@ public class GUI extends JPanel implements ActionListener{
         //slider
         JPanel panel2 = new JPanel(new GridLayout(0, 1));
         ChangeListener pmSliderListener = new SliderChangeListener1();
-        pmRatingSlider = new JSlider(minRating,maxRating);
+        pmRatingSlider = new JSlider(minRating, maxRating);
         pmRatingSlider.addChangeListener(pmSliderListener);
         pmRatingSlider.setMajorTickSpacing(1);
         pmRatingSlider.setPaintTicks(true);
@@ -115,8 +132,8 @@ public class GUI extends JPanel implements ActionListener{
                 "Still does nothing");
         tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
         //combo box
-        String[] amDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-        JComboBox amList = new JComboBox(amDays);
+        //String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        JComboBox amList = new JComboBox(weekDays);
         amList.setSelectedIndex(6);
         //amList.setEditable(true);
         panel3.add(amList);
@@ -127,7 +144,7 @@ public class GUI extends JPanel implements ActionListener{
         result.setForeground(Color.black);
         result.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.black),
-                BorderFactory.createEmptyBorder(5,5,5,5)
+                BorderFactory.createEmptyBorder(5, 5, 5, 5)
         ));
         panel3.add(resultLabel);
         panel3.add(result);
@@ -144,7 +161,7 @@ public class GUI extends JPanel implements ActionListener{
                 "Does nothing at all");
         tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
         //combo box
-        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        //String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
         JComboBox weekList = new JComboBox(weekDays);
         amList.setSelectedIndex(6);
         panel4.add(weekList);
@@ -154,7 +171,7 @@ public class GUI extends JPanel implements ActionListener{
         result2.setForeground(Color.black);
         result2.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(Color.black),
-                BorderFactory.createEmptyBorder(1,1,1,1)
+                BorderFactory.createEmptyBorder(1, 1, 1, 1)
         ));
         panel4.add(resultLabel2);
         panel4.add(result2);
@@ -176,7 +193,9 @@ public class GUI extends JPanel implements ActionListener{
         return panel;
     }
 
-    /** Returns an ImageIcon, or null if the path was invalid. */
+    /**
+     * Returns an ImageIcon, or null if the path was invalid.
+     */
     protected static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = GUI.class.getResource(path);
         if (imgURL != null) {
@@ -186,6 +205,7 @@ public class GUI extends JPanel implements ActionListener{
             return null;
         }
     }
+
 
     /**
      * Create the GUI and show it.  For thread safety,
@@ -222,28 +242,15 @@ public class GUI extends JPanel implements ActionListener{
     //Listens to the button
     @Override
     public void actionPerformed(ActionEvent e) {
-        JSlider source = (JSlider)e.getSource();
+        JSlider source = (JSlider) e.getSource();
         if ("set".equals(e.getActionCommand())) {
             setButton.setEnabled(true);
             int amRating = source.getValue();
-            MoodEntry moodEntry = new MoodEntry((double) amRating, 0.0);
+            moodEntry = new MoodEntry((double) amRating, 0.0);
         } else {
             setButton.setEnabled(false);
         }
     }
-
-    //Listens to slider
-//    @Override
-//    public void stateChanged(ChangeEvent e) {
-//        JSlider source = (JSlider)e.getSource();
-//        if (!source.getValueIsAdjusting()) {
-//            this.amRating = (int)source.getValue();
-//            MoodEntry moodEntry = new MoodEntry((double) amRating, 0.0);
-//            moodEntry.setAMmood((double) amRating);
-//            System.out.println("Slider changed: " + (int)source.getValue());
-//            //update Moodentry
-//        }
-//    }
 
     /// TAB1-AM
     private class SliderChangeListener implements ChangeListener {
@@ -271,12 +278,61 @@ public class GUI extends JPanel implements ActionListener{
                 setButton.getChangeListeners();
                 field1.setValue(saveNumberHereAM);
                 System.out.println(saveNumberHereAM);
-                MoodEntry moodEntry = new MoodEntry((double) saveNumberHereAM, 0.0);
+                moodEntry = new MoodEntry((double) saveNumberHereAM, 0.0);
+                moodEntry.setAMmood(saveNumberHereAM);
             } else {
                 setButton.setEnabled(false);
             }
         }
 
+    }
+
+    private class ComboBoxActionListener1 implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            init();
+            JComboBox cb = (JComboBox) e.getSource();
+            String weekName = (String) cb.getSelectedItem();
+            updateWeekDay(weekName);
+            System.out.println(weekName);
+
+        }
+
+        private void init() {
+            monday = new MoodLog("Monday", new MoodEntry(0.0, 0.0));
+            tuesday = new MoodLog("Tuesday", new MoodEntry(0.0, 0.0));
+            wednesday = new MoodLog("Wednesday", new MoodEntry(0.0, 0.0));
+            thursday = new MoodLog("Thursday", new MoodEntry(0.0, 0.0));
+            friday = new MoodLog("Friday", new MoodEntry(0.0, 0.0));
+            saturday = new MoodLog("Saturday", new MoodEntry(0.0, 0.0));
+            sunday = new MoodLog("Sunday", new MoodEntry(0.0, 0.0));
+        }
+
+        public void updateWeekDay(String weekDay) {
+            if (weekDay.equals("monday")) {
+                monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, 0.0));
+                System.out.println("test " + saveNumberHereAM);
+            } else if (weekDay.equals("tuesday")) {
+                tuesday = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, 0.0));
+                System.out.println("test " + saveNumberHereAM);
+            } else if (weekDay.equals("wednesday")) {
+                wednesday = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, 0.0));
+                System.out.println("test " + saveNumberHereAM);
+            } else if (weekDay.equals("thursday")) {
+                thursday = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, 0.0));
+                System.out.println("test " + saveNumberHereAM);
+            } else if (weekDay.equals("friday")) {
+                friday = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, 0.0));
+                System.out.println("test " + saveNumberHereAM);
+            } else if (weekDay.equals("saturday")) {
+                saturday = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, 0.0));
+                System.out.println("test " + saveNumberHereAM);
+            } else {
+                sunday = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, 0.0));
+                System.out.println("test " + saveNumberHereAM);
+            }
+
+        }
     }
 
     // TAB2-PM
@@ -304,15 +360,21 @@ public class GUI extends JPanel implements ActionListener{
                 setButton1.getChangeListeners();
                 field2.setValue(saveNumberHerePM);
                 System.out.println(saveNumberHerePM);
-                MoodEntry moodEntry = new MoodEntry((double) saveNumberHereAM, (double) saveNumberHerePM);
+                moodEntry = new MoodEntry(saveNumberHereAM, saveNumberHerePM);
+                moodEntry.setPMmood(saveNumberHerePM);
+                //check
+                double testValue = moodEntry.getPmMood();
+                System.out.println(testValue);
             } else {
                 setButton1.setEnabled(false);
             }
         }
     }
-
-
 }
 
-    //update Moodentry? method
+
+
+
+
+
 
