@@ -190,7 +190,7 @@ public class TrackerApp {
         //System.out.println(selected);
     }
 
-
+    //USED
     // EFFECTS: prints mood average to the screen
     private void printAverage(MoodEntry entry) {
         double average = entry.averageMoodEntry();
@@ -210,6 +210,7 @@ public class TrackerApp {
         }
     }
 
+    //USED
     private MoodLog updateLog() {
         if (weekDay.equals("monday")) {
             newLog.setName("Monday");
@@ -261,16 +262,11 @@ public class TrackerApp {
     // method adapted from CPSC 210/SimpleCalculator/2020
     private void logResult(double amRating, double pmRating) {
         MoodEntry userEntry = new MoodEntry(amRating, pmRating);
-        //userEntry.addRatingAM(amRating);
-        //userEntry.addRatingPM(pmRating);
-        //userEntry.getTotalAMMood();
-        //userEntry.getTotalPMMood();
         userEntry.getAmMood();
         userEntry.getPmMood();
         userEntry.averageMoodEntry();
         userEntry.setAMmood(amRating);
         userEntry.setPMmood(pmRating);
-        //userLog.addMoodEntry(userEntry);
     }
 }
 

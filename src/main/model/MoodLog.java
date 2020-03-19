@@ -72,8 +72,6 @@ public class MoodLog implements Saveable {
     public void save(PrintWriter printWriter) {
         printWriter.print(weekDay);
         printWriter.print(Reader.DELIMITER);
-        printWriter.print(id);
-        printWriter.print(Reader.DELIMITER);
         printWriter.print(entry.getAmMood());
         printWriter.print(Reader.DELIMITER);
         printWriter.print(entry.getPmMood());

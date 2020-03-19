@@ -54,10 +54,10 @@ public class Reader {
     // EFFECTS: returns an mood log constructed from components
     private static MoodLog parseMood(List<String> components) {
         String weekDay = components.get(0);
-        int id = Integer.parseInt(components.get(1));
-        double ratingAM  = Double.parseDouble(components.get(2));
-        double ratingPM = Double.parseDouble(components.get(3));
+        //int id = Integer.parseInt(components.get(1));
+        double ratingAM  = Double.parseDouble(components.get(1));
+        double ratingPM = Double.parseDouble(components.get(2));
         MoodEntry me = new MoodEntry(ratingAM, ratingPM);
-        return new MoodLog(weekDay, id, me);
+        return new MoodLog(weekDay, me);
     }
 }
