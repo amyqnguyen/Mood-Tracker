@@ -458,31 +458,18 @@ public class GUI extends JPanel {
         public void updateWeekDay(String weekDay) {
             if (weekDay.equals("Monday")) {
                 monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                //System.out.println("test aM " + saveNumberHereAM);
-                //System.out.println("test " + saveNumberHerePM);
             } else if (weekDay.equals("Tuesday")) {
                 tuesday = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                //System.out.println("test aM " + saveNumberHereAM);
-                //System.out.println("test " + saveNumberHerePM);
             } else if (weekDay.equals("Wednesday")) {
                 wednesday = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                //System.out.println("test aM " + saveNumberHereAM);
-                //System.out.println("test " + saveNumberHerePM);
             } else if (weekDay.equals("Thursday")) {
                 thursday = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                //System.out.println("test aM " + saveNumberHereAM);
-                //System.out.println("test " + saveNumberHerePM);
             } else if (weekDay.equals("Friday")) {
                 friday = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                //System.out.println("test aM " + saveNumberHereAM);
-                //System.out.println("test " + saveNumberHerePM);
             } else if (weekDay.equals("Saturday")) {
                 saturday = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                //System.out.println("test " + saveNumberHerePM);
             } else {
                 sunday = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                //System.out.println("test aM " + saveNumberHereAM);
-                //System.out.println("test " + saveNumberHerePM);
             }
 
         }
@@ -502,39 +489,37 @@ public class GUI extends JPanel {
         public void actionPerformed(ActionEvent e) {
             JComboBox cb1 = (JComboBox) e.getSource();
             String weekName = (String) cb1.getSelectedItem();
+            cb1.getActionCommand();
             if (weekName.equals("Monday")) {
-                monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                System.out.println("test aM " + saveNumberHereAM);
-                System.out.println("test " + saveNumberHerePM);
-                printAverage(monday.getMoodEntry());
+                textAreaAverage.append(monday.getAverageMoodLog() + "\n");
+                //monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
             } else if (weekName.equals("Tuesday")) {
-                tuesday = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                printAverage(tuesday.getMoodEntry());
+                //tuesday = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                textAreaAverage.append(tuesday.getAverageMoodLog() + "\n");
+                //printAverage(tuesday.getMoodEntry());
             } else if (weekName.equals("Wednesday")) {
-                wednesday = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                printAverage(wednesday.getMoodEntry());
+                //wednesday = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                textAreaAverage.append(wednesday.getAverageMoodLog() + "\n");
+                //printAverage(wednesday.getMoodEntry());
             } else if (weekName.equals("Thursday")) {
-                thursday = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                printAverage(thursday.getMoodEntry());
+                //thursday = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                textAreaAverage.append(thursday.getAverageMoodLog() + "\n");
+                //printAverage(thursday.getMoodEntry());
             } else if (weekName.equals("Friday")) {
-                friday = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                printAverage(friday.getMoodEntry());
+                //friday = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                textAreaAverage.append(friday.getAverageMoodLog() + "\n");
+                //printAverage(friday.getMoodEntry());
             } else if (weekName.equals("Saturday")) {
-                saturday = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                printAverage(saturday.getMoodEntry());
+                //saturday = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                textAreaAverage.append(saturday.getAverageMoodLog() + "\n");
+                //printAverage(saturday.getMoodEntry());
             } else {
                 sunday = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                printAverage(sunday.getMoodEntry());
+                textAreaAverage.append(sunday.getAverageMoodLog() + "\n");
+                //printAverage(sunday.getMoodEntry());
             }
         }
 
-
-        // EFFECTS: prints mood average to the screen
-        private void printAverage(MoodEntry entry) {
-            double average = entry.averageMoodEntry();
-            System.out.println("Average: " + average); //test
-            textAreaAverage.append(average + "\n");
-        }
     }
 }
 
