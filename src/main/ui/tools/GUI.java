@@ -19,6 +19,7 @@ import persistence.Reader;
 import persistence.Writer;
 
 public class GUI extends JPanel {
+    private static final String MOODS_FILE = "./data/moodsGUI.txt";
     private static final int minRating = 0;
     private static final int maxRating = 10;
     protected static JButton setButton;
@@ -131,6 +132,14 @@ public class GUI extends JPanel {
         textAreaPM = new JTextArea();
         textAreaPM.setEditable(false);
         panel2.add(textAreaPM);
+        //save button
+        saveButtonPM = new JButton("Save Mood!");
+        saveButtonPM.setActionCommand("save");
+        //ChangeListener savePmButtonListener = new ButtonChangeListenerPM();
+        //saveButtonPM.addChangeListener(savePmButtonListener);
+        ActionListener savePmButtonActionListener = new ButtonActionListenerPM();
+        saveButtonPM.addActionListener(savePmButtonActionListener);
+        panel2.add(saveButtonPM);
 //        field2 = new JFormattedTextField();
 //        field2.setColumns(10);
 //        field2.setEditable(false);
@@ -236,6 +245,26 @@ public class GUI extends JPanel {
         sunday = new MoodLog("Sunday", new MoodEntry(0.0, 0.0));
     }
 
+    private void saveMoodLogs() {
+        try {
+            Writer writer = new Writer(new File(MOODS_FILE));
+            writer.write(monday);
+            writer.write(tuesday);
+            writer.write(wednesday);
+            writer.write(thursday);
+            writer.write(friday);
+            writer.write(saturday);
+            writer.write(sunday);
+            writer.close();
+            System.out.println("Mood logs saved to file " + MOODS_FILE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to save mood logs to " + MOODS_FILE);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+            // this is due to a programming error
+        }
+    }
+
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from
@@ -267,20 +296,6 @@ public class GUI extends JPanel {
             }
         });
     }
-
-    //SLIDER action
-    //Listens to the button
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        JSlider source = (JSlider) e.getSource();
-//        if ("set".equals(e.getActionCommand())) {
-//            setButton.setEnabled(true);
-//            int amRating = source.getValue();
-//            moodEntry = new MoodEntry((double) amRating, 0.0);
-//        } else {
-//            setButton.setEnabled(false);
-//        }
-//    }
 
     /// TAB1-AM
     private class SliderChangeListener implements ChangeListener {
@@ -325,9 +340,7 @@ public class GUI extends JPanel {
             updateWeekDay(weekName);
             textAreaAM.append(weekName + " " + saveNumberHereAM + "\n");
             System.out.println(weekName);
-
         }
-
 
         public void updateWeekDay(String weekDay) {
             if (weekDay.equals("Monday")) {
@@ -373,29 +386,8 @@ public class GUI extends JPanel {
                 //sunday = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, 0.0));
                 //System.out.println("test " + saveNumberHereAM);
             }
-            //saveMoodLogs();
 
         }
-
-//        private void saveMoodLogs() {
-//            try {
-//                Writer writer = new Writer(new File(MOODS_FILE));
-//                writer.write(monday);
-//                writer.write(tuesday);
-//                writer.write(wednesday);
-//                writer.write(thursday);
-//                writer.write(friday);
-//                writer.write(saturday);
-//                writer.write(sunday);
-//                writer.close();
-//                System.out.println("Mood logs saved to file " + MOODS_FILE);
-//            } catch (FileNotFoundException e) {
-//                System.out.println("Unable to save mood logs to " + MOODS_FILE);
-//            } catch (UnsupportedEncodingException e) {
-//                e.printStackTrace();
-//                // this is due to a programming error
-//            }
-//        }
     }
 
     private class ButtonChangeListenerAM implements ChangeListener {
@@ -407,33 +399,11 @@ public class GUI extends JPanel {
     }
 
     private class ButtonActionListenerAM implements ActionListener {
-        private static final String MOODS_FILE = "./data/moodsGUI.txt";
+        //private static final String MOODS_FILE = "./data/moodsGUI.txt";
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            //String day = (String) comboBox1.getSelectedItem();
-            //System.out.println(day);
             saveMoodLogs();
-        }
-
-        private void saveMoodLogs() {
-            try {
-                Writer writer = new Writer(new File(MOODS_FILE));
-                writer.write(monday);
-                writer.write(tuesday);
-                writer.write(wednesday);
-                writer.write(thursday);
-                writer.write(friday);
-                writer.write(saturday);
-                writer.write(sunday);
-                writer.close();
-                System.out.println("Mood logs saved to file " + MOODS_FILE);
-            } catch (FileNotFoundException e) {
-                System.out.println("Unable to save mood logs to " + MOODS_FILE);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-                // this is due to a programming error
-            }
         }
     }
 
@@ -477,7 +447,6 @@ public class GUI extends JPanel {
     private class ComboBoxActionListener2 implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            init();
             JComboBox cb = (JComboBox) e.getSource();
             String weekName = (String) cb.getSelectedItem();
             updateWeekDay(weekName);
@@ -486,18 +455,8 @@ public class GUI extends JPanel {
 
         }
 
-        private void init() {
-            monday = new MoodLog("Monday", new MoodEntry(0.0, 0.0));
-            tuesday = new MoodLog("Tuesday", new MoodEntry(0.0, 0.0));
-            wednesday = new MoodLog("Wednesday", new MoodEntry(0.0, 0.0));
-            thursday = new MoodLog("Thursday", new MoodEntry(0.0, 0.0));
-            friday = new MoodLog("Friday", new MoodEntry(0.0, 0.0));
-            saturday = new MoodLog("Saturday", new MoodEntry(0.0, 0.0));
-            sunday = new MoodLog("Sunday", new MoodEntry(0.0, 0.0));
-        }
-
         public void updateWeekDay(String weekDay) {
-            if (weekDay.equals("monday")) {
+            if (weekDay.equals("Monday")) {
                 monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
                 //System.out.println("test aM " + saveNumberHereAM);
                 //System.out.println("test " + saveNumberHerePM);
@@ -528,6 +487,14 @@ public class GUI extends JPanel {
 
         }
     }
+
+    private class ButtonActionListenerPM implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            saveMoodLogs();
+        }
+    }
+
 
     //Average tab
     private class ComboBoxActionListener3 implements ActionListener {
@@ -561,6 +528,7 @@ public class GUI extends JPanel {
             }
         }
 
+
         // EFFECTS: prints mood average to the screen
         private void printAverage(MoodEntry entry) {
             double average = entry.averageMoodEntry();
@@ -568,7 +536,6 @@ public class GUI extends JPanel {
             textAreaAverage.append(average + "\n");
         }
     }
-
 }
 
 
