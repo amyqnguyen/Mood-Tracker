@@ -19,7 +19,7 @@ provide suggestions for how to deal with them more effectively.
 
 - As a user, I want to be able to save my current mood to file.
 - As a user, I want to load my mood log from file when the program starts.
-- As a user, when I select the quit option from the application menu, I want the option to save my current mood to my log.
+- As a user, when I quit the application menu, I want the option to save my current mood to my log.
 
 
 

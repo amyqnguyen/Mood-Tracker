@@ -1,4 +1,4 @@
-package ui.tools;
+package ui;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
+import java.applet.Applet;
+import java.applet.AudioClip;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.AudioSystem;
+
 
 //import ui.TrackerApp;
 import model.MoodEntry;
@@ -37,8 +46,8 @@ public class GUI extends JPanel {
     private static JTextArea textAreaPM;
     private static JTextArea textAreaAverage;
     private static JTextArea textAreaWeekLog;
+    AudioClip click;
 
-    private static MoodLog newLog;
     private static MoodLog monday;
     private static MoodLog tuesday;
     private static MoodLog wednesday;
@@ -46,7 +55,6 @@ public class GUI extends JPanel {
     private static MoodLog friday;
     private static MoodLog saturday;
     private static MoodLog sunday;
-    private static MoodEntry moodEntry;
 
     public GUI() {
         super(new GridLayout(1, 1));
@@ -63,7 +71,6 @@ public class GUI extends JPanel {
         amRatingSlider.setMajorTickSpacing(1);
         amRatingSlider.setPaintTicks(true);
         amRatingSlider.setPaintLabels(true);
-        //JComponent amSlider = amRatingSlider; ///change panel type
         panel1.add(amRatingSlider);
         //enter button
         setButton = new JButton("Set");
@@ -87,7 +94,10 @@ public class GUI extends JPanel {
         //text panel
         textAreaAM = new JTextArea();
         textAreaAM.setEditable(false);
-        panel1.add(textAreaAM);
+        JScrollPane textAreaAMScroll = new JScrollPane(textAreaAM);
+        textAreaAMScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        textAreaAMScroll.setMinimumSize(new Dimension(10, 10));
+        panel1.add(textAreaAMScroll);
         //save button
         saveButtonAM = new JButton("Save Mood!");
         saveButtonAM.setActionCommand("save");
@@ -134,21 +144,16 @@ public class GUI extends JPanel {
         //text panel
         textAreaPM = new JTextArea();
         textAreaPM.setEditable(false);
-        panel2.add(textAreaPM);
+        JScrollPane textAreaPMScroll = new JScrollPane(textAreaPM);
+        textAreaPMScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        textAreaPMScroll.setMinimumSize(new Dimension(10, 10));
+        panel2.add(textAreaPMScroll);
         //save button
         saveButtonPM = new JButton("Save Mood!");
         saveButtonPM.setActionCommand("save");
-        //ChangeListener savePmButtonListener = new ButtonChangeListenerPM();
-        //saveButtonPM.addChangeListener(savePmButtonListener);
         ActionListener savePmButtonActionListener = new ButtonActionListenerPM();
         saveButtonPM.addActionListener(savePmButtonActionListener);
         panel2.add(saveButtonPM);
-//        field2 = new JFormattedTextField();
-//        field2.setColumns(10);
-//        field2.setEditable(false);
-//        field2.setBackground(Color.white);
-//        field2.setValue(saveNumberHerePM);
-//        panel2.add(field2);
         TitledBorder title2;
         title2 = BorderFactory.createTitledBorder("PM Mood");
         panel2.setBorder(title2);
@@ -158,7 +163,6 @@ public class GUI extends JPanel {
 
 
         //Tab 3
-        //JPanel panel3 = new JPanel(new BorderLayout());
         JPanel panel3 = new JPanel(new GridLayout(0, 1));
         TitledBorder title3;
         title3 = BorderFactory.createTitledBorder("Daily Average");
@@ -179,12 +183,13 @@ public class GUI extends JPanel {
         //text panel
         textAreaAverage = new JTextArea();
         textAreaAverage.setEditable(false);
-        panel3.add(textAreaAverage);
+        JScrollPane textAreaAverageScroll = new JScrollPane(textAreaAverage);
+        textAreaAverageScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        textAreaAverageScroll.setMinimumSize(new Dimension(10, 10));
+        panel3.add(textAreaAverageScroll);
 
         //Tab 4
-        //JComponent panel4 = makeTextPanel("Weekly Log");
         JPanel panel4 = new JPanel(new GridLayout(0, 1));
-        //JPanel panel4 = new JPanel(new BorderLayout());
         TitledBorder title4;
         title4 = BorderFactory.createTitledBorder("Weekly Log");
         panel4.setBorder(title4);
@@ -198,14 +203,16 @@ public class GUI extends JPanel {
         weekList.addActionListener(comboBoxListener4);
         weekList.setSelectedIndex(7);
         panel4.add(weekList);
-        JLabel resultLabel2 = new JLabel("Ratings for the Week Day: ",
+        JLabel resultLabel2 = new JLabel("Current Mood Ratings for the Week: ",
                 JLabel.LEADING); //== LEFT
         panel4.add(resultLabel2);
         //text panel
         textAreaWeekLog = new JTextArea();
         textAreaWeekLog.setEditable(false);
-        panel4.add(textAreaWeekLog);
-
+        JScrollPane textAreaWeekScroll = new JScrollPane(textAreaWeekLog);
+        textAreaWeekScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        textAreaWeekScroll.setMinimumSize(new Dimension(10, 10));
+        panel4.add(textAreaWeekScroll);
 
         //Add the tabbed pane to this panel.
         add(tabbedPane);
@@ -286,6 +293,48 @@ public class GUI extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads accounts from MOOD_FILE, if that file exists;
+    // otherwise initializes accounts with default values
+    // method adapted from CPSC 210/TellerAPP/2020
+    private static void loadMoodLog() {
+        try {
+            List<MoodLog> moodLogs = Reader.readMoods(new File(MOODS_FILE));
+            monday = moodLogs.get(0);
+            tuesday = moodLogs.get(1);
+            wednesday = moodLogs.get(2);
+            thursday = moodLogs.get(3);
+            friday = moodLogs.get(4);
+            saturday = moodLogs.get(5);
+            sunday = moodLogs.get(6);
+        } catch (IOException e) {
+            init();
+        }
+    }
+
+
+    public void playSound(String soundName) {
+        try {
+            if (soundName.equals("button1.wav")) {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+                        new File("data/button1.wav"));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } else {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+                        new File("data/button4.wav"));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
+        }
+    }
+
+
     /**
      * Create the GUI and show it.  For thread safety,
      * this method should be invoked from
@@ -302,7 +351,7 @@ public class GUI extends JPanel {
         //Display the window.
         frame.pack();
         frame.setVisible(true);
-        init();
+        loadMoodLog();
     }
 
 
@@ -331,7 +380,6 @@ public class GUI extends JPanel {
     public static class ButtonChangeListener implements ChangeListener {
         public void stateChanged(ChangeEvent changeEvent) {
             saveNumberHereAM = amRatingSlider.getValue();
-            //System.out.println(saveNumberHere);
         }
     }
 
@@ -341,10 +389,7 @@ public class GUI extends JPanel {
             if ("set".equals(e.getActionCommand())) {
                 setButton.setEnabled(true);
                 setButton.getChangeListeners();
-                //field1.setValue(saveNumberHereAM);
-                //System.out.println(saveNumberHereAM);
-                //moodEntry = new MoodEntry((double) saveNumberHereAM, 0.0);
-                //moodEntry.setAMmood(saveNumberHereAM);
+                playSound("button1.wav");
             } else {
                 setButton.setEnabled(false);
             }
@@ -352,15 +397,12 @@ public class GUI extends JPanel {
     }
 
     private class ComboBoxActionListener1 implements ActionListener {
-        private static final String MOODS_FILE = "./data/moodsGUI.txt";
-
         @Override
         public void actionPerformed(ActionEvent e) {
             JComboBox cb = (JComboBox) e.getSource();
             String weekName = (String) cb.getSelectedItem();
             updateWeekDay(weekName);
             textAreaAM.append(weekName + " " + saveNumberHereAM + "\n");
-            System.out.println(weekName);
         }
     }
 
@@ -368,7 +410,6 @@ public class GUI extends JPanel {
         @Override
         public void stateChanged(ChangeEvent e) {
             saveNumberHereAM = amRatingSlider.getValue();
-            String day = (String) comboBox1.getSelectedItem();
         }
     }
 
@@ -378,6 +419,7 @@ public class GUI extends JPanel {
             if ("save".equals(e.getActionCommand())) {
                 saveButtonAM.setEnabled(true);
                 saveButtonAM.getChangeListeners();
+                playSound("button4.wav");
                 saveMoodLogs();
             } else {
                 saveButtonAM.setEnabled(false);
@@ -409,12 +451,12 @@ public class GUI extends JPanel {
             if ("set".equals(e.getActionCommand())) {
                 setButton1.setEnabled(true);
                 setButton1.getChangeListeners();
-                //moodEntry = new MoodEntry(saveNumberHereAM, saveNumberHerePM);
-               // moodEntry.setPMmood(saveNumberHerePM);
+                playSound("button1.wav");
             } else {
                 setButton1.setEnabled(false);
             }
         }
+
     }
 
     private class ComboBoxActionListener2 implements ActionListener {
@@ -424,8 +466,6 @@ public class GUI extends JPanel {
             String weekName = (String) cb.getSelectedItem();
             updateWeekDay(weekName);
             textAreaPM.append(weekName + " " + saveNumberHerePM + "\n");
-            System.out.println(weekName); //test
-
         }
     }
 
@@ -435,6 +475,7 @@ public class GUI extends JPanel {
             if ("save".equals(e.getActionCommand())) {
                 saveButtonPM.setEnabled(true);
                 saveButtonPM.getChangeListeners();
+                playSound("button4.wav");
                 saveMoodLogs();
             } else {
                 saveButtonAM.setEnabled(false);
@@ -449,32 +490,19 @@ public class GUI extends JPanel {
             JComboBox cb1 = (JComboBox) e.getSource();
             String weekName = (String) cb1.getSelectedItem();
             if (weekName.equals("Monday")) {
-                textAreaAverage.append(monday.getAverageMoodLog() + "\n");
-                //monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+                textAreaAverage.append("Monday: " + monday.getAverageMoodLog() + "\n");
             } else if (weekName.equals("Tuesday")) {
-                //tuesday = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                textAreaAverage.append(tuesday.getAverageMoodLog() + "\n");
-                //printAverage(tuesday.getMoodEntry());
+                textAreaAverage.append("Tuesday: " + tuesday.getAverageMoodLog() + "\n");
             } else if (weekName.equals("Wednesday")) {
-                //wednesday = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                textAreaAverage.append(wednesday.getAverageMoodLog() + "\n");
-                //printAverage(wednesday.getMoodEntry());
+                textAreaAverage.append("Wednesday: " + wednesday.getAverageMoodLog() + "\n");
             } else if (weekName.equals("Thursday")) {
-                //thursday = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                textAreaAverage.append(thursday.getAverageMoodLog() + "\n");
-                //printAverage(thursday.getMoodEntry());
+                textAreaAverage.append("Thursday: " + thursday.getAverageMoodLog() + "\n");
             } else if (weekName.equals("Friday")) {
-                //friday = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                textAreaAverage.append(friday.getAverageMoodLog() + "\n");
-                //printAverage(friday.getMoodEntry());
+                textAreaAverage.append("Friday: " + friday.getAverageMoodLog() + "\n");
             } else if (weekName.equals("Saturday")) {
-                //saturday = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                textAreaAverage.append(saturday.getAverageMoodLog() + "\n");
-                //printAverage(saturday.getMoodEntry());
+                textAreaAverage.append("Saturday: " + saturday.getAverageMoodLog() + "\n");
             } else if (weekName.equals("Sunday")) {
-                //sunday = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-                textAreaAverage.append(sunday.getAverageMoodLog() + "\n");
-                //printAverage(sunday.getMoodEntry());
+                textAreaAverage.append("Sunday: " + sunday.getAverageMoodLog() + "\n");
             } else {
                 System.out.println("Select a Day");
             }
@@ -507,6 +535,10 @@ public class GUI extends JPanel {
         }
     }
 }
+
+
+
+
 
 
 
