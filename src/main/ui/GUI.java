@@ -46,7 +46,6 @@ public class GUI extends JPanel {
     private static JTextArea textAreaPM;
     private static JTextArea textAreaAverage;
     private static JTextArea textAreaWeekLog;
-    AudioClip click;
 
     private static MoodLog monday;
     private static MoodLog tuesday;
@@ -106,7 +105,6 @@ public class GUI extends JPanel {
         ActionListener saveAmButtonActionListener = new ButtonActionListenerAM();
         saveButtonAM.addActionListener(saveAmButtonActionListener);
         panel1.add(saveButtonAM);
-
 
         TitledBorder title1;
         title1 = BorderFactory.createTitledBorder("AM Mood");
