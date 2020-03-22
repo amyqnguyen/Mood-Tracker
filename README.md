@@ -12,8 +12,9 @@ provide suggestions for how to deal with them more effectively.
 
 - As a user, I want to enter my mood in the AM.
 - As a user, I want to enter my mood in the PM.
-- As a user, I want to see my current mood ratings.
 - As a user, I want to get my daily average.  
+- As a user, I want to see my current mood ratings.
+
 
 <h3>User Stories part 2:</h3>
 
@@ -22,7 +23,21 @@ provide suggestions for how to deal with them more effectively.
 - As a user, when I quit the application menu, I want the option to save my current mood to my log.
 
 
+<h3> Instructions For the Grader:</h3>
 
+- In the AM Mood tab, you can generate the first required event by selecting a mood rating on the slider. Once you 
+picked a rating, press the Set button to set the mood. 
+- You can generate the second required event by using the combobox below and selecting the day you want to set this 
+mood rating to (selected day and rating will be printed below in the text panel).  
+- Entering and setting PM mood is the same as AM mood but done is done in the PM Mood tab.
+- You can generate the average mood for the day by using the combobox provided in the Daily Average tab. Select the day
+and the average will be printed out.
+- You can see your current mood ratings in the Week Log tab. Select the day using the combobox and the mood log will be
+printed.
+- You can trigger my audio component by using the Set and Save Mood! buttons in the AM Mood and PM Mood tab.
+- You can save the state of my application by clicking the Save Mood! buttons in the AM Mood and PM Mood tab.
+- You can reload the state of my application by closing the application and reopening it up with the last saved ratings 
+loaded (automatically reloads when you start up the application).
 
 
 
