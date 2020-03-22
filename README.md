@@ -32,7 +32,7 @@ mood rating to (selected day and rating will be printed below in the text panel)
 - Entering and setting PM mood is the same as AM mood but done is done in the PM Mood tab.
 - You can generate the average mood for the day by using the combobox provided in the Daily Average tab. Select the day
 and the average will be printed out.
-- You can see your current mood ratings in the Week Log tab. Select the day using the combobox and the mood log will be
+- You can load your current mood ratings in the Week Log tab. Select the day using the combobox and the mood log will be
 printed.
 - You can trigger my audio component by using the Set and Save Mood! buttons in the AM Mood and PM Mood tab.
 - You can save the state of my application by clicking the Save Mood! buttons in the AM Mood and PM Mood tab.
