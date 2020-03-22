@@ -10,18 +10,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
-import java.applet.Applet;
-import java.applet.AudioClip;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.AudioSystem;
 
 
-//import ui.TrackerApp;
 import model.MoodEntry;
 import model.MoodLog;
 import persistence.Reader;
@@ -46,6 +41,8 @@ public class GUI extends JPanel {
     private static JTextArea textAreaPM;
     private static JTextArea textAreaAverage;
     private static JTextArea textAreaWeekLog;
+    private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
+            "Select A Day"};
 
     private static MoodLog monday;
     private static MoodLog tuesday;
@@ -62,49 +59,7 @@ public class GUI extends JPanel {
         ImageIcon icon = createImageIcon("images/middle.gif");
 
         //Tab 1
-        JPanel panel1 = new JPanel(new GridLayout(0, 1));
-        //slider
-        ChangeListener amSliderListener = new SliderChangeListener();
-        amRatingSlider = new JSlider(minRating, maxRating);
-        amRatingSlider.addChangeListener(amSliderListener);
-        amRatingSlider.setMajorTickSpacing(1);
-        amRatingSlider.setPaintTicks(true);
-        amRatingSlider.setPaintLabels(true);
-        panel1.add(amRatingSlider);
-        //enter button
-        setButton = new JButton("Set");
-        setButton.setActionCommand("set");
-        ChangeListener buttonListener = new ButtonChangeListener();
-        setButton.addChangeListener(buttonListener);
-        ActionListener buttonActionListener = new ButtonActionListener();
-        setButton.addActionListener(buttonActionListener);
-        panel1.add(setButton);
-        //ComboBox
-        String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-                "Select A Day"};
-        comboBox1 = new JComboBox(weekDays);
-        comboBox1.setSelectedIndex(7);
-        ActionListener comboBoxListener1 = new ComboBoxActionListener1();
-        comboBox1.addActionListener(comboBoxListener1);
-        panel1.add(comboBox1);
-        //text box
-        JLabel label1 = new JLabel("AM Mood: ");
-        panel1.add(label1);
-        //text panel
-        textAreaAM = new JTextArea();
-        textAreaAM.setEditable(false);
-        JScrollPane textAreaAMScroll = new JScrollPane(textAreaAM);
-        textAreaAMScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        textAreaAMScroll.setMinimumSize(new Dimension(10, 10));
-        panel1.add(textAreaAMScroll);
-        //save button
-        saveButtonAM = new JButton("Save Mood!");
-        saveButtonAM.setActionCommand("save");
-        ChangeListener saveAmButtonListener = new ButtonChangeListenerAM();
-        saveButtonAM.addChangeListener(saveAmButtonListener);
-        ActionListener saveAmButtonActionListener = new ButtonActionListenerAM();
-        saveButtonAM.addActionListener(saveAmButtonActionListener);
-        panel1.add(saveButtonAM);
+        JPanel panel1 = amPanel();
 
         TitledBorder title1;
         title1 = BorderFactory.createTitledBorder("AM Mood");
@@ -113,80 +68,15 @@ public class GUI extends JPanel {
                 "Does nothing");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-        //Tab 2
-        //slider
-        JPanel panel2 = new JPanel(new GridLayout(0, 1));
-        ChangeListener pmSliderListener = new SliderChangeListener1();
-        pmRatingSlider = new JSlider(minRating, maxRating);
-        pmRatingSlider.addChangeListener(pmSliderListener);
-        pmRatingSlider.setMajorTickSpacing(1);
-        pmRatingSlider.setPaintTicks(true);
-        pmRatingSlider.setPaintLabels(true);
-        panel2.add(pmRatingSlider);
-        setButton1 = new JButton("Set");
-        setButton1.setActionCommand("set");
-        ChangeListener buttonListener1 = new ButthonChangeListener1();
-        setButton1.addChangeListener(buttonListener1);
-        ActionListener buttonActionListener1 = new ButtonActionListener1();
-        setButton1.addActionListener(buttonActionListener1);
-        panel2.add(setButton1);
-        //ComboBox
-        comboBox2 = new JComboBox(weekDays);
-        comboBox2.setSelectedIndex(7);
-        ActionListener comboBoxListener2 = new ComboBoxActionListener2();
-        comboBox2.addActionListener(comboBoxListener2);
-        panel2.add(comboBox2);
-        //text box
-        JLabel label2 = new JLabel("PM Mood: ");
-        panel2.add(label2);
-        //text panel
-        textAreaPM = new JTextArea();
-        textAreaPM.setEditable(false);
-        JScrollPane textAreaPMScroll = new JScrollPane(textAreaPM);
-        textAreaPMScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        textAreaPMScroll.setMinimumSize(new Dimension(10, 10));
-        panel2.add(textAreaPMScroll);
-        //save button
-        saveButtonPM = new JButton("Save Mood!");
-        saveButtonPM.setActionCommand("save");
-        ActionListener savePmButtonActionListener = new ButtonActionListenerPM();
-        saveButtonPM.addActionListener(savePmButtonActionListener);
-        panel2.add(saveButtonPM);
-        TitledBorder title2;
-        title2 = BorderFactory.createTitledBorder("PM Mood");
-        panel2.setBorder(title2);
-        tabbedPane.addTab("PM Mood", icon, panel2,
-                "Does twice as much nothing");
-        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+        pmPanel(tabbedPane, icon);
+        averagePanel(tabbedPane, icon);
+        moodLogPanel(tabbedPane, icon);
 
+        //Add the tabbed pane to this panel.
+        add(tabbedPane);
+    }
 
-        //Tab 3
-        JPanel panel3 = new JPanel(new GridLayout(0, 1));
-        TitledBorder title3;
-        title3 = BorderFactory.createTitledBorder("Daily Average");
-        panel3.setBorder(title3);
-        tabbedPane.addTab("Daily Average", icon, panel3,
-                "Still does nothing");
-        tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
-        //combo box
-        amList = new JComboBox(weekDays);
-        amList.setSelectedIndex(7);
-        ActionListener comboBoxListener3 = new ComboBoxActionListener3();
-        amList.addActionListener(comboBoxListener3);
-        panel3.add(amList);
-        //result box
-        JLabel resultLabel = new JLabel("Average Rating",
-                JLabel.LEADING); //== LEFT
-        panel3.add(resultLabel);
-        //text panel
-        textAreaAverage = new JTextArea();
-        textAreaAverage.setEditable(false);
-        JScrollPane textAreaAverageScroll = new JScrollPane(textAreaAverage);
-        textAreaAverageScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        textAreaAverageScroll.setMinimumSize(new Dimension(10, 10));
-        panel3.add(textAreaAverageScroll);
-
-        //Tab 4
+    private void moodLogPanel(JTabbedPane tabbedPane, ImageIcon icon) {
         JPanel panel4 = new JPanel(new GridLayout(0, 1));
         TitledBorder title4;
         title4 = BorderFactory.createTitledBorder("Weekly Log");
@@ -211,12 +101,154 @@ public class GUI extends JPanel {
         textAreaWeekScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         textAreaWeekScroll.setMinimumSize(new Dimension(10, 10));
         panel4.add(textAreaWeekScroll);
+    }
 
-        //Add the tabbed pane to this panel.
-        add(tabbedPane);
+    private void averagePanel(JTabbedPane tabbedPane, ImageIcon icon) {
+        JPanel panel3 = new JPanel(new GridLayout(0, 1));
+        TitledBorder title3;
+        title3 = BorderFactory.createTitledBorder("Daily Average");
+        panel3.setBorder(title3);
+        tabbedPane.addTab("Daily Average", icon, panel3,
+                "Still does nothing");
+        tabbedPane.setMnemonicAt(2, KeyEvent.VK_3);
+        //combo box
+        amList = new JComboBox(weekDays);
+        amList.setSelectedIndex(7);
+        ActionListener comboBoxListener3 = new ComboBoxActionListener3();
+        amList.addActionListener(comboBoxListener3);
+        panel3.add(amList);
+        //result box
+        JLabel resultLabel = new JLabel("Average Rating",
+                JLabel.LEADING); //== LEFT
+        panel3.add(resultLabel);
+        //text panel
+        textAreaAverage = new JTextArea();
+        textAreaAverage.setEditable(false);
+        JScrollPane textAreaAverageScroll = new JScrollPane(textAreaAverage);
+        textAreaAverageScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        textAreaAverageScroll.setMinimumSize(new Dimension(10, 10));
+        panel3.add(textAreaAverageScroll);
+    }
 
-        //The following line enables to use scrolling tabs.
-        tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+    private void pmPanel(JTabbedPane tabbedPane, ImageIcon icon) {
+        JPanel panel2 = new JPanel(new GridLayout(0, 1));
+        pmSlider(panel2);
+        setButtonPm(panel2);
+        comboBoxPm(panel2);
+        JLabel label2 = new JLabel("PM Mood: ");
+        panel2.add(label2);
+        textPanelPm(panel2);
+        saveButtonPm(panel2);
+        TitledBorder title2;
+        title2 = BorderFactory.createTitledBorder("PM Mood");
+        panel2.setBorder(title2);
+        tabbedPane.addTab("PM Mood", icon, panel2,
+                "Does twice as much nothing");
+        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
+    }
+
+    private void saveButtonPm(JPanel panel2) {
+        saveButtonPM = new JButton("Save Mood!");
+        saveButtonPM.setActionCommand("save");
+        ActionListener savePmButtonActionListener = new ButtonActionListenerPM();
+        saveButtonPM.addActionListener(savePmButtonActionListener);
+        panel2.add(saveButtonPM);
+    }
+
+    private void textPanelPm(JPanel panel2) {
+        textAreaPM = new JTextArea();
+        textAreaPM.setEditable(false);
+        JScrollPane textAreaPMScroll = new JScrollPane(textAreaPM);
+        textAreaPMScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        textAreaPMScroll.setMinimumSize(new Dimension(10, 10));
+        panel2.add(textAreaPMScroll);
+    }
+
+    private void comboBoxPm(JPanel panel2) {
+        comboBox2 = new JComboBox(weekDays);
+        comboBox2.setSelectedIndex(7);
+        ActionListener comboBoxListener2 = new ComboBoxActionListener2();
+        comboBox2.addActionListener(comboBoxListener2);
+        panel2.add(comboBox2);
+    }
+
+    private void setButtonPm(JPanel panel2) {
+        setButton1 = new JButton("Set");
+        setButton1.setActionCommand("set");
+        ChangeListener buttonListener1 = new ButthonChangeListener1();
+        setButton1.addChangeListener(buttonListener1);
+        ActionListener buttonActionListener1 = new ButtonActionListener1();
+        setButton1.addActionListener(buttonActionListener1);
+        panel2.add(setButton1);
+    }
+
+    private void pmSlider(JPanel panel2) {
+        ChangeListener pmSliderListener = new SliderChangeListener1();
+        pmRatingSlider = new JSlider(minRating, maxRating);
+        pmRatingSlider.addChangeListener(pmSliderListener);
+        pmRatingSlider.setMajorTickSpacing(1);
+        pmRatingSlider.setPaintTicks(true);
+        pmRatingSlider.setPaintLabels(true);
+        panel2.add(pmRatingSlider);
+    }
+
+    private JPanel amPanel() {
+        JPanel panel1 = new JPanel(new GridLayout(0, 1));
+        amSlider(panel1);
+        amSetButtion(panel1);
+        comboBoxAm(panel1);
+        JLabel label1 = new JLabel("AM Mood: ");
+        panel1.add(label1);
+        textPanelAm(panel1);
+        saveButtonAm(panel1);
+        return panel1;
+    }
+
+    private void saveButtonAm(JPanel panel1) {
+        saveButtonAM = new JButton("Save Mood!");
+        saveButtonAM.setActionCommand("save");
+        ChangeListener saveAmButtonListener = new ButtonChangeListenerAM();
+        saveButtonAM.addChangeListener(saveAmButtonListener);
+        ActionListener saveAmButtonActionListener = new ButtonActionListenerAM();
+        saveButtonAM.addActionListener(saveAmButtonActionListener);
+        panel1.add(saveButtonAM);
+    }
+
+    private void textPanelAm(JPanel panel1) {
+        textAreaAM = new JTextArea();
+        textAreaAM.setEditable(false);
+        JScrollPane textAreaAMScroll = new JScrollPane(textAreaAM);
+        textAreaAMScroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        textAreaAMScroll.setMinimumSize(new Dimension(10, 10));
+        panel1.add(textAreaAMScroll);
+    }
+
+    private void comboBoxAm(JPanel panel1) {
+        comboBox1 = new JComboBox(weekDays);
+        comboBox1.setSelectedIndex(7);
+        ActionListener comboBoxListener1 = new ComboBoxActionListener1();
+        comboBox1.addActionListener(comboBoxListener1);
+        panel1.add(comboBox1);
+    }
+
+    private void amSetButtion(JPanel panel1) {
+        setButton = new JButton("Set");
+        setButton.setActionCommand("set");
+        ChangeListener buttonListener = new ButtonChangeListener();
+        setButton.addChangeListener(buttonListener);
+        ActionListener buttonActionListener = new ButtonActionListener();
+        setButton.addActionListener(buttonActionListener);
+        panel1.add(setButton);
+    }
+
+    private void amSlider(JPanel panel1) {
+        ChangeListener amSliderListener = new SliderChangeListener();
+        amRatingSlider = new JSlider(minRating, maxRating);
+        amRatingSlider.addChangeListener(amSliderListener);
+        amRatingSlider.setMajorTickSpacing(1);
+        amRatingSlider.setPaintTicks(true);
+        amRatingSlider.setPaintLabels(true);
+        panel1.add(amRatingSlider);
     }
 
     protected JComponent makeTextPanel(String text) {
