@@ -22,7 +22,7 @@ class MoodTest {
         testMood2 = new MoodEntry(0.0,0.0);
         testLog1 = new MoodLog("Monday", testMood1);
         testLog2 = new MoodLog("Tuesday", testMood2);
-        testLog3 = new MoodLog("Wednesday",1, testMood2);
+        testLog3 = new MoodLog("Wednesday", testMood2);
     }
 
     @Test
@@ -37,7 +37,6 @@ class MoodTest {
     void testConstructorML2() {
         assertEquals("Wednesday", testLog3.getName());
         //assertEquals(testMood2, testLog3.getMoodEntry());
-        assertEquals(1, testLog3.getId());
         assertEquals(0, testMood1.getAmMood());
         assertEquals(0, testMood1.getPmMood());
     }

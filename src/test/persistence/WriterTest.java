@@ -42,17 +42,14 @@ public class WriterTest {
         try {
             List<MoodLog> moods = Reader.readMoods(new File(MOODS_TEST));
             MoodLog ML1 = moods.get(0);
-            assertEquals(1, ML1.getId());
             assertEquals("Monday", ML1.getName());
 
 
             MoodLog ML2 = moods.get(1);
-            assertEquals(2, ML2.getId());
             assertEquals("Tuesday", ML2.getName());
 
             // verify that ID of next mood log created is 3 (checks that nextId was restored)
             MoodLog next = new MoodLog("Wednesday", ME1);
-            assertEquals(3, next.getId());
 
         } catch (IOException e) {
             fail("IOException should not have been thrown");

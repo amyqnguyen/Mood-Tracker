@@ -22,6 +22,7 @@ import model.MoodLog;
 import persistence.Reader;
 import persistence.Writer;
 
+//Mood tracker GUI
 public class GUI extends JPanel {
     private static final String MOODS_FILE = "./data/moodsGUI.txt";
     private static final int minRating = 0;
@@ -52,6 +53,8 @@ public class GUI extends JPanel {
     private static MoodLog saturday;
     private static MoodLog sunday;
 
+    //EFFECTS: constructs the GUI with 4 tabs each representing a new panel
+    //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
     public GUI() {
         super(new GridLayout(1, 1));
 
@@ -76,6 +79,7 @@ public class GUI extends JPanel {
         add(tabbedPane);
     }
 
+    //EFFECTS: constructs the Week Log panel with 2 components (day combobox and a text panel)
     private void moodLogPanel(JTabbedPane tabbedPane, ImageIcon icon) {
         JPanel panel4 = new JPanel(new GridLayout(0, 1));
         TitledBorder title4;
@@ -103,6 +107,7 @@ public class GUI extends JPanel {
         panel4.add(textAreaWeekScroll);
     }
 
+    //EFFECTS: constructs the Week Log panel with 2 components (day combobox and text panel)
     private void averagePanel(JTabbedPane tabbedPane, ImageIcon icon) {
         JPanel panel3 = new JPanel(new GridLayout(0, 1));
         TitledBorder title3;
@@ -130,6 +135,8 @@ public class GUI extends JPanel {
         panel3.add(textAreaAverageScroll);
     }
 
+    //EFFECTS: constructs the PM Mood panel with 5 components (slider, set button, day combobox,
+    // text panel, and save button
     private void pmPanel(JTabbedPane tabbedPane, ImageIcon icon) {
         JPanel panel2 = new JPanel(new GridLayout(0, 1));
         pmSlider(panel2);
@@ -147,6 +154,7 @@ public class GUI extends JPanel {
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
     }
 
+    //EFFECTS: creates save button for PM Mood
     private void saveButtonPm(JPanel panel2) {
         saveButtonPM = new JButton("Save Mood!");
         saveButtonPM.setActionCommand("save");
@@ -155,6 +163,7 @@ public class GUI extends JPanel {
         panel2.add(saveButtonPM);
     }
 
+    //EFFECTS: creates a text panel for PM Mood
     private void textPanelPm(JPanel panel2) {
         textAreaPM = new JTextArea();
         textAreaPM.setEditable(false);
@@ -164,6 +173,7 @@ public class GUI extends JPanel {
         panel2.add(textAreaPMScroll);
     }
 
+    //EFFECTS: creates a combobox for PM Mood
     private void comboBoxPm(JPanel panel2) {
         comboBox2 = new JComboBox(weekDays);
         comboBox2.setSelectedIndex(7);
@@ -172,6 +182,7 @@ public class GUI extends JPanel {
         panel2.add(comboBox2);
     }
 
+    //EFFECTS: creates a set button for PM Mood
     private void setButtonPm(JPanel panel2) {
         setButton1 = new JButton("Set");
         setButton1.setActionCommand("set");
@@ -182,6 +193,7 @@ public class GUI extends JPanel {
         panel2.add(setButton1);
     }
 
+    //EFFECTS: creates a mood rating slider from 0-10 for PM Mood
     private void pmSlider(JPanel panel2) {
         ChangeListener pmSliderListener = new SliderChangeListener1();
         pmRatingSlider = new JSlider(minRating, maxRating);
@@ -192,6 +204,7 @@ public class GUI extends JPanel {
         panel2.add(pmRatingSlider);
     }
 
+    //EFFECTS: constructs the AM Mood panal in the AM Mood tab
     private JPanel amPanel() {
         JPanel panel1 = new JPanel(new GridLayout(0, 1));
         amSlider(panel1);
@@ -204,6 +217,7 @@ public class GUI extends JPanel {
         return panel1;
     }
 
+    //EFFECTS: creates a save button for AM Mood
     private void saveButtonAm(JPanel panel1) {
         saveButtonAM = new JButton("Save Mood!");
         saveButtonAM.setActionCommand("save");
@@ -214,6 +228,7 @@ public class GUI extends JPanel {
         panel1.add(saveButtonAM);
     }
 
+    //EFFECTS: creates a text panel for AM Mood
     private void textPanelAm(JPanel panel1) {
         textAreaAM = new JTextArea();
         textAreaAM.setEditable(false);
@@ -223,6 +238,7 @@ public class GUI extends JPanel {
         panel1.add(textAreaAMScroll);
     }
 
+    //EFFECTS: creates a combobox for AM Mood
     private void comboBoxAm(JPanel panel1) {
         comboBox1 = new JComboBox(weekDays);
         comboBox1.setSelectedIndex(7);
@@ -231,6 +247,7 @@ public class GUI extends JPanel {
         panel1.add(comboBox1);
     }
 
+    //EFFECTS: creates a set button for AM Mood
     private void amSetButtion(JPanel panel1) {
         setButton = new JButton("Set");
         setButton.setActionCommand("set");
@@ -241,6 +258,7 @@ public class GUI extends JPanel {
         panel1.add(setButton);
     }
 
+    //EFFECTS: creates a rating slider (0-10) for AM Mood
     private void amSlider(JPanel panel1) {
         ChangeListener amSliderListener = new SliderChangeListener();
         amRatingSlider = new JSlider(minRating, maxRating);
@@ -251,18 +269,9 @@ public class GUI extends JPanel {
         panel1.add(amRatingSlider);
     }
 
-    protected JComponent makeTextPanel(String text) {
-        JPanel panel = new JPanel(false);
-        JLabel filler = new JLabel(text);
-        filler.setHorizontalAlignment(JLabel.CENTER);
-        panel.setLayout(new GridLayout(1, 1));
-        panel.add(filler);
-        return panel;
-    }
 
-    /**
-     * Returns an ImageIcon, or null if the path was invalid.
-     */
+     //EFFECTS: Returns an ImageIcon, or null if the path was invalid.
+     //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
     protected static ImageIcon createImageIcon(String path) {
         java.net.URL imgURL = GUI.class.getResource(path);
         if (imgURL != null) {
@@ -273,6 +282,7 @@ public class GUI extends JPanel {
         }
     }
 
+    //EFFECTS: initialize the mood logs
     private static void init() {
         monday = new MoodLog("Monday", new MoodEntry(0.0, 0.0));
         tuesday = new MoodLog("Tuesday", new MoodEntry(0.0, 0.0));
@@ -283,6 +293,7 @@ public class GUI extends JPanel {
         sunday = new MoodLog("Sunday", new MoodEntry(0.0, 0.0));
     }
 
+    //EFFECTS: updates the weekDay mood log to the current set rating
     private void updateWeekDay(String weekDay) {
         if (weekDay.equals("Monday")) {
             monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
@@ -303,6 +314,8 @@ public class GUI extends JPanel {
         }
     }
 
+    // EFFECTS: saves state of moods to MOODS_FILE
+    // method adapted from CPSC 210/TellerAPP/2020
     private void saveMoodLogs() {
         try {
             Writer writer = new Writer(new File(MOODS_FILE));
@@ -326,7 +339,7 @@ public class GUI extends JPanel {
     // MODIFIES: this
     // EFFECTS: loads accounts from MOOD_FILE, if that file exists;
     // otherwise initializes accounts with default values
-    // method adapted from CPSC 210/TellerAPP/2020
+    // Method adapted from CPSC 210/TellerAPP/2020
     private static void loadMoodLog() {
         try {
             List<MoodLog> moodLogs = Reader.readMoods(new File(MOODS_FILE));
@@ -343,6 +356,8 @@ public class GUI extends JPanel {
     }
 
 
+    //EFFECTS: plays soundName
+    //Method adapted from http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
     public void playSound(String soundName) {
         try {
             if (soundName.equals("button1.wav")) {
@@ -364,12 +379,9 @@ public class GUI extends JPanel {
         }
     }
 
-
-    /**
-     * Create the GUI and show it.  For thread safety,
-     * this method should be invoked from
-     * the event dispatch thread.
-     */
+    //EFFECTS: Create the GUI and show it.  For thread safety, this method should be invoked from
+    // the event dispatch thread.
+    //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
     private static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("TabbedPaneDemo");

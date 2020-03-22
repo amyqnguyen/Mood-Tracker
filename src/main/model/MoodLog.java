@@ -30,19 +30,6 @@ public class MoodLog implements Saveable {
         id = nextAccountId++;
     }
 
-    // REQUIRES: weekDay has a non-zero length, id >=1, and mood entry is valid
-    // EFFECTS: weekDay on mood log is set to name; mood log id is a positive
-    //    // integer not assigned to any other mood log; mood entry in mood log is set to me
-    public MoodLog(String weekDay, int id, MoodEntry me) {
-        this.weekDay = weekDay;
-        this.entry = me;
-        this.id = id;
-    }
-
-    public int getId() {
-        return id;
-    } ///????
-
     public String getName() {
         return weekDay;
     } ///????
