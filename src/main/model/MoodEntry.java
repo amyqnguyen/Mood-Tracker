@@ -23,8 +23,6 @@ public class MoodEntry {
     public MoodEntry(Double am, Double pm) {
         this.amMood = am;
         this.pmMood = pm;
-        //amMood = new ArrayList<>();
-        //pmMood = new ArrayList<>();
     }
 
     public Double getAmMood() {
