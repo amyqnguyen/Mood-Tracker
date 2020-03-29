@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 class MoodTest {
     MoodEntry testMood1;
@@ -13,16 +15,21 @@ class MoodTest {
     MoodLog testLog1;
     MoodLog testLog2;
     MoodLog testLog3;
-    ArrayList amMood1;
-    ArrayList pmMood1;
+    MoodLog testLog4;
+    MoodLogs moodLogs1;
+    MoodLogs moodLogs2;
+
 
     @BeforeEach
     void runBefore() {
         testMood1 = new MoodEntry(0.0,0.0);
-        testMood2 = new MoodEntry(0.0,0.0);
+        testMood2 = new MoodEntry(4.0,5.0);
         testLog1 = new MoodLog("Monday", testMood1);
         testLog2 = new MoodLog("Tuesday", testMood2);
         testLog3 = new MoodLog("Wednesday", testMood2);
+        testLog4 = new MoodLog("Wednesday", testMood1);
+        moodLogs1 = new MoodLogs();
+        moodLogs2 = new MoodLogs();
     }
 
     @Test
@@ -68,7 +75,9 @@ class MoodTest {
         testMood2.setAMmood(6.0);
         testMood2.setPMmood(5.0);
         assertEquals("Tuesday Mood log: AM Mood log: 6.0, PM Mood log: 5.0 \n" , testLog2.toString());
- }
+    }
+
+
 }
 
 

@@ -2,6 +2,8 @@ package model;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import persistence.Reader;
 import persistence.Saveable;
@@ -12,14 +14,11 @@ import persistence.Saveable;
 public class MoodLog implements Saveable {
     private static int nextAccountId = 1;  // tracks id of next account created
     private String weekDay;
-    private int id;                        // account id
-    private Double am;
-    private Double pm;
+    private int id;
     private double average;                // the current average of the account
     private MoodEntry entry;
-    private String moodString;
 
-    ArrayList<MoodEntry> log;
+
 
     // REQUIRES: name has a non-zero length and has a valid mood entry
     // EFFECTS: weekDay on mood log is set to name; mood log id is a positive
@@ -27,7 +26,7 @@ public class MoodLog implements Saveable {
     public MoodLog(String name, MoodEntry me) {
         this.entry = me;
         weekDay = name;
-        id = nextAccountId++;
+        //id = nextAccountId++;
     }
 
     public String getName() {

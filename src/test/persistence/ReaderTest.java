@@ -5,12 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import model.MoodEntry;
 import model.MoodLog;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.fail;
-
-import java.util.ArrayList;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,18 +20,16 @@ public class ReaderTest {
             List<MoodLog> moods = Reader.readMoods(new File("./data/testMoods1.txt"));
             MoodLog testLog1 = moods.get(0);
             assertEquals("Monday", testLog1.getName());
-           // MoodEntry me = new MoodEntry(1.0, 2.0);
-            //Assertions.assertEquals(me , testLog1.getMoodEntry());
+            MoodEntry me1 = testLog1.getMoodEntry();
+            assertEquals(1.0, me1.getAmMood());
+            assertEquals(2.0, me1.getPmMood());
+
 
             MoodLog testLog2 = moods.get(1);
             assertEquals("Tuesday", testLog2.getName());
-            //MoodEntry me1 = new MoodEntry(3.0, 4.0);
-            //assertEquals(me1, testLog2.getMoodEntry());
-
-            // check that nextAccountId has been set correctly
-            //MoodLog nextMoodLog = new MoodLog("Wednesday", me1);
-            //assertEquals(5, nextMoodLog.getId());
-
+            MoodEntry me2 = testLog2.getMoodEntry();
+            assertEquals(3.0, me2.getAmMood());
+            assertEquals(4.0, me2.getPmMood());
 
         } catch (IOException e) {
             fail("IOException should not have been thrown");
@@ -47,18 +42,15 @@ public class ReaderTest {
             List<MoodLog> moods = Reader.readMoods(new File("./data/testMoods2.txt"));
             MoodLog testLog3 = moods.get(0);
             assertEquals("Wednesday", testLog3.getName());
-            //MoodEntry me2 = new MoodEntry(5.0, 6.0);
-            //assertEquals(me2, testLog3.getMoodEntry());
+            MoodEntry me3 = testLog3.getMoodEntry();
+            assertEquals(5.0, me3.getAmMood());
+            assertEquals(6.0, me3.getPmMood());
 
             MoodLog testLog4 = moods.get(1);
             assertEquals("Thursday", testLog4.getName());
-            //MoodEntry me3 = new MoodEntry(7.0, 8.0);
-            //assertEquals(me3, testLog4.getMoodEntry());
-
-            // check that nextAccountId has been set correctly
-            //MoodLog nextMoodLog = new MoodLog("Friday", me2);
-            //assertEquals(6, nextMoodLog.getId());
-
+            MoodEntry me4 = testLog4.getMoodEntry();
+            assertEquals(7.0, me4.getAmMood());
+            assertEquals(8.0, me4.getPmMood());
 
         } catch (IOException e) {
             fail("IOException should not have been thrown");
