@@ -10,15 +10,17 @@ public class TabBar extends JTabbedPane{
     PmPanel pmPanel;
     AveragePanel averagePanel;
     MoodLogPanel moodLogPanel;
+    GUI gui;
 
 
-    public TabBar() {
+    public TabBar(GUI gui) {
         //JTabbedPane tabbedPane = new JTabbedPane();
+        this.gui = gui;
         ImageIcon icon = createImageIcon("images/middle.gif");
-        amPanel = new AmPanel();
-        pmPanel = new PmPanel();
-        averagePanel = new AveragePanel();
-        moodLogPanel = new MoodLogPanel();
+        amPanel = new AmPanel(gui);
+        pmPanel = new PmPanel(gui);
+        averagePanel = new AveragePanel(gui);
+        moodLogPanel = new MoodLogPanel(gui);
 
         addTab("AM Mood", amPanel);
         addTab("PM Mood", pmPanel);

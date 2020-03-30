@@ -14,7 +14,7 @@ public class AveragePanel extends JPanel {
     private static JComboBox amList;
     private static JTextArea textAreaAverage;
     private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-           "Select A Day"};
+            "Select A Day"};
 
     MoodLog monday;
     MoodLog tuesday;
@@ -23,9 +23,11 @@ public class AveragePanel extends JPanel {
     MoodLog friday;
     MoodLog saturday;
     MoodLog sunday;
+    GUI gui;
 
     //EFFECTS: constructs the Week Log panel with 2 components (day combobox and text panel)
-    public AveragePanel() {
+    public AveragePanel(GUI gui) {
+        this.gui = gui;
         setLayout(new GridLayout(0, 1));
         //JPanel panel3 = new JPanel(new GridLayout(0, 1));
         TitledBorder title3;
@@ -59,23 +61,8 @@ public class AveragePanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             JComboBox cb1 = (JComboBox) e.getSource();
             String weekName = (String) cb1.getSelectedItem();
-            if (weekName.equals("Monday")) {
-                textAreaAverage.append("Monday: " + monday.getAverageMoodLog() + "\n");
-            } else if (weekName.equals("Tuesday")) {
-                textAreaAverage.append("Tuesday: " + tuesday.getAverageMoodLog() + "\n");
-            } else if (weekName.equals("Wednesday")) {
-                textAreaAverage.append("Wednesday: " + wednesday.getAverageMoodLog() + "\n");
-            } else if (weekName.equals("Thursday")) {
-                textAreaAverage.append("Thursday: " + thursday.getAverageMoodLog() + "\n");
-            } else if (weekName.equals("Friday")) {
-                textAreaAverage.append("Friday: " + friday.getAverageMoodLog() + "\n");
-            } else if (weekName.equals("Saturday")) {
-                textAreaAverage.append("Saturday: " + saturday.getAverageMoodLog() + "\n");
-            } else if (weekName.equals("Sunday")) {
-                textAreaAverage.append("Sunday: " + sunday.getAverageMoodLog() + "\n");
-            } else {
-                System.out.println("Select a Day");
-            }
+            String average = gui.printAverage(weekName);
+            textAreaAverage.append(average);
         }
     }
 }

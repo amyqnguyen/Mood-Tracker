@@ -32,6 +32,7 @@ public class AmPanel extends JPanel {
     private static JTextArea textAreaAM;
     private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
            "Select A Day"};
+    GUI gui;
 
     MoodLog monday;
     MoodLog tuesday;
@@ -42,7 +43,8 @@ public class AmPanel extends JPanel {
     MoodLog sunday;
 
     //EFFECTS: constructs the AM Mood panal in the AM Mood tab
-    public AmPanel() {
+    public AmPanel(GUI gui) {
+        this.gui = gui;
         setLayout(new GridLayout(0, 1));
         //JPanel panel1 = new JPanel(new GridLayout(0, 1));
         amSlider();
@@ -118,44 +120,9 @@ public class AmPanel extends JPanel {
         add(amRatingSlider);
     }
 
-    //EFFECTS: updates the weekDay mood log to the current set rating
-    private void updateAMWeekDay(String weekDay) {
-        if (weekDay.equals("Monday")) {
-            MoodEntry me = monday.getMoodEntry();
-            me.setAMmood(saveNumberHereAM);
-            //monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Tuesday")) {
-            MoodEntry me1 = tuesday.getMoodEntry();
-            me1.setAMmood(saveNumberHereAM);
-            //tuesday = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Wednesday")) {
-            MoodEntry me2 = wednesday.getMoodEntry();
-            me2.setAMmood(saveNumberHereAM);
-            //wednesday = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Thursday")) {
-            MoodEntry me3 = thursday.getMoodEntry();
-            me3.setAMmood(saveNumberHereAM);
-            //thursday = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Friday")) {
-            MoodEntry me4 = friday.getMoodEntry();
-            me4.setAMmood(saveNumberHereAM);
-            //friday = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Saturday")) {
-            MoodEntry me5 = monday.getMoodEntry();
-            me5.setAMmood(saveNumberHereAM);
-            //saturday = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Sunday")) {
-            MoodEntry me6 = monday.getMoodEntry();
-            me6.setAMmood(saveNumberHereAM);
-            //sunday = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else {
-            System.out.println("Select a Day");
-        }
-    }
-
     //EFFECTS: plays soundName
     //Method adapted from http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
-    public void playSound(String soundName) {
+    private void playSound(String soundName) {
         try {
             if (soundName.equals("button1.wav")) {
                 AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
@@ -176,28 +143,6 @@ public class AmPanel extends JPanel {
         }
     }
 
-    // EFFECTS: saves state of moods to MOODS_FILE
-    // method adapted from CPSC 210/TellerAPP/2020
-    private void saveMoodLogs() {
-        try {
-            Writer writer = new Writer(new File(MOODS_FILE));
-            writer.write(monday);
-            writer.write(tuesday);
-            writer.write(wednesday);
-            writer.write(thursday);
-            writer.write(friday);
-            writer.write(saturday);
-            writer.write(sunday);
-            writer.close();
-            System.out.println("Mood logs saved to file " + MOODS_FILE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save mood logs to " + MOODS_FILE);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            // this is due to a programming error
-        }
-    }
-
 
     /// TAB1-AM
     private class SliderChangeListener implements ChangeListener {
@@ -209,9 +154,10 @@ public class AmPanel extends JPanel {
         }
     }
 
-    public static class ButtonChangeListener implements ChangeListener {
+    public class ButtonChangeListener implements ChangeListener {
         public void stateChanged(ChangeEvent changeEvent) {
             saveNumberHereAM = amRatingSlider.getValue();
+            gui.setMoodAM(saveNumberHereAM);
         }
     }
 
@@ -233,7 +179,7 @@ public class AmPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             JComboBox cb = (JComboBox) e.getSource();
             String weekName = (String) cb.getSelectedItem();
-            updateAMWeekDay(weekName);
+            gui.updateAMWeekDay(weekName);
             textAreaAM.append(weekName + " " + saveNumberHereAM + "\n");
         }
     }
@@ -252,7 +198,7 @@ public class AmPanel extends JPanel {
                 saveButtonAM.setEnabled(true);
                 saveButtonAM.getChangeListeners();
                 playSound("button4.wav");
-                saveMoodLogs();
+                gui.saveMoodLogs();
             } else {
                 saveButtonAM.setEnabled(false);
             }

@@ -1,8 +1,6 @@
 package ui.tabs;
 
-import model.MoodEntry;
 import model.MoodLog;
-import persistence.Writer;
 import ui.GUI;
 
 import javax.sound.sampled.AudioInputStream;
@@ -15,10 +13,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
 
 public class PmPanel extends JPanel {
     private static final int minRating = 0;
@@ -41,10 +36,13 @@ public class PmPanel extends JPanel {
     MoodLog saturday;
     MoodLog sunday;
 
+    GUI gui;
+
 
     //EFFECTS: constructs the PM Mood panel with 5 components (slider, set button, day combobox,
     // text panel, and save button
-    public PmPanel() {
+    public PmPanel(GUI gui) {
+        this.gui = gui;
         setLayout(new GridLayout(0, 1));
         //JPanel panel2 = new JPanel(new GridLayout(0, 1));
 //        pmSlider(panel2);
@@ -99,7 +97,7 @@ public class PmPanel extends JPanel {
     private void setButtonPm() {
         setButton1 = new JButton("Set");
         setButton1.setActionCommand("set");
-        ChangeListener buttonListener1 = new ButthonChangeListener1();
+        ChangeListener buttonListener1 = new ButtonChangeListener1();
         setButton1.addChangeListener(buttonListener1);
         ActionListener buttonActionListener1 = new ButtonActionListener1();
         setButton1.addActionListener(buttonActionListener1);
@@ -140,62 +138,6 @@ public class PmPanel extends JPanel {
         }
     }
 
-    private void updatePMWeekDay(String weekDay) {
-        if (weekDay.equals("Monday")) {
-            MoodEntry me = monday.getMoodEntry();
-            me.setPMmood(saveNumberHerePM);
-            //monday = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Tuesday")) {
-            MoodEntry me1 = tuesday.getMoodEntry();
-            me1.setPMmood(saveNumberHerePM);
-            //tuesday = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Wednesday")) {
-            MoodEntry me2 = wednesday.getMoodEntry();
-            me2.setPMmood(saveNumberHerePM);
-            //wednesday = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Thursday")) {
-            MoodEntry me3 = thursday.getMoodEntry();
-            me3.setPMmood(saveNumberHerePM);
-            //thursday = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Friday")) {
-            MoodEntry me4 = friday.getMoodEntry();
-            me4.setPMmood(saveNumberHerePM);
-            //friday = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Saturday")) {
-            MoodEntry me5 = monday.getMoodEntry();
-            me5.setPMmood(saveNumberHerePM);
-            //saturday = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else if (weekDay.equals("Sunday")) {
-            MoodEntry me6 = monday.getMoodEntry();
-            me6.setPMmood(saveNumberHerePM);
-            //sunday = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        } else {
-            System.out.println("Select a Day");
-        }
-    }
-
-    // EFFECTS: saves state of moods to MOODS_FILE
-    // method adapted from CPSC 210/TellerAPP/2020
-    private void saveMoodLogs() {
-        try {
-            Writer writer = new Writer(new File(MOODS_FILE));
-            writer.write(monday);
-            writer.write(tuesday);
-            writer.write(wednesday);
-            writer.write(thursday);
-            writer.write(friday);
-            writer.write(saturday);
-            writer.write(sunday);
-            writer.close();
-            System.out.println("Mood logs saved to file " + MOODS_FILE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to save mood logs to " + MOODS_FILE);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-            // this is due to a programming error
-        }
-    }
-
     // TAB2-PM
     private class SliderChangeListener1 implements ChangeListener {
         @Override
@@ -206,10 +148,11 @@ public class PmPanel extends JPanel {
         }
     }
 
-    private class ButthonChangeListener1 implements ChangeListener {
+    private class ButtonChangeListener1 implements ChangeListener {
         @Override
         public void stateChanged(ChangeEvent e) {
             saveNumberHerePM = pmRatingSlider.getValue();
+            gui.setMoodPM(saveNumberHerePM);
         }
     }
 
@@ -231,7 +174,7 @@ public class PmPanel extends JPanel {
         public void actionPerformed(ActionEvent e) {
             JComboBox cb = (JComboBox) e.getSource();
             String weekName = (String) cb.getSelectedItem();
-            updatePMWeekDay(weekName);
+            gui.updatePMWeekDay(weekName);
             textAreaPM.append(weekName + " " + saveNumberHerePM + "\n");
         }
     }
@@ -243,7 +186,7 @@ public class PmPanel extends JPanel {
                 saveButtonPM.setEnabled(true);
                 saveButtonPM.getChangeListeners();
                 playSound("button4.wav");
-                saveMoodLogs();
+                gui.saveMoodLogs();
             } else {
                 saveButtonPM.setEnabled(false);
             }
