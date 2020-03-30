@@ -9,6 +9,14 @@ public class MoodLogs {
 
     public MoodLogs() {
         moodLogs = new HashMap<>();
+
+        addWeekName("Monday");
+        addWeekName("Tuesday");
+        addWeekName("Wednesday");
+        addWeekName("Thursday");
+        addWeekName("Friday");
+        addWeekName("Saturday");
+        addWeekName("Sunday");
     }
 
     public void addWeekName(String weekDay) {

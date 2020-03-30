@@ -63,7 +63,7 @@ public class MoodLogPanel extends JPanel {
             JComboBox cb = (JComboBox) e.getSource();
             String weekName = (String) cb.getSelectedItem();
             String log = gui.printMoodLog(weekName);
-            System.out.println(log);
+            //System.out.println(log);
             textAreaWeekLog.append(log);
         }
     }
