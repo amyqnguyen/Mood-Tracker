@@ -28,25 +28,10 @@ import ui.tabs.TabBar;
 //Mood tracker GUI
 public class GUI extends JFrame {
     private static final String MOODS_FILE = "./data/moodsGUI.txt";
-//    private static final int minRating = 0;
-//    private static final int maxRating = 10;
-//    protected static JButton setButton;
-//    protected static JButton setButton1;
-//    private static JButton saveButtonAM;
-//    private static JButton saveButtonPM;
-//    private static JSlider amRatingSlider;
-//    private static JSlider pmRatingSlider;
+
     private double saveNumberHereAM;
     private double saveNumberHerePM;
-//    private static JComboBox comboBox1;
-//    private static JComboBox comboBox2;
-//    private static JComboBox amList;
-//    private static JTextArea textAreaAM;
-//    private static JTextArea textAreaPM;
-//    private static JTextArea textAreaAverage;
-//    private static JTextArea textAreaWeekLog;
-    //private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-     //       "Select A Day"};
+
 
     static MoodLog monday;
     static MoodLog tuesday;
@@ -58,6 +43,7 @@ public class GUI extends JFrame {
     static MoodLogs logs;
 
     TabBar tabBar;
+    MoodLog log;
 
     //EFFECTS: constructs the GUI with 4 tabs each representing a new panel
     //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
@@ -69,9 +55,8 @@ public class GUI extends JFrame {
         setVisible(true);
         tabBar = new TabBar(this);
         add(tabBar);
-        //init();
-        loadMoodLog();
         logs = new MoodLogs();
+        loadMoodLog();
     }
 
     // MODIFIES: this
@@ -88,22 +73,12 @@ public class GUI extends JFrame {
             friday = moodLogs.get(4);
             saturday = moodLogs.get(5);
             sunday = moodLogs.get(6);
+            addSaveMoodLogToMap();
         } catch (IOException e) {
             init();
         }
     }
 
-//    //EFFECTS: Returns an ImageIcon, or null if the path was invalid.
-//    //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
-//    protected static ImageIcon createImageIcon(String path) {
-//        java.net.URL imgURL = GUI.class.getResource(path);
-//        if (imgURL != null) {
-//            return new ImageIcon(imgURL);
-//        } else {
-//            System.err.println("Couldn't find file: " + path);
-//            return null;
-//        }
-//    }
 
     //EFFECTS: initialize the mood logs
     private static void init() {
@@ -145,34 +120,6 @@ public class GUI extends JFrame {
         }
     }
 
-//    //EFFECTS: updates the weekDay mood log to the current set rating
-//    public void updateAMWeekDay(String weekDay) {
-//        if (weekDay.equals("Monday")) {
-//            MoodEntry me = monday.getMoodEntry();
-//            me.setAMmood(saveNumberHereAM);
-//        } else if (weekDay.equals("Tuesday")) {
-//            MoodEntry me1 = tuesday.getMoodEntry();
-//            me1.setAMmood(saveNumberHereAM);
-//        } else if (weekDay.equals("Wednesday")) {
-//            MoodEntry me2 = wednesday.getMoodEntry();
-//            me2.setAMmood(saveNumberHereAM);
-//        } else if (weekDay.equals("Thursday")) {
-//            MoodEntry me3 = thursday.getMoodEntry();
-//            me3.setAMmood(saveNumberHereAM);
-//        } else if (weekDay.equals("Friday")) {
-//            MoodEntry me4 = friday.getMoodEntry();
-//            me4.setAMmood(saveNumberHereAM);
-//        } else if (weekDay.equals("Saturday")) {
-//            MoodEntry me5 = saturday.getMoodEntry();
-//            me5.setAMmood(saveNumberHereAM);
-//        } else if (weekDay.equals("Sunday")) {
-//            MoodEntry me6 = sunday.getMoodEntry();
-//            me6.setAMmood(saveNumberHereAM);
-//        } else {
-//            System.out.println("");
-//        }
-//    }
-
     public void updatePMWeekDay(String weekDay) {
         if (weekDay.equals("Monday")) {
             monday.setPmMoodEntry(saveNumberHerePM);
@@ -199,23 +146,36 @@ public class GUI extends JFrame {
     }
 
     public void addMoodLogToMap(String weekName, MoodLog log) {
-        log = new MoodLog(weekName, new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+        this.log = new MoodLog(weekName, new MoodEntry(saveNumberHereAM, saveNumberHerePM));
         logs.addMoodLog(weekName, log);
         System.out.println(logs.printMapLogs(weekName));
     }
 
-//    public void addMoodLogToMap(String weekName, MoodLog log) {
-//        if (weekName.equals("Monday")) {
-//            log = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-//            logs.addMoodLog("Monday", log);
-//            System.out.println(logs.printMapLogs("Monday"));
 
-
-    public void addSaveMoodLogToMap(String weekDay, MoodLog log) {}
+    public void addSaveMoodLogToMap() {
+        try {
+            List<MoodLog> moodLogs = Reader.readMoods(new File(MOODS_FILE));
+            MoodLog oldMonday = moodLogs.get(0);
+            MoodLog oldTuesday = moodLogs.get(1);
+            MoodLog oldWednesday = moodLogs.get(2);
+            MoodLog oldThursday = moodLogs.get(3);
+            MoodLog oldFriday = moodLogs.get(4);
+            MoodLog oldSaturday = moodLogs.get(5);
+            MoodLog oldSunday = moodLogs.get(6);
+            logs.addMoodLog("Monday", oldMonday);
+            logs.addMoodLog("Tuesday", oldTuesday);
+            logs.addMoodLog("Wednesday", oldWednesday);
+            logs.addMoodLog("Thursday", oldThursday);
+            logs.addMoodLog("Friday", oldFriday);
+            logs.addMoodLog("Saturday", oldSaturday);
+            logs.addMoodLog("Sunday", oldSunday);
+        } catch (IOException e) {
+            init();
+        }
+    }
 
     public String printAverage(String weekName) {
         if (weekName.equals("Monday")) {
-            //textAreaAverage.append("Monday: " + monday.getAverageMoodLog() + "\n");
             return "Monday: " + monday.getAverageMoodLog() + "\n";
         } else if (weekName.equals("Tuesday")) {
             return "Tuesday: " + tuesday.getAverageMoodLog() + "\n";
