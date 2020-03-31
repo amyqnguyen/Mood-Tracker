@@ -51,7 +51,7 @@ is added to the map.
  
 <h3> Phase 4: Task 3</h3>
 
-- Problems identified:
+<h4>Problems identified:<h4>
  
  1) Low cohesion in the GUI class, it had multiple clusters of methods and it has too many responsibilities such as: 
  making panels/adding components to the panels, having several inner classes for action listeners/change listeners and 
@@ -59,7 +59,7 @@ is added to the map.
  2) Bad/High coupling in the GUI class and it did not having a single point of control.
 
  
-- Changes to improve the design of my code:
+<h4>Changes to improve the design of my code:<h4>
 
 1) Using the Single Responsibility Principle to increase cohesion, I separated my GUI class into multiple classes. 
 Each panel class is responsible for making a panel and the TabBar class is used to create a tabbed panel with all the
