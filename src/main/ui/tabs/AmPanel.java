@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.UnsupportedEncodingException;
 
+
 public class AmPanel extends JPanel {
     private static final String MOODS_FILE = "./data/moodsGUI.txt";
     private static final int minRating = 0;
@@ -31,7 +32,8 @@ public class AmPanel extends JPanel {
     private static JComboBox comboBox1;
     private static JTextArea textAreaAM;
     private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
-           "Select A Day"};
+            "Select A Day"};
+
     GUI gui;
 
     MoodLog monday;

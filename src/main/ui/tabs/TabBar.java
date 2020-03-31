@@ -5,7 +5,7 @@ import ui.GUI;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
-public class TabBar extends JTabbedPane{
+public class TabBar extends JTabbedPane {
     AmPanel amPanel;
     PmPanel pmPanel;
     AveragePanel averagePanel;
