@@ -42,6 +42,14 @@ public class MoodLog implements Saveable {
         return entry;
     } ///????
 
+    public void setAmMoodEntry(Double am) {
+        entry.setAMmood(am);
+    }
+
+    public void setPmMoodEntry(Double pm) {
+        entry.setPMmood(pm);
+    }
+
     public double getAverageMoodLog() {
         average = entry.averageMoodEntry();
         return average;

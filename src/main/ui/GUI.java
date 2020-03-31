@@ -71,8 +71,7 @@ public class GUI extends JFrame {
         add(tabBar);
         //init();
         loadMoodLog();
-
-        //System.out.println(monday);
+        logs = new MoodLogs();
     }
 
     // MODIFIES: this
@@ -89,8 +88,6 @@ public class GUI extends JFrame {
             friday = moodLogs.get(4);
             saturday = moodLogs.get(5);
             sunday = moodLogs.get(6);
-            logs = new MoodLogs();
-            addMoodLogToMap("Monday", moodLogs.get(0));
         } catch (IOException e) {
             init();
         }
@@ -130,62 +127,74 @@ public class GUI extends JFrame {
     //EFFECTS: updates the weekDay mood log to the current set rating
     public void updateAMWeekDay(String weekDay) {
         if (weekDay.equals("Monday")) {
-            MoodEntry me = monday.getMoodEntry();
-            me.setAMmood(saveNumberHereAM);
+            monday.setAmMoodEntry(saveNumberHereAM);
         } else if (weekDay.equals("Tuesday")) {
-            MoodEntry me1 = tuesday.getMoodEntry();
-            me1.setAMmood(saveNumberHereAM);
+            tuesday.setAmMoodEntry(saveNumberHereAM);
         } else if (weekDay.equals("Wednesday")) {
-            MoodEntry me2 = wednesday.getMoodEntry();
-            me2.setAMmood(saveNumberHereAM);
+            wednesday.setAmMoodEntry(saveNumberHereAM);
         } else if (weekDay.equals("Thursday")) {
-            MoodEntry me3 = thursday.getMoodEntry();
-            me3.setAMmood(saveNumberHereAM);
+            thursday.setAmMoodEntry(saveNumberHereAM);
         } else if (weekDay.equals("Friday")) {
-            MoodEntry me4 = friday.getMoodEntry();
-            me4.setAMmood(saveNumberHereAM);
+            friday.setAmMoodEntry(saveNumberHereAM);
         } else if (weekDay.equals("Saturday")) {
-            MoodEntry me5 = saturday.getMoodEntry();
-            me5.setAMmood(saveNumberHereAM);
+            saturday.setAmMoodEntry(saveNumberHereAM);
         } else if (weekDay.equals("Sunday")) {
-            MoodEntry me6 = sunday.getMoodEntry();
-            me6.setAMmood(saveNumberHereAM);
+            sunday.setAmMoodEntry(saveNumberHereAM);
         } else {
-            System.out.println("");
+            System.out.println(" ");
         }
     }
 
+//    //EFFECTS: updates the weekDay mood log to the current set rating
+//    public void updateAMWeekDay(String weekDay) {
+//        if (weekDay.equals("Monday")) {
+//            MoodEntry me = monday.getMoodEntry();
+//            me.setAMmood(saveNumberHereAM);
+//        } else if (weekDay.equals("Tuesday")) {
+//            MoodEntry me1 = tuesday.getMoodEntry();
+//            me1.setAMmood(saveNumberHereAM);
+//        } else if (weekDay.equals("Wednesday")) {
+//            MoodEntry me2 = wednesday.getMoodEntry();
+//            me2.setAMmood(saveNumberHereAM);
+//        } else if (weekDay.equals("Thursday")) {
+//            MoodEntry me3 = thursday.getMoodEntry();
+//            me3.setAMmood(saveNumberHereAM);
+//        } else if (weekDay.equals("Friday")) {
+//            MoodEntry me4 = friday.getMoodEntry();
+//            me4.setAMmood(saveNumberHereAM);
+//        } else if (weekDay.equals("Saturday")) {
+//            MoodEntry me5 = saturday.getMoodEntry();
+//            me5.setAMmood(saveNumberHereAM);
+//        } else if (weekDay.equals("Sunday")) {
+//            MoodEntry me6 = sunday.getMoodEntry();
+//            me6.setAMmood(saveNumberHereAM);
+//        } else {
+//            System.out.println("");
+//        }
+//    }
+
     public void updatePMWeekDay(String weekDay) {
         if (weekDay.equals("Monday")) {
-            MoodEntry me = monday.getMoodEntry();
-            me.setPMmood(saveNumberHerePM);
+            monday.setPmMoodEntry(saveNumberHerePM);
             addMoodLogToMap("Monday", monday);
         } else if (weekDay.equals("Tuesday")) {
-            MoodEntry me1 = tuesday.getMoodEntry();
-            me1.setPMmood(saveNumberHerePM);
+            tuesday.setPmMoodEntry(saveNumberHerePM);
             addMoodLogToMap("Tuesday", tuesday);
         } else if (weekDay.equals("Wednesday")) {
-            MoodEntry me2 = wednesday.getMoodEntry();
-            me2.setPMmood(saveNumberHerePM);
+            wednesday.setPmMoodEntry(saveNumberHerePM);
             addMoodLogToMap("Wednesday", wednesday);
         } else if (weekDay.equals("Thursday")) {
-            MoodEntry me3 = thursday.getMoodEntry();
-            me3.setPMmood(saveNumberHerePM);
+            thursday.setPmMoodEntry(saveNumberHerePM);
             addMoodLogToMap("Thursday",thursday);
         } else if (weekDay.equals("Friday")) {
-            MoodEntry me4 = friday.getMoodEntry();
-            me4.setPMmood(saveNumberHerePM);
+            friday.setPmMoodEntry(saveNumberHerePM);
             addMoodLogToMap("Friday", friday);
         } else if (weekDay.equals("Saturday")) {
-            MoodEntry me5 = saturday.getMoodEntry();
-            me5.setPMmood(saveNumberHerePM);
+            saturday.setPmMoodEntry(saveNumberHerePM);
             addMoodLogToMap("Saturday", saturday);
-        } else if (weekDay.equals("Sunday")) {
-            MoodEntry me6 = sunday.getMoodEntry();
-            me6.setPMmood(saveNumberHerePM);
-            addMoodLogToMap("Sunday", sunday);
         } else {
-            System.out.println("Select a Day");
+            sunday.setPmMoodEntry(saveNumberHerePM);
+            addMoodLogToMap("Sunday", sunday);
         }
     }
 
@@ -200,35 +209,7 @@ public class GUI extends JFrame {
 //            log = new MoodLog("Monday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
 //            logs.addMoodLog("Monday", log);
 //            System.out.println(logs.printMapLogs("Monday"));
-//        } else if (weekName.equals("Tuesday")) {
-//            log = new MoodLog("Tuesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-//            logs.addMoodLog("Tuesday", log);
-//            System.out.println(logs.printMapLogs("Tuesday"));
-//        } else if (weekName.equals("Wednesday")) {
-//            log = new MoodLog("Wednesday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-//            logs.addMoodLog("Wednesday", log);
-//            System.out.println(logs.printMapLogs("Wednesday"));
-//        } else if (weekName.equals("Thursday")) {
-//            log = new MoodLog("Thursday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-//            logs.addMoodLog("Thursday", log);
-//            System.out.println(logs.printMapLogs("Thursday"));
-//        } else if (weekName.equals("Friday")) {
-//            log = new MoodLog("Friday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-//            logs.addMoodLog("Friday", log);
-//            System.out.println(logs.printMapLogs("Friday"));
-//        } else if (weekName.equals("Saturday")) {
-//            log = new MoodLog("Saturday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-//            logs.addMoodLog("Saturday", log);
-//            System.out.println(logs.printMapLogs("Saturday"));
-//        } else if (weekName.equals("Sunday")) {
-//            log = new MoodLog("Sunday", new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-//            logs.addMoodLog("Sunday", log);
-//            System.out.println(logs.printMapLogs("Sunday"));
-//        } else {
-//            System.out.println("Select a Day");
-//        }
-//
-//    }
+
 
     public void addSaveMoodLogToMap(String weekDay, MoodLog log) {}
 
