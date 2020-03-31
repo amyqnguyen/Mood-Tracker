@@ -40,4 +40,35 @@ printed.
 loaded (automatically reloads when you start up the application).
 
 
+<h3> Phase 4: Task 2</h3>
+
+- Option choosen: Make appropriate use of the Map interface somewhere in your code. 
+- The map was used in the class MoodLogs in the model package.
+- The key type is a String and the values type is an ArrayList of Mood Logs.
+- I also added methods in the GUI class (addMoodLogToMap() and addSaveMoodLogToMap()), where the last saved Mood Log 
+(when app was closed) and the new Mood logs added (when application is currently open),
+is added to the map.
+ 
+<h3> Phase 4: Task 3</h3>
+
+- Problems identified:
+ 
+ 1) Low cohesion in the GUI class, it had multiple clusters of methods and it has too many responsibilities such as: 
+ making panels/adding components to the panels, having several inner classes for action listeners/change listeners and 
+ several other methods responsible for creating functionality for the GUI.
+ 2) Bad/High coupling in the GUI class and it did not having a single point of control.
+
+ 
+- Changes to improve the design of my code:
+
+1) Using the Single Responsibility Principle to increase cohesion, I separated my GUI class into multiple classes. 
+Each panel class is responsible for making a panel and the TabBar class is used to create a tabbed panel with all the
+panels needed for the GUI.
+2) To reduce coupling, I separated my GUI class into multiple classes, each class creating a panel for the GUI, located 
+in the ui package. Additionally to have a single point of control, i passed in a GUI to each panel class. Thus all the information is 
+passed back to the GUI and it decides what is done with the information.
+
+ 
+ 
+ 
 

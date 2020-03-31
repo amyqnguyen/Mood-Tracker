@@ -1,24 +1,18 @@
 package ui.tabs;
 
-import model.MoodEntry;
-import model.MoodLog;
-import persistence.Writer;
 import ui.GUI;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
-import javax.swing.border.TitledBorder;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.UnsupportedEncodingException;
+
 
 
 public class AmPanel extends JPanel {
@@ -36,19 +30,11 @@ public class AmPanel extends JPanel {
 
     GUI gui;
 
-    MoodLog monday;
-    MoodLog tuesday;
-    MoodLog wednesday;
-    MoodLog thursday;
-    MoodLog friday;
-    MoodLog saturday;
-    MoodLog sunday;
 
     //EFFECTS: constructs the AM Mood panal in the AM Mood tab
     public AmPanel(GUI gui) {
         this.gui = gui;
         setLayout(new GridLayout(0, 1));
-        //JPanel panel1 = new JPanel(new GridLayout(0, 1));
         amSlider();
         amSetButtion();
         comboBoxAm();
@@ -56,18 +42,6 @@ public class AmPanel extends JPanel {
         add(label1);
         textPanelAm();
         saveButtonAm();
-//        amSlider(panel1);
-//        amSetButtion(panel1);
-//        comboBoxAm(panel1);
-
-//        textPanelAm(panel1);
-//        saveButtonAm(panel1);
-//        TitledBorder title1;
-//        title1 = BorderFactory.createTitledBorder("AM Mood");
-//        panel1.setBorder(title1);
-        //tabbedPane.addTab("AM Mood", icon, panel1,
-                //"Does nothing");
-        //tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
     }
 
     //EFFECTS: creates a save button for AM Mood

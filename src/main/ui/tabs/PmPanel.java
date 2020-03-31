@@ -1,6 +1,5 @@
 package ui.tabs;
 
-import model.MoodLog;
 import ui.GUI;
 
 import javax.sound.sampled.AudioInputStream;
@@ -28,13 +27,6 @@ public class PmPanel extends JPanel {
             "Select A Day"};
     private static final String MOODS_FILE = "./data/moodsGUI.txt";
 
-    MoodLog monday;
-    MoodLog tuesday;
-    MoodLog wednesday;
-    MoodLog thursday;
-    MoodLog friday;
-    MoodLog saturday;
-    MoodLog sunday;
 
     GUI gui;
 
@@ -44,10 +36,6 @@ public class PmPanel extends JPanel {
     public PmPanel(GUI gui) {
         this.gui = gui;
         setLayout(new GridLayout(0, 1));
-        //JPanel panel2 = new JPanel(new GridLayout(0, 1));
-//        pmSlider(panel2);
-//        setButtonPm(panel2);
-//        comboBoxPm(panel2);
         pmSlider();
         setButtonPm();
         comboBoxPm();
@@ -55,14 +43,9 @@ public class PmPanel extends JPanel {
         add(label2);
         textPanelPm();
         saveButtonPm();
-//        textPanelPm(panel2);
-//        saveButtonPm(panel2);
         TitledBorder title2;
         title2 = BorderFactory.createTitledBorder("PM Mood");
         setBorder(title2);
-//        tabbedPane.addTab("PM Mood", icon, panel2,
-//                "Does twice as much nothing");
-//        tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
     }
 
     //EFFECTS: creates save button for PM Mood

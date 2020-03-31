@@ -3,7 +3,6 @@ package ui.tabs;
 import ui.GUI;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 
 public class TabBar extends JTabbedPane {
     AmPanel amPanel;
@@ -14,7 +13,6 @@ public class TabBar extends JTabbedPane {
 
 
     public TabBar(GUI gui) {
-        //JTabbedPane tabbedPane = new JTabbedPane();
         this.gui = gui;
         ImageIcon icon = createImageIcon("images/middle.gif");
         amPanel = new AmPanel(gui);

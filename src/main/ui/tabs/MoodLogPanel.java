@@ -1,6 +1,6 @@
 package ui.tabs;
 
-import model.MoodLog;
+
 import ui.GUI;
 
 import javax.swing.*;
@@ -8,7 +8,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+
 
 
 public class MoodLogPanel extends JPanel {
@@ -17,27 +17,18 @@ public class MoodLogPanel extends JPanel {
 
     private static JTextArea textAreaWeekLog;
     private static JComboBox weekList;
-    MoodLog monday;
-    MoodLog tuesday;
-    MoodLog wednesday;
-    MoodLog thursday;
-    MoodLog friday;
-    MoodLog saturday;
-    MoodLog sunday;
+
     GUI gui;
 
     //EFFECTS: constructs the Week Log panel with 2 components (day combobox and a text panel)
     public MoodLogPanel(GUI gui) {
         this.gui = gui;
         setLayout(new GridLayout(0, 1));
-        //JPanel panel4 = new JPanel(new GridLayout(0, 1));
         TitledBorder title4;
         title4 = BorderFactory.createTitledBorder("Weekly Log");
         setBorder(title4);
         setPreferredSize(new Dimension(410, 450));
-        //tabbedPane.addTab("Week Log", icon, panel4,
-        //"Does nothing at all");
-        //tabbedPane.setMnemonicAt(3, KeyEvent.VK_4);
+
         //text panel
         textAreaWeekLog = new JTextArea();
         textAreaWeekLog.setEditable(false);
