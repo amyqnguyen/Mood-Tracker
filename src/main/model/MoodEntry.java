@@ -1,23 +1,10 @@
 package model;
 
-import persistence.Reader;
-import persistence.Saveable;
-
-import java.awt.geom.Arc2D;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 
 //Represents a mood entry in a mood log that can be an AM or PM mood entry
 public class MoodEntry {
-    //private ArrayList<Double> amMood;
-    //private ArrayList<Double> pmMood;
     private Double amMood;
     private Double pmMood;
-    private double totalAMMoodRating;
-    private double totalPMMoodRating;
-    private double totalAllMoodRating;
-    private double averageMood;
-
 
     // EFFECTS: constructs an empty am and pm mood entry having a list of doubles
     public MoodEntry(Double am, Double pm) {

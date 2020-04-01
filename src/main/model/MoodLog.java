@@ -1,9 +1,6 @@
 package model;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import persistence.Reader;
 import persistence.Saveable;
@@ -12,9 +9,7 @@ import persistence.Saveable;
 
 //Represents an mood log which is an array of mood entries
 public class MoodLog implements Saveable {
-    private static int nextAccountId = 1;  // tracks id of next account created
     private String weekDay;
-    private int id;
     private double average;                // the current average of the account
     private MoodEntry entry;
 

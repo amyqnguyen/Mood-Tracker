@@ -28,7 +28,7 @@ public class AmPanel extends JPanel {
     private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
             "Select A Day"};
 
-    GUI gui;
+    private GUI gui;
 
 
     //EFFECTS: constructs the AM Mood panal in the AM Mood tab

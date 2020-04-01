@@ -2,21 +2,12 @@ package ui;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import java.awt.event.*;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
 import java.util.List;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.AudioSystem;
-
 
 import model.MoodEntry;
 import model.MoodLog;
@@ -32,18 +23,16 @@ public class GUI extends JFrame {
     private double saveNumberHereAM;
     private double saveNumberHerePM;
 
+    private MoodLog monday;
+    private MoodLog tuesday;
+    private MoodLog wednesday;
+    private MoodLog thursday;
+    private MoodLog friday;
+    private MoodLog saturday;
+    private MoodLog sunday;
+    private MoodLogs logs;
 
-    static MoodLog monday;
-    static MoodLog tuesday;
-    static MoodLog wednesday;
-    static MoodLog thursday;
-    static MoodLog friday;
-    static MoodLog saturday;
-    static MoodLog sunday;
-    static MoodLogs logs;
-
-    TabBar tabBar;
-    MoodLog log;
+    private TabBar tabBar;
 
     //EFFECTS: constructs the GUI with 4 tabs each representing a new panel
     //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
@@ -81,7 +70,7 @@ public class GUI extends JFrame {
 
 
     //EFFECTS: initialize the mood logs
-    private static void init() {
+    private void init() {
         monday = new MoodLog("Monday", new MoodEntry(0.0, 0.0));
         tuesday = new MoodLog("Tuesday", new MoodEntry(0.0, 0.0));
         wednesday = new MoodLog("Wednesday", new MoodEntry(0.0, 0.0));
@@ -123,31 +112,31 @@ public class GUI extends JFrame {
     public void updatePMWeekDay(String weekDay) {
         if (weekDay.equals("Monday")) {
             monday.setPmMoodEntry(saveNumberHerePM);
-            addMoodLogToMap("Monday", monday);
+            addMoodLogToMap("Monday");
         } else if (weekDay.equals("Tuesday")) {
             tuesday.setPmMoodEntry(saveNumberHerePM);
-            addMoodLogToMap("Tuesday", tuesday);
+            addMoodLogToMap("Tuesday");
         } else if (weekDay.equals("Wednesday")) {
             wednesday.setPmMoodEntry(saveNumberHerePM);
-            addMoodLogToMap("Wednesday", wednesday);
+            addMoodLogToMap("Wednesday");
         } else if (weekDay.equals("Thursday")) {
             thursday.setPmMoodEntry(saveNumberHerePM);
-            addMoodLogToMap("Thursday",thursday);
+            addMoodLogToMap("Thursday");
         } else if (weekDay.equals("Friday")) {
             friday.setPmMoodEntry(saveNumberHerePM);
-            addMoodLogToMap("Friday", friday);
+            addMoodLogToMap("Friday");
         } else if (weekDay.equals("Saturday")) {
             saturday.setPmMoodEntry(saveNumberHerePM);
-            addMoodLogToMap("Saturday", saturday);
+            addMoodLogToMap("Saturday");
         } else {
             sunday.setPmMoodEntry(saveNumberHerePM);
-            addMoodLogToMap("Sunday", sunday);
+            addMoodLogToMap("Sunday");
         }
     }
 
-    public void addMoodLogToMap(String weekName, MoodLog log) {
-        this.log = new MoodLog(weekName, new MoodEntry(saveNumberHereAM, saveNumberHerePM));
-        logs.addMoodLog(weekName, log);
+    public void addMoodLogToMap(String weekName) {
+        MoodLog newLog = new MoodLog(weekName, new MoodEntry(saveNumberHereAM, saveNumberHerePM));
+        logs.addMoodLog(weekName, newLog);
         System.out.println(logs.printMapLogs(weekName));
     }
 
@@ -243,7 +232,6 @@ public class GUI extends JFrame {
             public void run() {
                 //Turn off metal's use of bold fonts
                 UIManager.put("swing.boldMetal", Boolean.FALSE);
-//                createAndShowGUI();
                 new GUI();
             }
         });

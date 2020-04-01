@@ -28,8 +28,8 @@ provide suggestions for how to deal with them more effectively.
 - In the AM Mood tab, you can generate the first required event by selecting a mood rating on the slider. Once you 
 picked a rating, press the Set button to set the mood. 
 - You can generate the second required event by using the combobox below and selecting the day you want to set this 
-mood rating to (selected day and rating will be printed below in the text panel).  
-- Entering and setting PM mood is the same as AM mood but done is done in the PM Mood tab.
+mood rating to (selected day and rating will be printed below in the text panel). Press Save! button to save mood entry.  
+- Entering and setting PM mood is the same as AM mood but is done in the PM Mood tab.
 - You can generate the average mood for the day by using the combobox provided in the Daily Average tab. Select the day
 and the average will be printed out.
 - You can load your current mood ratings in the Week Log tab. Select the day using the combobox and the mood log will be
@@ -46,8 +46,9 @@ loaded (automatically reloads when you start up the application).
 - The map was used in the class MoodLogs in the model package.
 - The key type is a String and the values type is an ArrayList of Mood Logs.
 - I also added methods in the GUI class (addMoodLogToMap() and addSaveMoodLogToMap()), where the last saved Mood Log 
-(when app was closed) and the new Mood logs added (when application is currently open),
-is added to the map.
+(when app was closed) and the new Mood logs added (when application is currently open), is added to the map. Mood logs 
+are printed in the console.
+
  
 <h3> Phase 4: Task 3</h3>
 

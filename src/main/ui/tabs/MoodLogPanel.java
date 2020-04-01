@@ -18,7 +18,7 @@ public class MoodLogPanel extends JPanel {
     private static JTextArea textAreaWeekLog;
     private static JComboBox weekList;
 
-    GUI gui;
+    private GUI gui;
 
     //EFFECTS: constructs the Week Log panel with 2 components (day combobox and a text panel)
     public MoodLogPanel(GUI gui) {

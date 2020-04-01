@@ -5,11 +5,11 @@ import ui.GUI;
 import javax.swing.*;
 
 public class TabBar extends JTabbedPane {
-    AmPanel amPanel;
-    PmPanel pmPanel;
-    AveragePanel averagePanel;
-    MoodLogPanel moodLogPanel;
-    GUI gui;
+    private AmPanel amPanel;
+    private PmPanel pmPanel;
+    private AveragePanel averagePanel;
+    private MoodLogPanel moodLogPanel;
+    private GUI gui;
 
 
     public TabBar(GUI gui) {

@@ -28,7 +28,7 @@ public class PmPanel extends JPanel {
     private static final String MOODS_FILE = "./data/moodsGUI.txt";
 
 
-    GUI gui;
+    private GUI gui;
 
 
     //EFFECTS: constructs the PM Mood panel with 5 components (slider, set button, day combobox,

@@ -15,7 +15,7 @@ public class AveragePanel extends JPanel {
     private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
             "Select A Day"};
 
-    GUI gui;
+    private GUI gui;
 
     //EFFECTS: constructs the Week Log panel with 2 components (day combobox and text panel)
     public AveragePanel(GUI gui) {
