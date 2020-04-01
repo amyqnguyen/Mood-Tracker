@@ -42,7 +42,7 @@ loaded (automatically reloads when you start up the application).
 
 <h3> Phase 4: Task 2</h3>
 
-- Option choosen: Make appropriate use of the Map interface somewhere in your code. 
+- Option chosen: Make appropriate use of the Map interface somewhere in your code. 
 - The map was used in the class MoodLogs in the model package.
 - The key type is a String and the values type is an ArrayList of Mood Logs.
 - I also added methods in the GUI class (addMoodLogToMap() and addSaveMoodLogToMap()), where the last saved Mood Log 
