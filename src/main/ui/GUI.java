@@ -91,7 +91,7 @@ public class GUI extends JFrame {
         this.saveNumberHerePM = saveNumberHerePM;
     }
 
-    //EFFECTS: updates the weekDay mood log to the current set rating
+    //EFFECTS: updates the weekDay mood log to the current AM set rating
     public void updateAMWeekDay(String weekDay) {
         if (weekDay.equals("Monday")) {
             monday.setAmMoodEntry(saveNumberHereAM);
@@ -112,6 +112,7 @@ public class GUI extends JFrame {
         }
     }
 
+    //EFFECTS: updates the weekDay mood log to the current PM set rating
     public void updatePMWeekDay(String weekDay) {
         if (weekDay.equals("Monday")) {
             monday.setPmMoodEntry(saveNumberHerePM);
@@ -137,13 +138,14 @@ public class GUI extends JFrame {
         }
     }
 
+    //EFFECTS: adds a new mood log to a map
     public void addMoodLogToMap(String weekName) {
         MoodLog newLog = new MoodLog(weekName, new MoodEntry(saveNumberHereAM, saveNumberHerePM));
         logs.addMoodLog(weekName, newLog);
         System.out.println(logs.printMapLogs(weekName));
     }
 
-
+    //EFFECTS: adds the previously saved mood log to the map
     public void addSaveMoodLogToMap() {
         try {
             List<MoodLog> moodLogs = Reader.readMoods(new File(MOODS_FILE));
@@ -189,6 +191,7 @@ public class GUI extends JFrame {
         }
     }
 
+    //EFFECTS: prints out the average of the current mood log
     public String printAverage(String weekName) {
         if (weekName.equals("Monday")) {
             return "Monday: " + monday.getAverageMoodLog() + "\n";
@@ -209,6 +212,7 @@ public class GUI extends JFrame {
         }
     }
 
+    //EFFECTS: prints out the current mood log
     public String printMoodLog(String weekName) {
         if (weekName.equals("Monday")) {
             return monday.toString();

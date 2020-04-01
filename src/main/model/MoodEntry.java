@@ -6,7 +6,7 @@ public class MoodEntry {
     private Double amMood;
     private Double pmMood;
 
-    // EFFECTS: constructs an empty am and pm mood entry having a list of doubles
+    // EFFECTS: constructs an empty am and pm mood entry having a two doubles
     public MoodEntry(Double am, Double pm) {
         this.amMood = am;
         this.pmMood = pm;

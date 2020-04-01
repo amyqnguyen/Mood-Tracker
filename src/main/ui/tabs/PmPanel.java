@@ -9,12 +9,12 @@ import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+//Represents the pm panel in the gui
 public class PmPanel extends MoodEntryPanel {
 
     private Double saveNumberHerePm;
 
-    //EFFECTS: constructs the AM Mood panal in the AM Mood tab
+    //EFFECTS: constructs the pm Mood panal in the PM Mood tab
     public PmPanel(GUI gui) {
         super(gui);
         TitledBorder title2;

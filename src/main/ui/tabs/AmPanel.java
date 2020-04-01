@@ -9,13 +9,13 @@ import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+//Represents the am panel
 public class AmPanel extends MoodEntryPanel {
 
     private Double saveNumberHereAm;
 
 
-    //EFFECTS: constructs the AM Mood panal in the AM Mood tab
+    //EFFECTS: constructs the AM Mood panel in the AM Mood tab
     public AmPanel(GUI gui) {
         super(gui);
         TitledBorder title2;

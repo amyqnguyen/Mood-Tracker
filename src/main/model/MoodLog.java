@@ -5,14 +5,12 @@ import java.io.PrintWriter;
 import persistence.Reader;
 import persistence.Saveable;
 
-//ABSTRACT CLASS?????
 
-//Represents an mood log which is an array of mood entries
+//Represents an mood log which is an string and a mood entry
 public class MoodLog implements Saveable {
     private String weekDay;
     private double average;                // the current average of the account
     private MoodEntry entry;
-
 
 
     // REQUIRES: name has a non-zero length and has a valid mood entry

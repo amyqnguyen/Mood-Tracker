@@ -5,6 +5,7 @@ import ui.GUI;
 import javax.swing.*;
 import java.awt.*;
 
+//Represents an abstract class that creates a text panel
 public abstract class TextPanel extends JPanel {
 
     protected GUI gui;
@@ -14,6 +15,7 @@ public abstract class TextPanel extends JPanel {
     private static String[] weekDays = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday",
             "Select A Day"};
 
+    //EFFECTS: constructs a text panel with several components that takes in a gui
     public TextPanel(GUI gui) {
         this.gui = gui;
         setLayout(new GridLayout(0, 1));
@@ -24,14 +26,17 @@ public abstract class TextPanel extends JPanel {
 
     }
 
+    //EFFECTS: creates a combo box
     public void addComboBox() {
         weekList = new JComboBox(weekDays);
         weekList.setSelectedIndex(7);
         add(weekList);
     }
 
+    //EFFECTS: creates a label
     protected abstract void addLabel();
 
+    //EFFECTS: creates a text area
     public void addTextArea() {
         textArea = new JTextArea();
         textArea.setEditable(false);

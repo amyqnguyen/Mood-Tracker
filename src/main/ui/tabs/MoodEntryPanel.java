@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+//Represents an abstract class used to construct the am and pm panel
 public abstract class MoodEntryPanel extends JPanel {
 
     private static final int minRating = 0;
@@ -25,7 +25,7 @@ public abstract class MoodEntryPanel extends JPanel {
     protected GUI gui;
 
 
-    //EFFECTS: constructs the AM Mood panal in the AM Mood tab
+    //EFFECTS: constructs a panel with several components that takes in a gui
     public MoodEntryPanel(GUI gui) {
         this.gui = gui;
         setLayout(new GridLayout(0, 1));
@@ -38,9 +38,10 @@ public abstract class MoodEntryPanel extends JPanel {
         addListener();
     }
 
+    //EFFECTS: adds a label to the panel
     protected abstract void addLabel();
 
-    //EFFECTS: creates a save button for AM Mood
+    //EFFECTS: creates a save button
     public void saveButton() {
         saveButton = new JButton("Save Mood!");
         saveButton.setActionCommand("save");
@@ -49,7 +50,7 @@ public abstract class MoodEntryPanel extends JPanel {
         add(saveButton);
     }
 
-    //EFFECTS: creates a text panel for AM Mood
+    //EFFECTS: creates a text panel
     public void textArea() {
         textArea = new JTextArea();
         textArea.setEditable(false);
@@ -59,14 +60,14 @@ public abstract class MoodEntryPanel extends JPanel {
         add(textAreaAMScroll);
     }
 
-    //EFFECTS: creates a combobox for AM Mood
+    //EFFECTS: creates a combobox
     public void comboBox() {
         comboBox = new JComboBox(weekDays);
         comboBox.setSelectedIndex(7);
         add(comboBox);
     }
 
-    //EFFECTS: creates a set button for AM Mood
+    //EFFECTS: creates a set button
     public void createSetButton() {
         setButton = new JButton("Set");
         setButton.setActionCommand("set");
@@ -74,7 +75,7 @@ public abstract class MoodEntryPanel extends JPanel {
         add(setButton);
     }
 
-    //EFFECTS: creates a rating slider (0-10) for AM Mood
+    //EFFECTS: creates a rating slider (0-10)
     protected void createSlider() {
         ratingSlider = new JSlider(minRating, maxRating);
         ratingSlider.setMajorTickSpacing(1);

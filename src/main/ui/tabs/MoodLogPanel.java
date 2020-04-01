@@ -9,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-
+//Represents the mood log panel in the GUI
 public class MoodLogPanel extends TextPanel {
 
     //EFFECTS: constructs the Week Log panel with 2 components (day combobox and a text panel)

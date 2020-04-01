@@ -8,10 +8,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-
+//Represents the average panel
 public class AveragePanel extends TextPanel {
 
-    //EFFECTS: constructs the Week Log panel with 2 components (day combobox and text panel)
+    //EFFECTS: constructs the average panel with 2 components (day combobox and text panel)
     public AveragePanel(GUI gui) {
         super(gui);
         setLayout(new GridLayout(0, 1));
