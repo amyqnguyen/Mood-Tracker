@@ -5,10 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 class MoodTest {
     MoodEntry testMood1;
     MoodEntry testMood2;
@@ -33,11 +29,8 @@ class MoodTest {
     }
 
     @Test
-    void testConstructorML1() { ///????
-        //testMood1.addRatingAM(4.0);
-        //testLog1.addMoodEntry(testMood1);
+    void testConstructorML1() {
         assertEquals("Monday", testLog1.getName());
-        //assertEquals(testMood1, testLog1.getMoodEntry());
     }
 
     @Test
