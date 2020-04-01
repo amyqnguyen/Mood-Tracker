@@ -57,18 +57,20 @@ are printed in the console.
  1) Low cohesion in the GUI class, it had multiple clusters of methods and it has too many responsibilities such as: 
  making panels/adding components to the panels, having several inner classes for action listeners/change listeners and 
  several other methods responsible for creating functionality for the GUI.
- 2) Bad/High coupling in the GUI class and it did not having a single point of control.
+ 2) Bad/High coupling in the GUI class and it did not having a single point of control. A lot of duplicated code in creating
+ the panels for the GUI.
 
  
 <h4>Changes to improve the design of my code:<h4>
 
-1) Using the Single Responsibility Principle to increase cohesion, I separated my GUI class into multiple classes. 
-Each panel class is responsible for making a panel and the TabBar class is used to create a tabbed panel with all the
-panels needed for the GUI.
-2) To reduce coupling, I separated my GUI class into multiple classes, each class creating a panel for the GUI, located 
-in the ui package. Additionally to have a single point of control, i passed in a GUI to each panel class. Thus all the information is 
-passed back to the GUI and it decides what is done with the information.
-
+1) Using the Single Responsibility Principle to increase cohesion, I separated my GUI class into multiple classes, each 
+class creating a panel for the GUI, located in the ui package. Each panel class is responsible for making a panel and the 
+TabBar class is used to create a tabbed panel with all the panels needed for the GUI. I passed in a GUI to each panel class 
+thus all the information is passed back to the GUI and it decides what is done with the information.
+2) To reduce coupling and to have a single point of control I created two abstract classes (MoodEntryPanel and TextPanel)
+in the tabs package. The AmPanel and the PmPanel had a lot of duplicated code, thus I created the MoodEntryPanel abstract 
+class to ensure a single point of control for these classes. The AveragePanel and the MoodLogPanel also had a lot of
+duplicate code thus another abstract was created. 
  
  
  

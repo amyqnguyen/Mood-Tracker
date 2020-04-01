@@ -1,5 +1,8 @@
 package ui;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 
@@ -38,7 +41,7 @@ public class GUI extends JFrame {
     //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
     public GUI() {
         super("Mood Tracker");
-        setMinimumSize(new Dimension(400,400));
+        setMinimumSize(new Dimension(500,500));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         pack();
         setVisible(true);
@@ -160,6 +163,29 @@ public class GUI extends JFrame {
             logs.addMoodLog("Sunday", oldSunday);
         } catch (IOException e) {
             init();
+        }
+    }
+
+    //EFFECTS: plays soundName
+    //Method adapted from http://suavesnippets.blogspot.com/2011/06/add-sound-on-jbutton-click-in-java.html
+    public void playSound(String soundName) {
+        try {
+            if (soundName.equals("button1.wav")) {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+                        new File("data/button1.wav"));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            } else {
+                AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(
+                        new File("data/button4.wav"));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInputStream);
+                clip.start();
+            }
+        } catch (Exception ex) {
+            System.out.println("Error with playing sound.");
+            ex.printStackTrace();
         }
     }
 

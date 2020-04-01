@@ -14,7 +14,7 @@ public class TabBar extends JTabbedPane {
 
     public TabBar(GUI gui) {
         this.gui = gui;
-        ImageIcon icon = createImageIcon("images/middle.gif");
+        //ImageIcon icon = createImageIcon("images/middle.gif");
         amPanel = new AmPanel(gui);
         pmPanel = new PmPanel(gui);
         averagePanel = new AveragePanel(gui);
@@ -26,15 +26,15 @@ public class TabBar extends JTabbedPane {
         addTab("Mood Log", moodLogPanel);
     }
 
-    //EFFECTS: Returns an ImageIcon, or null if the path was invalid.
-    //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
-    protected static ImageIcon createImageIcon(String path) {
-        java.net.URL imgURL = GUI.class.getResource(path);
-        if (imgURL != null) {
-            return new ImageIcon(imgURL);
-        } else {
-            System.err.println("Couldn't find file: " + path);
-            return null;
-        }
-    }
+//    //EFFECTS: Returns an ImageIcon, or null if the path was invalid.
+//    //Method adapted from Oracle Java Tutorials (https://docs.oracle.com/javase/tutorial/uiswing/events/intro.html)
+//    protected static ImageIcon createImageIcon(String path) {
+//        java.net.URL imgURL = GUI.class.getResource(path);
+//        if (imgURL != null) {
+//            return new ImageIcon(imgURL);
+//        } else {
+//            System.err.println("Couldn't find file: " + path);
+//            return null;
+//        }
+//    }
 }
