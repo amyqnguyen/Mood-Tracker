@@ -31,7 +31,6 @@ public class AmPanel extends MoodEntryPanel {
     }
 
 
-
     @Override
     protected void addListener() {
         setButton.addChangeListener(new ButtonChangeListener());
